@@ -1,3 +1,4 @@
+import { ThemeProvider } from 'next-themes';
 import React from 'react';
 import type { Metadata, NextPage } from 'next';
 import { Inter as FontSans } from 'next/font/google';
@@ -28,7 +29,14 @@ const RootLayout: NextPage<RootLayoutProps> = ({ children }) => {
           fontSans.variable
         )}
       >
-        {children}
+        <ThemeProvider
+          attribute="class"
+          defaultTheme="system"
+          enableSystem
+          disableTransitionOnChange
+        >
+          {children}
+        </ThemeProvider>
       </body>
     </html>
   );
