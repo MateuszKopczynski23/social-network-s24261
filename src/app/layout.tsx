@@ -31,7 +31,7 @@ const RootLayout: NextPage<RootLayoutProps> = ({ children }) => {
       >
         <ThemeProvider
           attribute="class"
-          defaultTheme="system"
+          defaultTheme="dark"
           enableSystem
           disableTransitionOnChange
         >
