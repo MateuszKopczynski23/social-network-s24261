@@ -3,6 +3,7 @@ import React, { PropsWithChildren } from 'react';
 import type { Metadata, NextPage } from 'next';
 import { Inter as FontSans } from 'next/font/google';
 
+import { TooltipProvider } from '@/components/ui/tooltip';
 import { cn } from '@/lib/utils';
 import '@/app/globals.css';
 
@@ -31,7 +32,7 @@ const RootLayout: NextPage<PropsWithChildren> = ({ children }) => {
           enableSystem
           disableTransitionOnChange
         >
-          {children}
+          <TooltipProvider>{children}</TooltipProvider>
         </ThemeProvider>
       </body>
     </html>
