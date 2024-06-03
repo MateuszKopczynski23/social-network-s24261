@@ -1,6 +1,6 @@
 import React, { FC, PropsWithChildren } from 'react';
 
-const UserEventsPage: FC<PropsWithChildren> = ({ children }) => {
+const UserTabsLayout: FC<PropsWithChildren> = ({ children }) => {
   return (
     <div className="border">
       <div className="bg-background">
@@ -10,4 +10,4 @@ const UserEventsPage: FC<PropsWithChildren> = ({ children }) => {
   );
 };
 
-export default UserEventsPage;
+export default UserTabsLayout;
