@@ -1,49 +1,14 @@
 'use client';
 
-import {
-  CalendarHeartIcon,
-  Globe,
-  HandshakeIcon,
-  MenuIcon,
-  MessageCircleIcon,
-  NewspaperIcon,
-  Users,
-} from 'lucide-react';
+import { Globe, MenuIcon } from 'lucide-react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { FC } from 'react';
 
+import items from '@/constants/userMenuLinks';
 import { cn } from '@/lib/utils';
 import { Sheet, SheetContent, SheetTrigger } from '@/components/ui/sheet';
 import { Button } from '@/components/ui/button';
-
-const items = [
-  {
-    title: 'News Feed',
-    href: '/user/home',
-    icon: <NewspaperIcon className="h-5 w-5" />,
-  },
-  {
-    title: 'Events',
-    href: '/user/home',
-    icon: <CalendarHeartIcon className="h-5 w-5" />,
-  },
-  {
-    title: 'Groups',
-    href: '/user/home',
-    icon: <HandshakeIcon className="h-5 w-5" />,
-  },
-  {
-    title: 'Friends',
-    href: '/user/home',
-    icon: <Users className="h-5 w-5" />,
-  },
-  {
-    title: 'Communicator',
-    href: '/user/home',
-    icon: <MessageCircleIcon className="h-5 w-5" />,
-  },
-] as const;
 
 const MobileMenu: FC = () => {
   const pathname = usePathname();
@@ -73,19 +38,19 @@ const MobileMenu: FC = () => {
             <span className="sr-only">Social Network Inc</span>
           </Link>
 
-          {items.map((item) => (
+          {items.map(({ title, href, Icon }) => (
             <Link
-              key={item.title}
-              href={item.href}
+              key={title}
+              href={href}
               className={cn(
-                pathname === item.href
+                pathname === href
                   ? 'text-foreground'
                   : 'text-muted-foreground hover:text-foreground',
                 'flex items-center gap-4 px-2.5'
               )}
             >
-              {item.icon}
-              {item.title}
+              <Icon className="h-5 w-5" />
+              {title}
             </Link>
           ))}
         </nav>
