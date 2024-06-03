@@ -1,11 +1,11 @@
 import React, { FC } from 'react';
 
+import FriendItem from '@/components/user/default/friends/FriendItem';
+import { newFriends } from '@/data/user/friends';
 import { Separator } from '@/components/ui/separator';
 import { TabsContent } from '@/components/ui/tabs';
-import GroupItem from '@/components/user/default/groups/GroupItem';
-import { newGroups } from '@/data/user/groups';
 
-const NewGroupsTab: FC = () => {
+const NewFriendsTab: FC = () => {
   return (
     <TabsContent
       value="explore"
@@ -14,22 +14,22 @@ const NewGroupsTab: FC = () => {
       <div className="flex items-center justify-between">
         <div className="space-y-1">
           <h2 className="text-2xl font-semibold tracking-tight">
-            Explore new groups
+            Search for new friends
           </h2>
           <p className="text-sm text-muted-foreground">
-            Find new groups to enjoy. Right-click (desktop) or long-press the
-            tile (mobile) to see actions related to groups.
+            Find new friends to connect with. Right-click (desktop) or
+            long-press the tile (mobile) to see actions related to groups.
           </p>
         </div>
       </div>
       <Separator className="my-4" />
       <div className="grid grid-cols-2 gap-6 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 2xl:grid-cols-8">
-        {newGroups.map((group) => (
-          <GroupItem
-            key={group.name}
-            group={group}
+        {newFriends.map((friend) => (
+          <FriendItem
+            key={friend.firstName}
+            friend={friend}
             className="w-full"
-            aspectRatio="square"
+            aspectRatio="portrait"
             width={250}
             height={330}
           />
@@ -39,4 +39,4 @@ const NewGroupsTab: FC = () => {
   );
 };
 
-export default NewGroupsTab;
+export default NewFriendsTab;

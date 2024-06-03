@@ -1,12 +1,11 @@
 import React from 'react';
 import { NextPage } from 'next';
 
-import NewGroupDialog from '@/components/user/default/groups/NewGroupDialog';
-import NewGroupsTab from '@/components/user/default/groups/NewGroupsTab';
-import UserGroupsTab from '@/components/user/default/groups/UserGroupsTab';
+import NewFriendsTab from '@/components/user/default/friends/NewFriendsTab';
+import UserFriendsTab from '@/components/user/default/friends/UserFriendsTab';
 import { Tabs, TabsList, TabsTrigger } from '@/components/ui/tabs';
 
-const UserGroupsPage: NextPage = () => {
+const UserFriendsPage: NextPage = () => {
   return (
     <div className="border">
       <div className="bg-background">
@@ -21,14 +20,13 @@ const UserGroupsPage: NextPage = () => {
                   value="user"
                   className="relative"
                 >
-                  Groups
+                  Friends
                 </TabsTrigger>
-                <TabsTrigger value="explore">Explore communities</TabsTrigger>
+                <TabsTrigger value="explore">Search for friends</TabsTrigger>
               </TabsList>
-              <NewGroupDialog />
             </div>
-            <UserGroupsTab />
-            <NewGroupsTab />
+            <UserFriendsTab />
+            <NewFriendsTab />
           </Tabs>
         </div>
       </div>
@@ -36,4 +34,4 @@ const UserGroupsPage: NextPage = () => {
   );
 };
 
-export default UserGroupsPage;
+export default UserFriendsPage;
