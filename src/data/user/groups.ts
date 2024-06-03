@@ -91,9 +91,4 @@ export const userGroups: Group[] = [
   },
 ];
 
-export const newGroups: Group[] = [
-  ...userGroups,
-  ...userGroups,
-  ...userGroups,
-  ...userGroups,
-];
+export const newGroups: Group[] = [...userGroups, ...userGroups, ...userGroups];

@@ -27,7 +27,7 @@ const UserGroupsTab: FC = () => {
             key={group.name}
             group={group}
             className="w-full"
-            aspectRatio="portrait"
+            aspectRatio="square"
             width={250}
             height={330}
           />
