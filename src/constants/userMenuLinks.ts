@@ -14,22 +14,22 @@ export default [
   },
   {
     title: 'Events',
-    href: '/user/home',
+    href: '/user/events',
     Icon: CalendarHeartIcon,
   },
   {
     title: 'Groups',
-    href: '/user/home',
+    href: '/user/groups',
     Icon: HandshakeIcon,
   },
   {
     title: 'Friends',
-    href: '/user/home',
+    href: '/user/friends',
     Icon: Users,
   },
   {
-    title: 'Communicator',
-    href: '/user/home',
+    title: 'Chat',
+    href: '/user/chat',
     Icon: MessageCircleIcon,
   },
 ] as const;
