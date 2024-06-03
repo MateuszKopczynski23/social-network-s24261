@@ -1,6 +1,7 @@
-import { NextPage } from 'next';
 import React from 'react';
+import { NextPage } from 'next';
 
+import NewGroupDialog from '@/components/user/default/groups/NewGroupDialog';
 import NewGroupsTab from '@/components/user/default/groups/NewGroupsTab';
 import UserGroupsTab from '@/components/user/default/groups/UserGroupsTab';
 import { Tabs, TabsList, TabsTrigger } from '@/components/ui/tabs';
@@ -24,6 +25,7 @@ const UserGroupsPage: NextPage = () => {
                 </TabsTrigger>
                 <TabsTrigger value="explore">Explore</TabsTrigger>
               </TabsList>
+              <NewGroupDialog />
             </div>
             <UserGroupsTab />
             <NewGroupsTab />
