@@ -5,13 +5,6 @@ import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { FC } from 'react';
 
-import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardHeader,
-  CardTitle,
-} from '@/components/ui/card';
 import items from '@/constants/userMenuLinks';
 import { cn } from '@/lib/utils';
 import { Sheet, SheetContent, SheetTrigger } from '@/components/ui/sheet';
@@ -39,7 +32,7 @@ const MobileMenu: FC = () => {
         <nav className="grid gap-2 text-lg font-medium">
           <Link
             href="/user/home"
-            className="flex items-center gap-2 text-lg font-semibold"
+            className="mb-4 flex items-center gap-2 text-lg font-semibold"
           >
             <Globe className="h-6 w-6" />
             <span>Social Network</span>
@@ -61,25 +54,6 @@ const MobileMenu: FC = () => {
             </Link>
           ))}
         </nav>
-        <div className="mt-auto">
-          <Card>
-            <CardHeader>
-              <CardTitle>Upgrade to Pro</CardTitle>
-              <CardDescription>
-                Unlock all features and get unlimited access to our support
-                team.
-              </CardDescription>
-            </CardHeader>
-            <CardContent>
-              <Button
-                size="sm"
-                className="w-full"
-              >
-                Upgrade
-              </Button>
-            </CardContent>
-          </Card>
-        </div>
       </SheetContent>
     </Sheet>
   );
