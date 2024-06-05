@@ -19,7 +19,7 @@ const NewGroupDialog: FC = () => {
   return (
     <Dialog>
       <DialogTrigger asChild>
-        <div className="ml-auto mr-4">
+        <div className="ml-auto">
           <Button>
             <PlusCircle className="mr-2 h-4 w-4" />
             Add group

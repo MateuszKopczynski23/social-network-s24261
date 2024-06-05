@@ -62,7 +62,9 @@ const GroupItem: FC<GroupProps> = ({
       </ContextMenu>
       <div className="space-y-1">
         <h3 className="pb-1 font-medium leading-none">{group.name}</h3>
-        <p className="text-xs text-muted-foreground">{group.description}</p>
+        <p className="line-clamp-1 text-xs text-muted-foreground lg:line-clamp-2">
+          {group.description}
+        </p>
       </div>
     </div>
   );
