@@ -1,10 +1,17 @@
 'use client';
 
-import { Globe, MenuIcon } from 'lucide-react';
+import { Globe, Menu } from 'lucide-react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { FC } from 'react';
 
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from '@/components/ui/card';
 import items from '@/constants/userMenuLinks';
 import { cn } from '@/lib/utils';
 import { Sheet, SheetContent, SheetTrigger } from '@/components/ui/sheet';
@@ -19,23 +26,23 @@ const MobileMenu: FC = () => {
         <Button
           size="icon"
           variant="outline"
-          className="sm:hidden"
+          className="shrink-0 md:hidden"
         >
-          <MenuIcon className="h-5 w-5" />
-          <span className="sr-only">Toggle Menu</span>
+          <Menu className="h-5 w-5" />
+          <span className="sr-only">Toggle navigation menu</span>
         </Button>
       </SheetTrigger>
       <SheetContent
         side="left"
-        className="sm:max-w-xs"
+        className="flex flex-col"
       >
-        <nav className="grid gap-6 text-lg font-medium">
+        <nav className="grid gap-2 text-lg font-medium">
           <Link
             href="/user/home"
-            className="group flex h-10 w-10 shrink-0 items-center justify-center gap-2 rounded-full bg-primary text-lg font-semibold text-primary-foreground md:text-base"
+            className="flex items-center gap-2 text-lg font-semibold"
           >
-            <Globe className="h-5 w-5 transition-all group-hover:scale-110" />
-            <span className="sr-only">Social Network Inc</span>
+            <Globe className="h-6 w-6" />
+            <span>Social Network</span>
           </Link>
 
           {items.map(({ title, href, Icon }) => (
@@ -46,7 +53,7 @@ const MobileMenu: FC = () => {
                 pathname === href
                   ? 'text-primary'
                   : 'text-muted-foreground hover:text-foreground',
-                'flex items-center gap-4 px-2.5'
+                'mx-[-0.65rem] flex items-center gap-4 rounded-xl px-3 py-2'
               )}
             >
               <Icon className="h-5 w-5" />
@@ -54,6 +61,25 @@ const MobileMenu: FC = () => {
             </Link>
           ))}
         </nav>
+        <div className="mt-auto">
+          <Card>
+            <CardHeader>
+              <CardTitle>Upgrade to Pro</CardTitle>
+              <CardDescription>
+                Unlock all features and get unlimited access to our support
+                team.
+              </CardDescription>
+            </CardHeader>
+            <CardContent>
+              <Button
+                size="sm"
+                className="w-full"
+              >
+                Upgrade
+              </Button>
+            </CardContent>
+          </Card>
+        </div>
       </SheetContent>
     </Sheet>
   );

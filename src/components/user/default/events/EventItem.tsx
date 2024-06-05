@@ -63,7 +63,9 @@ const EventItem: FC<EventProps> = ({
       </ContextMenu>
       <div className="space-y-1">
         <h3 className="pb-1 font-medium leading-none">{event.name}</h3>
-        <p className="text-xs text-muted-foreground">{event.description}</p>
+        <p className="line-clamp-1 text-xs text-muted-foreground lg:line-clamp-2">
+          {event.description}
+        </p>
         <p className="text-xs text-muted-foreground">{event.city}</p>
       </div>
     </div>
