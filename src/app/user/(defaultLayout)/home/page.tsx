@@ -1,5 +1,7 @@
 import { NextPage } from 'next';
 
+import { posts } from '@/data/user/posts';
+import Post from '@/components/user/default/Post';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import { Button } from '@/components/ui/button';
 import {
@@ -9,7 +11,6 @@ import {
   CardHeader,
   CardTitle,
 } from '@/components/ui/card';
-import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import {
   Select,
@@ -18,85 +19,20 @@ import {
   SelectTrigger,
   SelectValue,
 } from '@/components/ui/select';
-import { Textarea } from '@/components/ui/textarea';
 
 const UserHomePage: NextPage = () => {
   return (
     <div className="mx-auto grid max-w-[59rem] flex-1 auto-rows-max gap-4">
       <div className="grid gap-4 md:grid-cols-[1fr_250px] lg:grid-cols-3 lg:gap-8">
         <div className="grid auto-rows-max items-start gap-4 lg:col-span-2 lg:gap-8">
-          <Card x-chunk="dashboard-07-chunk-0">
-            <CardHeader>
-              <CardTitle>Product Details</CardTitle>
-              <CardDescription>
-                Lipsum dolor sit amet, consectetur adipiscing elit
-              </CardDescription>
-            </CardHeader>
-            <CardContent>
-              <div className="grid gap-6">
-                <div className="grid gap-3">
-                  <Label htmlFor="name">Name</Label>
-                  <Input
-                    id="name"
-                    type="text"
-                    className="w-full"
-                    defaultValue="Gamer Gear Pro Controller"
-                  />
-                </div>
-                <div className="grid gap-3">
-                  <Label htmlFor="description">Description</Label>
-                  <Textarea
-                    id="description"
-                    defaultValue="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam auctor, nisl nec ultricies ultricies, nunc nisl ultricies nunc, nec ultricies nunc nisl nec nunc."
-                    className="min-h-32"
-                  />
-                </div>
-              </div>
-            </CardContent>
-          </Card>
-          <Card x-chunk="dashboard-07-chunk-2">
-            <CardHeader>
-              <CardTitle>Product Category</CardTitle>
-            </CardHeader>
-            <CardContent>
-              <div className="grid gap-6 sm:grid-cols-3">
-                <div className="grid gap-3">
-                  <Label htmlFor="category">Category</Label>
-                  <Select>
-                    <SelectTrigger
-                      id="category"
-                      aria-label="Select category"
-                    >
-                      <SelectValue placeholder="Select category" />
-                    </SelectTrigger>
-                    <SelectContent>
-                      <SelectItem value="clothing">Clothing</SelectItem>
-                      <SelectItem value="electronics">Electronics</SelectItem>
-                      <SelectItem value="accessories">Accessories</SelectItem>
-                    </SelectContent>
-                  </Select>
-                </div>
-                <div className="grid gap-3">
-                  <Label htmlFor="subcategory">Subcategory (optional)</Label>
-                  <Select>
-                    <SelectTrigger
-                      id="subcategory"
-                      aria-label="Select subcategory"
-                    >
-                      <SelectValue placeholder="Select subcategory" />
-                    </SelectTrigger>
-                    <SelectContent>
-                      <SelectItem value="t-shirts">T-Shirts</SelectItem>
-                      <SelectItem value="hoodies">Hoodies</SelectItem>
-                      <SelectItem value="sweatshirts">Sweatshirts</SelectItem>
-                    </SelectContent>
-                  </Select>
-                </div>
-              </div>
-            </CardContent>
-          </Card>
+          {posts.map((post, index) => (
+            <Post
+              key={index}
+              post={post}
+            />
+          ))}
         </div>
-        <div className="grid auto-rows-max items-start gap-4 lg:gap-8">
+        <div className="sticky top-20 z-30 hidden h-10 auto-rows-max items-start gap-4 lg:grid lg:gap-8">
           <Card x-chunk="dashboard-07-chunk-3">
             <CardHeader>
               <CardTitle>Product Status</CardTitle>
