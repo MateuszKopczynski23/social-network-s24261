@@ -88,10 +88,9 @@ const Post: FC<PostProps> = ({ post }) => {
           </div>
         </div>
         <Separator className="mb-5 mt-3 px-3" />
-        <CommentForm />
 
         {isCommentsVisible && (
-          <div className="mt-6 flex flex-col gap-y-4">
+          <div className="mb-6 flex flex-col gap-y-4">
             {comments.map((comment, index) => (
               <Comment
                 key={index}
@@ -100,6 +99,8 @@ const Post: FC<PostProps> = ({ post }) => {
             ))}
           </div>
         )}
+
+        <CommentForm />
       </CardFooter>
     </Card>
   );
