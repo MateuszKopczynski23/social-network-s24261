@@ -1,4 +1,6 @@
-import { FC } from 'react';
+'use client';
+
+import { FC, useState } from 'react';
 import { MessageCircle, Settings, Share2, ThumbsUp } from 'lucide-react';
 import Image from 'next/image';
 
@@ -20,6 +22,8 @@ interface PostProps {
 }
 
 const Post: FC<PostProps> = ({ post }) => {
+  const [isCommentsVisible, setIsCommentsVisible] = useState(false);
+
   return (
     <Card x-chunk="dashboard-07-chunk-0">
       <CardHeader>
@@ -73,7 +77,10 @@ const Post: FC<PostProps> = ({ post }) => {
           <div className="flex items-center justify-center gap-x-2 text-sm">
             <ThumbsUp className="h-5 w-5" /> Like
           </div>
-          <div className="flex items-center justify-center gap-x-2 text-sm">
+          <div
+            className="flex items-center justify-center gap-x-2 text-sm"
+            onClick={() => setIsCommentsVisible(!isCommentsVisible)}
+          >
             <MessageCircle className="h-5 w-5" /> Comment
           </div>
           <div className="flex items-center justify-center gap-x-2 text-sm">
@@ -82,14 +89,17 @@ const Post: FC<PostProps> = ({ post }) => {
         </div>
         <Separator className="mb-5 mt-3 px-3" />
         <CommentForm />
-        <div className="mt-6 flex flex-col gap-y-4">
-          {comments.map((comment, index) => (
-            <Comment
-              key={index}
-              comment={comment}
-            />
-          ))}
-        </div>
+
+        {isCommentsVisible && (
+          <div className="mt-6 flex flex-col gap-y-4">
+            {comments.map((comment, index) => (
+              <Comment
+                key={index}
+                comment={comment}
+              />
+            ))}
+          </div>
+        )}
       </CardFooter>
     </Card>
   );

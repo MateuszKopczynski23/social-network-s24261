@@ -23,7 +23,7 @@ import {
 
 const UserHomePage: NextPage = () => {
   return (
-    <div className="mx-auto flex max-w-[59rem] flex-1 justify-center gap-4">
+    <div className="flex max-w-[59rem] flex-1 justify-center gap-4 xl:mx-auto">
       <div className="grid gap-4 sm:w-[80%] lg:md:w-[70%] lg:gap-8 xl:w-[80%] xl:grid-cols-3 2xl:w-[90%]">
         <div className="grid items-start gap-6 lg:gap-8 xl:col-span-2">
           {posts.map((post, index) => (
