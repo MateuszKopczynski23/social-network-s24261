@@ -1,7 +1,10 @@
+import { FC } from 'react';
 import { MessageCircle, Settings, Share2, ThumbsUp } from 'lucide-react';
 import Image from 'next/image';
-import { FC } from 'react';
 
+import { comments } from '@/data/user/comments';
+import Comment from '@/components/user/default/Comment';
+import CommentForm from '@/components/user/default/forms/CommentForm';
 import { Post as IPost } from '@/data/user/posts';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import {
@@ -76,6 +79,16 @@ const Post: FC<PostProps> = ({ post }) => {
           <div className="flex items-center justify-center gap-x-2 text-sm">
             <Share2 className="h-5 w-5" /> Share
           </div>
+        </div>
+        <Separator className="mb-5 mt-3 px-3" />
+        <CommentForm />
+        <div className="mt-6 flex flex-col gap-y-4">
+          {comments.map((comment, index) => (
+            <Comment
+              key={index}
+              comment={comment}
+            />
+          ))}
         </div>
       </CardFooter>
     </Card>

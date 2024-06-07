@@ -1,3 +1,4 @@
+import { PlusSquare } from 'lucide-react';
 import { NextPage } from 'next';
 
 import { posts } from '@/data/user/posts';
@@ -22,9 +23,9 @@ import {
 
 const UserHomePage: NextPage = () => {
   return (
-    <div className="mx-auto grid max-w-[59rem] flex-1 auto-rows-max gap-4">
-      <div className="grid gap-4 md:grid-cols-[1fr_250px] lg:grid-cols-3 lg:gap-8">
-        <div className="grid auto-rows-max items-start gap-4 lg:col-span-2 lg:gap-8">
+    <div className="mx-auto flex max-w-[59rem] flex-1 justify-center gap-4">
+      <div className="grid gap-4 sm:w-[80%] lg:md:w-[70%] lg:gap-8 xl:w-[80%] xl:grid-cols-3 2xl:w-[90%]">
+        <div className="grid items-start gap-6 lg:gap-8 xl:col-span-2">
           {posts.map((post, index) => (
             <Post
               key={index}
@@ -32,7 +33,7 @@ const UserHomePage: NextPage = () => {
             />
           ))}
         </div>
-        <div className="sticky top-20 z-30 hidden h-10 auto-rows-max items-start gap-4 lg:grid lg:gap-8">
+        <div className="sticky top-20 z-30 hidden h-10 items-start gap-4 lg:gap-8 xl:grid">
           <Card x-chunk="dashboard-07-chunk-3">
             <CardHeader>
               <CardTitle>Product Status</CardTitle>
@@ -60,7 +61,7 @@ const UserHomePage: NextPage = () => {
           </Card>
           <Card>
             <CardHeader>
-              <CardTitle>Recent Sales</CardTitle>
+              <CardTitle>Do you know them?</CardTitle>
             </CardHeader>
             <CardContent className="grid gap-8">
               <div className="flex items-center gap-4">
@@ -79,7 +80,9 @@ const UserHomePage: NextPage = () => {
                     olivia.martin@email.com
                   </p>
                 </div>
-                <div className="ml-auto font-medium">+$1,999.00</div>
+                <div className="ml-auto font-medium">
+                  <PlusSquare />
+                </div>
               </div>
               <div className="flex items-center gap-4">
                 <Avatar className="hidden h-9 w-9 sm:flex">
@@ -97,7 +100,9 @@ const UserHomePage: NextPage = () => {
                     jackson.lee@email.com
                   </p>
                 </div>
-                <div className="ml-auto font-medium">+$39.00</div>
+                <div className="ml-auto font-medium">
+                  <PlusSquare />
+                </div>
               </div>
               <div className="flex items-center gap-4">
                 <Avatar className="hidden h-9 w-9 sm:flex">
@@ -115,7 +120,9 @@ const UserHomePage: NextPage = () => {
                     isabella.nguyen@email.com
                   </p>
                 </div>
-                <div className="ml-auto font-medium">+$299.00</div>
+                <div className="ml-auto font-medium">
+                  <PlusSquare />
+                </div>
               </div>
               <div className="flex items-center gap-4">
                 <Avatar className="hidden h-9 w-9 sm:flex">
@@ -133,7 +140,9 @@ const UserHomePage: NextPage = () => {
                     will@email.com
                   </p>
                 </div>
-                <div className="ml-auto font-medium">+$99.00</div>
+                <div className="ml-auto font-medium">
+                  <PlusSquare />
+                </div>
               </div>
               <div className="flex items-center gap-4">
                 <Avatar className="hidden h-9 w-9 sm:flex">
@@ -151,7 +160,9 @@ const UserHomePage: NextPage = () => {
                     sofia.davis@email.com
                   </p>
                 </div>
-                <div className="ml-auto font-medium">+$39.00</div>
+                <div className="ml-auto font-medium">
+                  <PlusSquare />
+                </div>
               </div>
             </CardContent>
           </Card>
