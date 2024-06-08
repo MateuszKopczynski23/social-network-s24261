@@ -22,6 +22,9 @@ const Comment: FC<CommentProps> = ({ comment }) => {
 
       <div className="max-w-max">
         <div className="rounded-xl bg-muted px-3 py-2 text-xs">
+          <p className="mb-0.5 font-semibold text-primary/90">
+            {comment.userName}
+          </p>
           <p>{comment.content}</p>
         </div>
 
