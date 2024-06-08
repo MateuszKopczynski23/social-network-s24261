@@ -13,7 +13,7 @@ const UserLayout: FC<PropsWithChildren> = ({ children }) => {
     <div className="grid min-h-screen w-full md:grid-cols-[220px_1fr] lg:grid-cols-[280px_1fr]">
       <SidebarMenu />
       <div className="flex flex-col">
-        <header className="sticky top-0 z-30 flex h-14 items-center gap-4 border-b bg-muted/40 px-4 lg:h-[60px] lg:px-6">
+        <header className="sticky top-0 z-30 flex h-14 items-center gap-4 border-b bg-muted/40 px-4 backdrop-blur-sm lg:h-[60px] lg:px-6">
           <MobileMenu />
           <div className="w-full flex-1">
             <form>

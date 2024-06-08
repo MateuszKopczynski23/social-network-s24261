@@ -25,7 +25,7 @@ const SidebarMenu: FC = () => {
           </Link>
         </div>
         <div className="flex-1">
-          <nav className="grid items-start px-2 text-[15px] font-medium lg:px-4">
+          <nav className="grid items-start px-2 text-[15.5px] font-medium lg:px-4">
             {items.map(({ title, href, Icon }) => (
               <Link
                 key={title}
