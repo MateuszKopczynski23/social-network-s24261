@@ -57,8 +57,10 @@ const FriendItem: FC<FriendProps> = ({
         <ContextMenuContent className="w-40">
           <ContextMenuItem>Add</ContextMenuItem>
           <ContextMenuItem>Show</ContextMenuItem>
+          <ContextMenuItem>Accept</ContextMenuItem>
           <ContextMenuSeparator />
           <ContextMenuItem className="text-red-500">Remove</ContextMenuItem>
+          <ContextMenuItem className="text-red-500">Decline</ContextMenuItem>
         </ContextMenuContent>
       </ContextMenu>
       <div className="space-y-1">
