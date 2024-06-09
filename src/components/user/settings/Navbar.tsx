@@ -6,29 +6,7 @@ import { usePathname } from 'next/navigation';
 import { FC } from 'react';
 
 import { cn } from '@/lib/utils';
-
-const items = [
-  {
-    title: 'News Feed',
-    href: '/user/home',
-  },
-  {
-    title: 'Events',
-    href: '/user/home',
-  },
-  {
-    title: 'Groups',
-    href: '/user/home',
-  },
-  {
-    title: 'Friends',
-    href: '/user/home',
-  },
-  {
-    title: 'Communicator',
-    href: '/user/home',
-  },
-] as const;
+import items from '@/constants/userMenuLinks';
 
 const Navbar: FC = () => {
   const pathname = usePathname();
@@ -37,10 +15,10 @@ const Navbar: FC = () => {
     <nav className="hidden flex-col gap-6 text-lg font-medium md:flex md:flex-row md:items-center md:gap-5 md:text-sm lg:gap-6">
       <Link
         href="/user/home"
-        className="flex items-center gap-2 text-lg font-semibold md:text-base"
+        className="flex h-16 items-center gap-2 truncate text-lg font-semibold md:text-base lg:h-[60px]"
       >
         <Globe className="h-6 w-6" />
-        <span className="sr-only">Social Network Inc</span>
+        <span>Social Network</span>
       </Link>
 
       {items.map((item) => (
