@@ -1,6 +1,7 @@
 import { NextPage } from 'next';
 import { PropsWithChildren } from 'react';
 
+import Notifications from '@/components/Notifications';
 import AccountDropdownMenu from '@/components/user/default/AccountDropdownMenu';
 import Navbar from '@/components/user/settings/Navbar';
 import Sidebar from '@/components/user/settings/Sidebar';
@@ -10,10 +11,11 @@ import ThemeToggle from '@/components/ThemeToggle';
 const UserSettingsPage: NextPage<PropsWithChildren> = ({ children }) => {
   return (
     <div className="flex min-h-screen w-full flex-col">
-      <header className="sticky top-0 flex h-16 items-center gap-4 border-b bg-background px-4 md:px-6">
+      <header className="sticky top-0 flex h-16 items-center gap-4 border-b bg-background px-4 md:px-6 lg:h-[60px]">
         <Navbar />
         <MobileMenu />
         <div className="flex w-full items-center justify-end gap-4 md:gap-2 lg:gap-4">
+          <Notifications />
           <ThemeToggle />
           <AccountDropdownMenu />
         </div>
