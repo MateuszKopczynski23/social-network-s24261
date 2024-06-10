@@ -2,18 +2,18 @@ import { FC } from 'react';
 
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 
-const About: FC = () => {
+interface AboutProps {
+  text: string;
+}
+
+const About: FC<AboutProps> = ({ text }) => {
   return (
     <Card x-chunk="dashboard-07-chunk-3">
       <CardHeader className="pb-4">
         <CardTitle>About</CardTitle>
       </CardHeader>
       <CardContent>
-        <p className="text-sm">
-          Hi, I am Marek! 🌍 Passionate about travel, photography, and cooking.
-          Always exploring new places and trying out different recipes. ✈️ Lover
-          of books, music. 🎶📚 Let is connect and share our stories!
-        </p>
+        <p className="text-sm">{text}</p>
       </CardContent>
     </Card>
   );

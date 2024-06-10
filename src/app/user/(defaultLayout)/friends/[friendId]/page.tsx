@@ -4,10 +4,16 @@ import Image from 'next/image';
 
 import { Button } from '@/components/ui/button';
 import Information from '@/components/user/default/friends/Information';
-import About from '@/components/user/default/friends/About';
+import About from '@/components/user/default/About';
 import Post from '@/components/user/default/Post';
 import { posts } from '@/data/user/posts';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
+
+const friend = {
+  name: 'Marek Krakowiak',
+  about:
+    "Hi, I'm Marek! 🌍📸 Passionate about travel, photography, and cooking. Always exploring new places and trying out different recipes. 🍳✈️ Lover of books, music, and outdoor adventures. 🎶📚🏞️ Let's connect and share our stories! 😊",
+};
 
 const UserFriendPage: NextPage = () => {
   return (
@@ -33,7 +39,7 @@ const UserFriendPage: NextPage = () => {
           </Avatar>
 
           <h1 className="line-clamp-1 text-2xl font-semibold text-white drop-shadow-2xl 2xl:text-3xl">
-            Marek Krakowiak
+            {friend.name}
           </h1>
         </div>
 
@@ -53,7 +59,7 @@ const UserFriendPage: NextPage = () => {
         <div className="grid w-full gap-4 sm:w-[80%] lg:md:w-[70%] lg:gap-8 xl:w-[80%] xl:grid-cols-3 2xl:w-[90%]">
           <div className="mt-10 grid items-start gap-6 lg:gap-8 xl:col-span-2">
             <div className="flex flex-col gap-6 lg:gap-8 xl:hidden">
-              <About />
+              <About text={friend.about} />
               <Information />
             </div>
 
@@ -65,7 +71,7 @@ const UserFriendPage: NextPage = () => {
             ))}
           </div>
           <div className="sticky top-20 z-30 mt-10 hidden h-10 items-start gap-4 lg:gap-8 xl:grid xl:min-w-[18.5rem]">
-            <About />
+            <About text={friend.about} />
             <Information />
           </div>
         </div>
