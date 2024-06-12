@@ -1,6 +1,7 @@
-import { EllipsisVertical, Mic, Paperclip, Send } from 'lucide-react';
+import { Mic, Paperclip, Send } from 'lucide-react';
 import { FC } from 'react';
 
+import ContactsDrawer from '@/components/user/default/chat/ContactsDrawer';
 import { Card, CardContent } from '@/components/ui/card';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import { Button } from '@/components/ui/button';
@@ -14,7 +15,7 @@ import { Textarea } from '@/components/ui/textarea';
 
 const Chat: FC = () => {
   return (
-    <div className="relative flex h-full min-h-[50vh] flex-col rounded-xl bg-muted/50 p-2 md:p-4 lg:col-span-2">
+    <div className="relative flex h-full min-h-[50vh] flex-col rounded-xl bg-muted/50 p-2 md:p-4 2xl:col-span-2">
       <Card>
         <CardContent className="px-4 py-3">
           <div className="flex items-center gap-x-3 rounded-lg text-left text-sm">
@@ -39,7 +40,7 @@ const Chat: FC = () => {
                     </div>
                     <div className="text-xs text-muted-foreground">Active</div>
                   </div>
-                  <EllipsisVertical className="h-5 w-5" />
+                  <ContactsDrawer />
                 </div>
               </div>
             </div>

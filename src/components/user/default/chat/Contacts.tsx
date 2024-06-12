@@ -7,8 +7,8 @@ import { ScrollArea } from '@/components/ui/scroll-area';
 
 const Contacts: FC = () => {
   return (
-    <ScrollArea className="h-[82vh]">
-      <div className="flex h-full flex-col gap-2 overflow-y-auto p-4 pl-0 pr-4 pt-0">
+    <ScrollArea className="h-[85vh] 2xl:h-[82vh]">
+      <div className="flex h-full flex-col gap-2 overflow-y-auto p-4 pt-0">
         {contacts.map((contact, index) => (
           <div
             key={index}
