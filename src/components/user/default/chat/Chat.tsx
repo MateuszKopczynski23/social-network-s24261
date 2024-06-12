@@ -1,21 +1,15 @@
-import { Mic, Paperclip, Send } from 'lucide-react';
+import { Info } from 'lucide-react';
 import { FC } from 'react';
 
+import { ScrollArea } from '@/components/ui/scroll-area';
+import MessageForm from '@/components/user/default/chat/MessageForm';
 import ContactsDrawer from '@/components/user/default/chat/ContactsDrawer';
 import { Card, CardContent } from '@/components/ui/card';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
-import { Button } from '@/components/ui/button';
-import {
-  Tooltip,
-  TooltipContent,
-  TooltipTrigger,
-} from '@/components/ui/tooltip';
-import { Label } from '@/components/ui/label';
-import { Textarea } from '@/components/ui/textarea';
 
 const Chat: FC = () => {
   return (
-    <div className="relative flex h-full min-h-[50vh] flex-col rounded-xl bg-muted/50 p-2 md:p-4 2xl:col-span-2">
+    <div className="relative flex h-full min-h-[50vh] flex-col justify-between rounded-xl bg-muted/50 p-2 md:p-4 2xl:col-span-2">
       <Card>
         <CardContent className="px-4 py-3">
           <div className="flex items-center gap-x-3 rounded-lg text-left text-sm">
@@ -38,62 +32,89 @@ const Chat: FC = () => {
                     <div className="text-[15px] font-semibold md:text-lg">
                       Marco Milicić
                     </div>
-                    <div className="text-xs text-muted-foreground">Active</div>
+                    <div className="text-xs text-muted-foreground">
+                      Active now
+                    </div>
                   </div>
-                  <ContactsDrawer />
+                  <div className="flex items-center gap-x-0.5">
+                    <ContactsDrawer />
+                    <Info className="h-5 w-5" />
+                  </div>
                 </div>
               </div>
             </div>
           </div>
         </CardContent>
       </Card>
-      <div className="flex-1" />
-      <form className="relative overflow-hidden rounded-lg border bg-background focus-within:ring-1 focus-within:ring-ring">
-        <Label
-          htmlFor="message"
-          className="sr-only"
-        >
-          Message
-        </Label>
-        <Textarea
-          id="message"
-          placeholder="Type your message here..."
-          className="min-h-12 resize-none border-0 p-3 shadow-none focus-visible:ring-0"
-        />
-        <div className="flex items-center p-3 pt-0">
-          <Tooltip>
-            <TooltipTrigger asChild>
-              <Button
-                variant="ghost"
-                size="icon"
-              >
-                <Paperclip className="size-4" />
-                <span className="sr-only">Attach file</span>
-              </Button>
-            </TooltipTrigger>
-            <TooltipContent side="top">Attach File</TooltipContent>
-          </Tooltip>
-          <Tooltip>
-            <TooltipTrigger asChild>
-              <Button
-                variant="ghost"
-                size="icon"
-              >
-                <Mic className="size-4" />
-                <span className="sr-only">Use Microphone</span>
-              </Button>
-            </TooltipTrigger>
-            <TooltipContent side="top">Use Microphone</TooltipContent>
-          </Tooltip>
-          <Button
-            type="submit"
-            size="sm"
-            className="ml-auto gap-1.5"
-          >
-            <Send className="h-4 w-4" />
-          </Button>
+      <ScrollArea className="h-[calc(100vh-20.5rem)] px-2">
+        <div className="py-8">
+          <div className="mb-6 flex max-w-[80%] justify-start gap-x-2 lg:max-w-[70%] xl:max-w-[60%] 2xl:max-w-[50%]">
+            <Avatar className="h-10 w-10">
+              <AvatarImage
+                src="https://images.unsplash.com/photo-1513745405825-efaf9a49315f?w=300&dpr=2&q=80"
+                alt="Avatar"
+                className="object-cover"
+              />
+              <AvatarFallback>F</AvatarFallback>
+            </Avatar>
+
+            <div className="group flex items-start gap-x-1.5">
+              <Card className="p-2 text-sm">Lorem ipsum dolor sit amet</Card>
+              <span className="mt-auto hidden text-xs text-muted-foreground group-hover:inline">
+                19:23
+              </span>
+            </div>
+          </div>
+
+          <div className="mb-2 flex flex-row-reverse justify-start">
+            <div className="group flex max-w-[80%] flex-row-reverse items-end gap-x-1.5 lg:max-w-[70%] xl:max-w-[60%] 2xl:max-w-[50%]">
+              <Card className="p-2 text-sm">
+                Lorem ipsum dolor sit amet, consectetur adipisicing elit.
+              </Card>
+              <span className="mt-auto hidden text-xs text-muted-foreground group-hover:inline">
+                19:23
+              </span>
+            </div>
+          </div>
+          <div className="mb-6 flex flex-row-reverse justify-start gap-x-2">
+            <div className="group flex max-w-[80%] flex-row-reverse items-end gap-x-1.5 lg:max-w-[70%] xl:max-w-[60%] 2xl:max-w-[50%]">
+              <Card className="p-2 text-sm">
+                Lorem ipsum dolor sit amet, consectetur adipisicing elit.
+              </Card>
+              <span className="mt-auto hidden text-xs text-muted-foreground group-hover:inline">
+                19:23
+              </span>
+            </div>
+          </div>
+
+          <div className="mb-2 flex max-w-[80%] justify-start gap-x-2 lg:max-w-[70%] xl:max-w-[60%] 2xl:max-w-[50%]">
+            <Avatar className="h-10 w-10">
+              <AvatarImage
+                src="https://images.unsplash.com/photo-1513745405825-efaf9a49315f?w=300&dpr=2&q=80"
+                alt="Avatar"
+                className="object-cover"
+              />
+              <AvatarFallback>F</AvatarFallback>
+            </Avatar>
+
+            <div className="group flex items-start gap-x-1.5">
+              <Card className="p-2 text-sm">Lorem ipsum dolor sit amet</Card>
+              <span className="mt-auto hidden text-xs text-muted-foreground group-hover:inline">
+                19:23
+              </span>
+            </div>
+          </div>
+          <div className="ml-12 flex max-w-[80%] justify-start gap-x-2 lg:max-w-[70%] xl:max-w-[60%] 2xl:max-w-[50%]">
+            <div className="group flex items-start gap-x-1.5">
+              <Card className="p-2 text-sm">Lorem ipsum dolor sit amet</Card>
+              <span className="mt-auto hidden text-xs text-muted-foreground group-hover:inline">
+                19:23
+              </span>
+            </div>
+          </div>
         </div>
-      </form>
+      </ScrollArea>
+      <MessageForm />
     </div>
   );
 };
