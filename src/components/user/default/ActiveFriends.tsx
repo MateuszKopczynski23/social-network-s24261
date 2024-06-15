@@ -23,16 +23,20 @@ const ActiveFriends: FC = () => {
       <div className="p-2 pt-0 md:p-4 md:pt-0">
         <div className="space-y-4 pb-2">
           <div className="grid gap-3.5">
-            {getActiveFriends().map((friend) => (
+            {getActiveFriends().map((friend, index) => (
               <>
                 <div
-                  key={friend.image}
+                  key={index}
                   className="flex items-center justify-between space-x-4"
                 >
                   <div className="flex items-center space-x-4">
-                    <div className="relative">
-                      <Avatar>
-                        <AvatarImage src={friend.image} />
+                    <div className="relative h-10 w-10">
+                      <Avatar className="h-10 w-10">
+                        <AvatarImage
+                          src={friend.image}
+                          alt="Avatar"
+                          className="object-cover"
+                        />
                         <AvatarFallback>F</AvatarFallback>
                       </Avatar>
                       <div className="absolute bottom-0 right-0 z-10 h-2.5 w-2.5 rounded-full border bg-green-500" />

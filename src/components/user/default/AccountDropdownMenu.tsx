@@ -34,6 +34,9 @@ const AccountDropdownMenu: FC = () => {
         <Link href={'/user/settings/profile'}>
           <DropdownMenuLabel>My Account</DropdownMenuLabel>
         </Link>
+        <Link href={'/user/friends/1'}>
+          <DropdownMenuLabel>My Profile</DropdownMenuLabel>
+        </Link>
         <DropdownMenuSeparator />
         <DropdownMenuItem>Logout</DropdownMenuItem>
       </DropdownMenuContent>
