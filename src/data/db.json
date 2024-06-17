@@ -1,0 +1,192 @@
+{
+  "users": [
+    {
+      "id": "1",
+      "firstName": "John",
+      "lastName": "Doe",
+      "age": 23,
+      "city": "New York",
+      "dateOfBirth": "1999-10-21",
+      "imageUrl": "https://images.unsplash.com/photo-1490300472339-79e4adc6be4a?w=300&dpr=2&q=80",
+      "backgroundUrl": "https://unsplash.com/s/photos/city-skyline",
+      "description": "Software Engineer passionate about building cool things",
+      "street": "",
+      "country": "USA",
+      "gender": "male",
+      "email": "test@test.pl",
+      "password": "password",
+      "settings": {
+        "isPrivate": true,
+        "isDarkMode": true,
+        "isNotificationsEnabled": true
+      }
+    },
+    {
+      "id": "2",
+      "firstName": "Lena",
+      "lastName": "Doe",
+      "age": 27,
+      "city": "New York",
+      "dateOfBirth": "1999-10-21",
+      "imageUrl": "https://images.unsplash.com/photo-1490300472339-79e4adc6be4a?w=300&dpr=2&q=80",
+      "backgroundUrl": "https://unsplash.com/s/photos/city-skyline",
+      "description": "Software Engineer passionate about building cool things",
+      "street": "",
+      "country": "USA",
+      "gender": "male",
+      "email": "test@test1.pl",
+      "password": "password",
+      "settings": {
+        "isPrivate": true,
+        "isDarkMode": true,
+        "isNotificationsEnabled": true
+      }
+    }
+  ],
+  "groups": [
+    {
+      "id": "1",
+      "userId": "1",
+      "name": "Tech Enthusiasts",
+      "description": "Group for discussing all things tech",
+      "isPrivate": false,
+      "imageUrl": "https://unsplash.com/s/photos/computer-team"
+    },
+    {
+      "id": "2",
+      "userId": "1",
+      "name": "Bookworms",
+      "description": "Sharing favorite books and recommendations",
+      "isPrivate": true,
+      "imageUrl": "https://unsplash.com/s/photos/book-club"
+    }
+  ],
+  "posts": [
+    {
+      "id": "1",
+      "userId": "1",
+      "content": "Just launched my new app! Check it out!",
+      "imageUrl": "https://unsplash.com/apps",
+      "createdAt": "2024-06-17T21:44:00Z"
+    },
+    {
+      "id": "2",
+      "userId": "1",
+      "content": "Finished reading 'The Lord of the Rings' - epic!",
+      "imageUrl": "https://unsplash.com/s/photos/book-fantasy",
+      "createdAt": "2024-06-18T00:10:00Z"
+    }
+  ],
+  "events": [
+    {
+      "id": "1",
+      "userId": "1",
+      "name": "Tech Conference",
+      "description": "A conference for all things technology",
+      "date": "2024-10-26",
+      "city": "San Francisco",
+      "street": "",
+      "country": "USA",
+      "imageUrl": "https://unsplash.com/s/photos/conferences"
+    },
+    {
+      "id": "2",
+      "userId": "1",
+      "name": "Book Club Meeting",
+      "description": "Discussing 'The Hitchhiker's Guide to the Galaxy'",
+      "date": "2024-07-10",
+      "city": "New York",
+      "street": "",
+      "country": "USA",
+      "imageUrl": "https://unsplash.com/s/photos/book-club"
+    }
+  ],
+  "notifications": [
+    {
+      "id": "1",
+      "userId": "1",
+      "senderId": "1",
+      "description": "commented your post",
+      "createdAt": "2024-06-18T00:00:00Z",
+      "isRead": false
+    },
+    {
+      "id": "2",
+      "userId": "1",
+      "senderId": "1",
+      "description": "liked your post",
+      "createdAt": "2024-06-18T00:00:00Z",
+      "isRead": false
+    }
+  ],
+  "report": [
+    {
+      "id": "1",
+      "userId": "1",
+      "commentId": "1",
+      "postId": "1",
+      "content": "This comment is offensive",
+      "type": "offensive",
+      "reportedAt": "2024-06-18T00:00:00Z",
+      "createdAt": "2024-06-18T00:00:00Z"
+    }
+  ],
+  "comments": [
+    {
+      "id": "1",
+      "userId": "1",
+      "postId": "1",
+      "content": "",
+      "createdAt": ""
+    }
+  ],
+  "comments_likes": [
+    {
+      "id": "1",
+      "userId": "1",
+      "commentId": "1"
+    }
+  ],
+  "posts_users": [
+    {
+      "id": "1",
+      "userId": "1",
+      "postId": "1"
+    }
+  ],
+  "posts_likes": [
+    {
+      "id": "1",
+      "userId": "1",
+      "postId": "1"
+    }
+  ],
+  "groups_users": [
+    {
+      "id": "1",
+      "userId": "1",
+      "groupId": "1"
+    }
+  ],
+  "groups_posts": [
+    {
+      "id": "1",
+      "groupId": "1",
+      "postId": "1"
+    }
+  ],
+  "events_users": [
+    {
+      "id": "1",
+      "userId": "1",
+      "eventId": "1"
+    }
+  ],
+  "events_posts": [
+    {
+      "id": "1",
+      "eventId": "1",
+      "postId": "1"
+    }
+  ]
+}
