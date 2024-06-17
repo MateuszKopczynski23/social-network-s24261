@@ -14,7 +14,7 @@ import {
   TableHeader,
   TableRow,
 } from '@/components/ui/table';
-import Filter from '@/components/admin/posts/Filter';
+import Filter from '@/components/admin/users/Filter';
 import User from '@/components/admin/users/User';
 
 const AdminUsersPage: NextPage = () => {
