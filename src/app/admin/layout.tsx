@@ -1,5 +1,9 @@
+'use client';
+
 import Link from 'next/link';
 import { FC, PropsWithChildren } from 'react';
+import { usePathname } from 'next/navigation';
+import get from 'lodash/get';
 
 import {
   Breadcrumb,
@@ -16,6 +20,20 @@ import ThemeToggle from '@/components/ThemeToggle';
 import AccountDropdownMenu from '@/components/user/default/AccountDropdownMenu';
 
 const AdminLayout: FC<PropsWithChildren> = ({ children }) => {
+  const pathname = usePathname();
+
+  const getBreadcrumbTitle = () => {
+    const pageTitle = pathname.split('/').pop();
+
+    const titles = {
+      posts: 'Posts',
+      users: 'Users',
+      reports: 'Reports',
+    } as const;
+
+    return get(titles, pageTitle as string);
+  };
+
   return (
     <div className="flex min-h-screen w-full flex-col bg-muted/40">
       <SidebarMenu />
@@ -31,7 +49,7 @@ const AdminLayout: FC<PropsWithChildren> = ({ children }) => {
               </BreadcrumbItem>
               <BreadcrumbSeparator />
               <BreadcrumbItem>
-                <BreadcrumbPage>Posts</BreadcrumbPage>
+                <BreadcrumbPage>{getBreadcrumbTitle()}</BreadcrumbPage>
               </BreadcrumbItem>
             </BreadcrumbList>
           </Breadcrumb>
