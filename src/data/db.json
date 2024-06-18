@@ -41,6 +41,48 @@
         "isDarkMode": true,
         "isNotificationsEnabled": true
       }
+    },
+    {
+      "id": "3",
+      "firstName": "Alice",
+      "lastName": "Smith",
+      "age": 30,
+      "city": "San Francisco",
+      "dateOfBirth": "1993-02-15",
+      "imageUrl": "https://images.unsplash.com/photo-1502685104226-ee32379fefbe?w=300&dpr=2&q=80",
+      "backgroundUrl": "https://unsplash.com/s/photos/san-francisco",
+      "description": "Data Scientist who loves machine learning",
+      "street": "",
+      "country": "USA",
+      "gender": "female",
+      "email": "alice@example.com",
+      "password": "securepassword",
+      "settings": {
+        "isPrivate": false,
+        "isDarkMode": false,
+        "isNotificationsEnabled": true
+      }
+    },
+    {
+      "id": "4",
+      "firstName": "Bob",
+      "lastName": "Johnson",
+      "age": 35,
+      "city": "Los Angeles",
+      "dateOfBirth": "1988-07-20",
+      "imageUrl": "https://images.unsplash.com/photo-1502764613149-7f1d229e2307?w=300&dpr=2&q=80",
+      "backgroundUrl": "https://unsplash.com/s/photos/los-angeles",
+      "description": "Graphic Designer and artist",
+      "street": "",
+      "country": "USA",
+      "gender": "male",
+      "email": "bob@example.com",
+      "password": "password123",
+      "settings": {
+        "isPrivate": true,
+        "isDarkMode": true,
+        "isNotificationsEnabled": false
+      }
     }
   ],
   "groups": [
@@ -59,6 +101,22 @@
       "description": "Sharing favorite books and recommendations",
       "isPrivate": true,
       "imageUrl": "https://unsplash.com/s/photos/book-club"
+    },
+    {
+      "id": "3",
+      "userId": "3",
+      "name": "AI Enthusiasts",
+      "description": "Discussing the latest in artificial intelligence",
+      "isPrivate": true,
+      "imageUrl": "https://unsplash.com/s/photos/artificial-intelligence"
+    },
+    {
+      "id": "4",
+      "userId": "4",
+      "name": "Art Lovers",
+      "description": "A place for sharing art and inspiration",
+      "isPrivate": false,
+      "imageUrl": "https://unsplash.com/s/photos/art"
     }
   ],
   "posts": [
@@ -75,6 +133,20 @@
       "content": "Finished reading 'The Lord of the Rings' - epic!",
       "imageUrl": "https://unsplash.com/s/photos/book-fantasy",
       "createdAt": "2024-06-18T00:10:00Z"
+    },
+    {
+      "id": "3",
+      "userId": "3",
+      "content": "Excited to start a new project using deep learning!",
+      "imageUrl": "https://unsplash.com/s/photos/deep-learning",
+      "createdAt": "2024-06-18T12:00:00Z"
+    },
+    {
+      "id": "4",
+      "userId": "4",
+      "content": "Just finished a new painting, feeling inspired!",
+      "imageUrl": "https://unsplash.com/s/photos/painting",
+      "createdAt": "2024-06-18T14:30:00Z"
     }
   ],
   "events": [
@@ -99,6 +171,28 @@
       "street": "",
       "country": "USA",
       "imageUrl": "https://unsplash.com/s/photos/book-club"
+    },
+    {
+      "id": "3",
+      "userId": "3",
+      "name": "AI Workshop",
+      "description": "Hands-on workshop on AI and ML",
+      "date": "2024-11-15",
+      "city": "Boston",
+      "street": "",
+      "country": "USA",
+      "imageUrl": "https://unsplash.com/s/photos/workshop"
+    },
+    {
+      "id": "4",
+      "userId": "4",
+      "name": "Art Exhibition",
+      "description": "Showcasing new contemporary art",
+      "date": "2024-08-20",
+      "city": "Los Angeles",
+      "street": "",
+      "country": "USA",
+      "imageUrl": "https://unsplash.com/s/photos/art-exhibition"
     }
   ],
   "notifications": [
@@ -117,6 +211,22 @@
       "description": "liked your post",
       "createdAt": "2024-06-18T00:00:00Z",
       "isRead": false
+    },
+    {
+      "id": "3",
+      "userId": "3",
+      "senderId": "4",
+      "description": "shared your post",
+      "createdAt": "2024-06-18T15:00:00Z",
+      "isRead": false
+    },
+    {
+      "id": "4",
+      "userId": "4",
+      "senderId": "3",
+      "description": "commented on your post",
+      "createdAt": "2024-06-18T15:30:00Z",
+      "isRead": true
     }
   ],
   "report": [
@@ -129,6 +239,26 @@
       "type": "offensive",
       "reportedAt": "2024-06-18T00:00:00Z",
       "createdAt": "2024-06-18T00:00:00Z"
+    },
+    {
+      "id": "2",
+      "userId": "3",
+      "commentId": "2",
+      "postId": "3",
+      "content": "Inappropriate comment",
+      "type": "inappropriate",
+      "reportedAt": "2024-06-18T16:00:00Z",
+      "createdAt": "2024-06-18T16:00:00Z"
+    },
+    {
+      "id": "3",
+      "userId": "4",
+      "commentId": "3",
+      "postId": "4",
+      "content": "Spam",
+      "type": "spam",
+      "reportedAt": "2024-06-18T17:00:00Z",
+      "createdAt": "2024-06-18T17:00:00Z"
     }
   ],
   "comments": [
@@ -138,6 +268,20 @@
       "postId": "1",
       "content": "",
       "createdAt": ""
+    },
+    {
+      "id": "2",
+      "userId": "3",
+      "postId": "3",
+      "content": "This is amazing, great job!",
+      "createdAt": "2024-06-18T12:30:00Z"
+    },
+    {
+      "id": "3",
+      "userId": "4",
+      "postId": "4",
+      "content": "Beautiful artwork!",
+      "createdAt": "2024-06-18T14:45:00Z"
     }
   ],
   "comments_likes": [
@@ -145,6 +289,16 @@
       "id": "1",
       "userId": "1",
       "commentId": "1"
+    },
+    {
+      "id": "2",
+      "userId": "3",
+      "commentId": "2"
+    },
+    {
+      "id": "3",
+      "userId": "4",
+      "commentId": "3"
     }
   ],
   "posts_users": [
@@ -152,6 +306,16 @@
       "id": "1",
       "userId": "1",
       "postId": "1"
+    },
+    {
+      "id": "2",
+      "userId": "3",
+      "postId": "3"
+    },
+    {
+      "id": "3",
+      "userId": "4",
+      "postId": "4"
     }
   ],
   "posts_likes": [
@@ -159,6 +323,16 @@
       "id": "1",
       "userId": "1",
       "postId": "1"
+    },
+    {
+      "id": "2",
+      "userId": "3",
+      "postId": "3"
+    },
+    {
+      "id": "3",
+      "userId": "4",
+      "postId": "4"
     }
   ],
   "groups_users": [
@@ -166,6 +340,16 @@
       "id": "1",
       "userId": "1",
       "groupId": "1"
+    },
+    {
+      "id": "2",
+      "userId": "3",
+      "groupId": "3"
+    },
+    {
+      "id": "3",
+      "userId": "4",
+      "groupId": "4"
     }
   ],
   "groups_posts": [
@@ -173,6 +357,16 @@
       "id": "1",
       "groupId": "1",
       "postId": "1"
+    },
+    {
+      "id": "2",
+      "groupId": "3",
+      "postId": "3"
+    },
+    {
+      "id": "3",
+      "groupId": "4",
+      "postId": "4"
     }
   ],
   "events_users": [
@@ -180,6 +374,16 @@
       "id": "1",
       "userId": "1",
       "eventId": "1"
+    },
+    {
+      "id": "2",
+      "userId": "3",
+      "eventId": "3"
+    },
+    {
+      "id": "3",
+      "userId": "4",
+      "eventId": "4"
     }
   ],
   "events_posts": [
@@ -187,6 +391,16 @@
       "id": "1",
       "eventId": "1",
       "postId": "1"
+    },
+    {
+      "id": "2",
+      "eventId": "3",
+      "postId": "3"
+    },
+    {
+      "id": "3",
+      "eventId": "4",
+      "postId": "4"
     }
   ]
 }
