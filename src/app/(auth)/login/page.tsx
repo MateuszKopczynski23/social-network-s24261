@@ -1,11 +1,42 @@
+'use client';
+
 import { NextPage } from 'next';
 import Link from 'next/link';
+import { z } from 'zod';
+import { zodResolver } from '@hookform/resolvers/zod';
+import { useForm } from 'react-hook-form';
 
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
-import { Label } from '@/components/ui/label';
+import {
+  Form,
+  FormControl,
+  FormField,
+  FormItem,
+  FormLabel,
+  FormMessage,
+} from '@/components/ui/form';
+
+const loginFormSchema = z.object({
+  email: z.string().email({
+    message: 'Invalid email address.',
+  }),
+  password: z.string().min(6, {
+    message: 'Password must be at least 6 characters.',
+  }),
+});
+
+type LoginFormValues = z.infer<typeof loginFormSchema>;
 
 const LoginPage: NextPage = () => {
+  const form = useForm<LoginFormValues>({
+    resolver: zodResolver(loginFormSchema),
+  });
+
+  const onSubmit = (data: LoginFormValues) => {
+    console.log('Login data:', data);
+  };
+
   return (
     <div className="mx-auto grid w-[350px] gap-6">
       <div className="grid gap-2 text-center">
@@ -14,32 +45,55 @@ const LoginPage: NextPage = () => {
           Enter your email below to login to your account
         </p>
       </div>
-      <div className="grid gap-4">
-        <div className="grid gap-2">
-          <Label htmlFor="email">Email</Label>
-          <Input
-            id="email"
-            type="email"
-            required
-          />
-        </div>
-        <div className="grid gap-2">
-          <div className="flex items-center">
-            <Label htmlFor="password">Password</Label>
-          </div>
-          <Input
-            id="password"
-            type="password"
-            required
-          />
-        </div>
-        <Button
-          type="submit"
-          className="w-full"
+      <Form {...form}>
+        <form
+          onSubmit={form.handleSubmit(onSubmit)}
+          className="grid gap-4"
         >
-          Sign in
-        </Button>
-      </div>
+          <FormField
+            control={form.control}
+            name="email"
+            render={({ field }) => (
+              <FormItem>
+                <FormLabel>Email</FormLabel>
+                <FormControl>
+                  <Input
+                    id="email"
+                    type="email"
+                    required
+                    {...field}
+                  />
+                </FormControl>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
+          <FormField
+            control={form.control}
+            name="password"
+            render={({ field }) => (
+              <FormItem>
+                <FormLabel>Password</FormLabel>
+                <FormControl>
+                  <Input
+                    id="password"
+                    type="password"
+                    required
+                    {...field}
+                  />
+                </FormControl>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
+          <Button
+            type="submit"
+            className="w-full"
+          >
+            Sign in
+          </Button>
+        </form>
+      </Form>
       <div className="mt-4 text-center text-sm">
         Don&apos;t have an account?{' '}
         <Link
