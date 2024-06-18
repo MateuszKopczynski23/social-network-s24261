@@ -28,13 +28,20 @@ const loginFormSchema = z.object({
 
 type LoginFormValues = z.infer<typeof loginFormSchema>;
 
+const defaultValues: Partial<LoginFormValues> = {
+  email: '',
+  password: '',
+};
+
 const LoginPage: NextPage = () => {
   const form = useForm<LoginFormValues>({
     resolver: zodResolver(loginFormSchema),
+    defaultValues,
   });
 
   const onSubmit = (data: LoginFormValues) => {
     console.log('Login data:', data);
+    form.resetField('password');
   };
 
   return (
