@@ -19,13 +19,21 @@ import {
 
 const registerFormSchema = z
   .object({
-    name: z
+    firstName: z
       .string()
       .min(2, {
-        message: 'Name must be at least 2 characters.',
+        message: 'First name must be at least 2 characters.',
       })
       .max(30, {
-        message: 'Name must not be longer than 30 characters.',
+        message: 'First name must not be longer than 30 characters.',
+      }),
+    lastName: z
+      .string()
+      .min(2, {
+        message: 'Last name must be at least 2 characters.',
+      })
+      .max(30, {
+        message: 'Last name must not be longer than 30 characters.',
       }),
     email: z.string().email({
       message: 'Invalid email address.',
@@ -44,8 +52,9 @@ const registerFormSchema = z
 
 type RegisterFormValues = z.infer<typeof registerFormSchema>;
 
-const defaultValues: Partial<RegisterFormValues> = {
-  name: '',
+const defaultValues: RegisterFormValues = {
+  firstName: '',
+  lastName: '',
   email: '',
   password: '',
   passwordConfirmation: '',
@@ -77,13 +86,31 @@ const RegisterPage: NextPage = () => {
         >
           <FormField
             control={form.control}
-            name="name"
+            name="firstName"
             render={({ field }) => (
               <FormItem>
-                <FormLabel>Name</FormLabel>
+                <FormLabel>First name</FormLabel>
                 <FormControl>
                   <Input
-                    id="name"
+                    id="firstName"
+                    type="text"
+                    required
+                    {...field}
+                  />
+                </FormControl>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
+          <FormField
+            control={form.control}
+            name="lastName"
+            render={({ field }) => (
+              <FormItem>
+                <FormLabel>Last name</FormLabel>
+                <FormControl>
+                  <Input
+                    id="lastName"
                     type="text"
                     required
                     {...field}
@@ -135,7 +162,7 @@ const RegisterPage: NextPage = () => {
               name="passwordConfirmation"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>Password confirmation</FormLabel>
+                  <FormLabel>Confirm password</FormLabel>
                   <FormControl>
                     <Input
                       id="passwordConfirmation"
@@ -153,7 +180,7 @@ const RegisterPage: NextPage = () => {
             type="submit"
             className="w-full"
           >
-            Sign in
+            Register
           </Button>
         </form>
       </Form>

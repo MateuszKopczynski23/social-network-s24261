@@ -28,7 +28,7 @@ const loginFormSchema = z.object({
 
 type LoginFormValues = z.infer<typeof loginFormSchema>;
 
-const defaultValues: Partial<LoginFormValues> = {
+const defaultValues: LoginFormValues = {
   email: '',
   password: '',
 };
