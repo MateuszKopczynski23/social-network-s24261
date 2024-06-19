@@ -15,6 +15,7 @@
       "gender": "male",
       "email": "test@test.pl",
       "password": "password",
+      "isAdmin": true,
       "settings": {
         "isPrivate": true,
         "isDarkMode": true,
@@ -83,6 +84,48 @@
         "isDarkMode": true,
         "isNotificationsEnabled": false
       }
+    },
+    {
+      "id": "0dca",
+      "firstName": "Dacey",
+      "lastName": "Mcfadden",
+      "email": "govagenyj@mailinator.com",
+      "password": "Pa$$w0rd!"
+    },
+    {
+      "id": "80fd",
+      "firstName": "Bree",
+      "lastName": "Hill",
+      "email": "dikow@mailinator.com",
+      "password": "Pa$$w0rd!"
+    },
+    {
+      "id": "8362",
+      "firstName": "Dane",
+      "lastName": "Buckley",
+      "email": "ziryvecire@mailinator.com",
+      "password": "Pa$$w0rd!"
+    },
+    {
+      "id": "133d",
+      "firstName": "Clementine",
+      "lastName": "Levy",
+      "email": "foryweba@mailinator.com",
+      "password": "Pa$$w0rd!"
+    },
+    {
+      "id": "622d",
+      "firstName": "Adria",
+      "lastName": "OKO",
+      "email": "jaty@wp.pl",
+      "password": "password"
+    },
+    {
+      "id": "8019",
+      "firstName": "Jasmine",
+      "lastName": "Vinson",
+      "email": "zowilibu@mailinator.com",
+      "password": "Pa$$w0rd!"
     }
   ],
   "groups": [
