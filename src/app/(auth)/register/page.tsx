@@ -5,6 +5,8 @@ import Link from 'next/link';
 import { z } from 'zod';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
+import { useRouter } from 'next/navigation';
+import { toast } from 'sonner';
 
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
@@ -16,6 +18,7 @@ import {
   FormLabel,
   FormMessage,
 } from '@/components/ui/form';
+import { useAuthStore } from '@/providers/AuthStoreProvider';
 
 const registerFormSchema = z
   .object({
@@ -61,15 +64,27 @@ const defaultValues: RegisterFormValues = {
 };
 
 const RegisterPage: NextPage = () => {
+  const { push } = useRouter();
+  const { register } = useAuthStore((state) => state);
+
   const form = useForm<RegisterFormValues>({
     resolver: zodResolver(registerFormSchema),
     defaultValues,
   });
 
-  const onSubmit = (data: RegisterFormValues) => {
-    console.log('Register data:', data);
-    form.reset();
+  const handleRegister = async (data: RegisterFormValues) => {
+    try {
+      await register(data);
+      push('/login');
+      toast.success('Registration successful!');
+    } catch (error) {
+      if (error instanceof Error) {
+        toast.error(error.message);
+      }
+    }
   };
+
+  const onSubmit = (data: RegisterFormValues) => handleRegister(data);
 
   return (
     <div className="mx-auto grid w-[350px] gap-6">
