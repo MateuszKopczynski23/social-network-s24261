@@ -2,7 +2,6 @@
 
 import { NextPage } from 'next';
 import Link from 'next/link';
-import { z } from 'zod';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useForm } from 'react-hook-form';
 import { toast } from 'sonner';
@@ -19,20 +18,11 @@ import {
   FormMessage,
 } from '@/components/ui/form';
 import { useAuthStore } from '@/providers/AuthStoreProvider';
-
-const loginFormSchema = z.object({
-  email: z.string().email({
-    message: 'Invalid email address.',
-  }),
-  password: z.string(),
-});
-
-export type LoginFormValues = z.infer<typeof loginFormSchema>;
-
-const defaultValues: LoginFormValues = {
-  email: '',
-  password: '',
-};
+import {
+  defaultValues,
+  loginFormSchema,
+  LoginFormValues,
+} from '@/validations/loginValidation';
 
 const LoginPage: NextPage = () => {
   const { push } = useRouter();

@@ -2,7 +2,6 @@
 
 import { NextPage } from 'next';
 import Link from 'next/link';
-import { z } from 'zod';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useRouter } from 'next/navigation';
@@ -19,49 +18,11 @@ import {
   FormMessage,
 } from '@/components/ui/form';
 import { useAuthStore } from '@/providers/AuthStoreProvider';
-
-const registerFormSchema = z
-  .object({
-    firstName: z
-      .string()
-      .min(2, {
-        message: 'First name must be at least 2 characters.',
-      })
-      .max(30, {
-        message: 'First name must not be longer than 30 characters.',
-      }),
-    lastName: z
-      .string()
-      .min(2, {
-        message: 'Last name must be at least 2 characters.',
-      })
-      .max(30, {
-        message: 'Last name must not be longer than 30 characters.',
-      }),
-    email: z.string().email({
-      message: 'Invalid email address.',
-    }),
-    password: z.string().min(6, {
-      message: 'Password must be at least 6 characters.',
-    }),
-    passwordConfirmation: z.string().min(6, {
-      message: 'Password confirmation must be at least 6 characters.',
-    }),
-  })
-  .refine((data) => data.password === data.passwordConfirmation, {
-    message: 'Passwords do not match.',
-    path: ['passwordConfirmation'],
-  });
-
-export type RegisterFormValues = z.infer<typeof registerFormSchema>;
-
-const defaultValues: RegisterFormValues = {
-  firstName: '',
-  lastName: '',
-  email: '',
-  password: '',
-  passwordConfirmation: '',
-};
+import {
+  defaultValues,
+  registerFormSchema,
+  RegisterFormValues,
+} from '@/validations/registerValidation';
 
 const RegisterPage: NextPage = () => {
   const { push } = useRouter();
