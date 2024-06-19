@@ -2,11 +2,11 @@ import React, { FC, PropsWithChildren } from 'react';
 import { ThemeProvider } from 'next-themes';
 
 import { TooltipProvider } from '@/components/ui/tooltip';
-import { SWRProvider } from '@/providers/SWRProvider';
+import { AuthStoreProvider } from '@/providers/AuthStoreProvider';
 
 const Providers: FC<PropsWithChildren> = ({ children }) => {
   return (
-    <SWRProvider>
+    <AuthStoreProvider>
       <ThemeProvider
         attribute="class"
         defaultTheme="dark"
@@ -15,7 +15,7 @@ const Providers: FC<PropsWithChildren> = ({ children }) => {
       >
         <TooltipProvider>{children}</TooltipProvider>
       </ThemeProvider>
-    </SWRProvider>
+    </AuthStoreProvider>
   );
 };
 

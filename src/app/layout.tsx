@@ -5,6 +5,7 @@ import { Inter as FontSans } from 'next/font/google';
 import { cn } from '@/lib/utils';
 import '@/app/globals.css';
 import Providers from '@/providers';
+import { Toaster } from '@/components/ui/sonner';
 
 const fontSans = FontSans({
   subsets: ['latin'],
@@ -26,6 +27,7 @@ const RootLayout: NextPage<PropsWithChildren> = ({ children }) => {
         )}
       >
         <Providers>{children}</Providers>
+        <Toaster richColors />
       </body>
     </html>
   );

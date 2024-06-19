@@ -5,6 +5,8 @@ import Link from 'next/link';
 import { z } from 'zod';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useForm } from 'react-hook-form';
+import { toast } from 'sonner';
+import { useRouter } from 'next/navigation';
 
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
@@ -16,16 +18,13 @@ import {
   FormLabel,
   FormMessage,
 } from '@/components/ui/form';
-import { Login } from '@/app/api/auth';
-import { setUserId } from '@/actions/users';
+import { useAuthStore } from '@/providers/AuthStoreProvider';
 
 const loginFormSchema = z.object({
   email: z.string().email({
     message: 'Invalid email address.',
   }),
-  password: z.string().min(6, {
-    message: 'Password must be at least 6 characters.',
-  }),
+  password: z.string(),
 });
 
 export type LoginFormValues = z.infer<typeof loginFormSchema>;
@@ -36,18 +35,27 @@ const defaultValues: LoginFormValues = {
 };
 
 const LoginPage: NextPage = () => {
+  const { push } = useRouter();
+  const { login } = useAuthStore((state) => state);
+
   const form = useForm<LoginFormValues>({
     resolver: zodResolver(loginFormSchema),
     defaultValues,
   });
 
-  const onSubmit = async (data: LoginFormValues) => {
-    const user = await Login(data);
-
-    await setUserId(user.id);
-
-    form.resetField('password');
+  const handleLogin = async (data: LoginFormValues) => {
+    try {
+      await login(data);
+      push('/user/home');
+    } catch (error) {
+      if (error instanceof Error) {
+        form.resetField('password');
+        toast.error(error.message);
+      }
+    }
   };
+
+  const onSubmit = async (data: LoginFormValues) => await handleLogin(data);
 
   return (
     <div className="mx-auto grid w-[350px] gap-6">
