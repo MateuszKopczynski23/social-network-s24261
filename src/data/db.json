@@ -15,6 +15,7 @@
       "gender": "male",
       "email": "test@test.pl",
       "password": "password",
+      "isAdmin": true,
       "settings": {
         "isPrivate": true,
         "isDarkMode": true,

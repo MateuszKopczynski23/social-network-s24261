@@ -2,10 +2,12 @@
 
 import { cookies } from 'next/headers';
 
-export const setUserId = async (userId: string) => {
-  cookies().set('userId', userId);
+import { User } from '@/interfaces/user';
+
+export const setUser = async (user: User) => {
+  cookies().set('user', JSON.stringify(user));
 };
 
-export const getUserId = async () => {
-  return cookies().get('userId');
+export const getUser = async () => {
+  return cookies().get('user');
 };

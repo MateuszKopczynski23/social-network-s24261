@@ -4,10 +4,10 @@ import get from 'lodash/get';
 import omit from 'lodash/omit';
 
 import { User } from '@/interfaces/user';
-import { LoginFormValues } from '@/app/(auth)/login/page';
-import { setUserId } from '@/actions/users';
-import { RegisterFormValues } from '@/app/(auth)/register/page';
+import { setUser } from '@/actions/users';
 import { createUser, getUser } from '@/api/user';
+import { LoginFormValues } from '@/validations/loginValidation';
+import { RegisterFormValues } from '@/validations/registerValidation';
 
 export type AuthState = {
   user: User | null;
@@ -36,7 +36,7 @@ export const createAuthStore = (initState: AuthState = defaultInitState) => {
           throw new Error('Invalid email or password');
         }
 
-        await setUserId(user.id);
+        await setUser(user);
 
         set({ user });
       } catch (e) {
