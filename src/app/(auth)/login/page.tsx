@@ -16,6 +16,8 @@ import {
   FormLabel,
   FormMessage,
 } from '@/components/ui/form';
+import { Login } from '@/app/api/auth';
+import { setUserId } from '@/actions/users';
 
 const loginFormSchema = z.object({
   email: z.string().email({
@@ -26,7 +28,7 @@ const loginFormSchema = z.object({
   }),
 });
 
-type LoginFormValues = z.infer<typeof loginFormSchema>;
+export type LoginFormValues = z.infer<typeof loginFormSchema>;
 
 const defaultValues: LoginFormValues = {
   email: '',
@@ -39,8 +41,11 @@ const LoginPage: NextPage = () => {
     defaultValues,
   });
 
-  const onSubmit = (data: LoginFormValues) => {
-    console.log('Login data:', data);
+  const onSubmit = async (data: LoginFormValues) => {
+    const user = await Login(data);
+
+    await setUserId(user.id);
+
     form.resetField('password');
   };
 

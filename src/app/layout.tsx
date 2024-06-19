@@ -1,11 +1,10 @@
-import { ThemeProvider } from 'next-themes';
 import React, { PropsWithChildren } from 'react';
 import type { Metadata, NextPage } from 'next';
 import { Inter as FontSans } from 'next/font/google';
 
-import { TooltipProvider } from '@/components/ui/tooltip';
 import { cn } from '@/lib/utils';
 import '@/app/globals.css';
+import Providers from '@/providers';
 
 const fontSans = FontSans({
   subsets: ['latin'],
@@ -26,14 +25,7 @@ const RootLayout: NextPage<PropsWithChildren> = ({ children }) => {
           fontSans.variable
         )}
       >
-        <ThemeProvider
-          attribute="class"
-          defaultTheme="dark"
-          enableSystem
-          disableTransitionOnChange
-        >
-          <TooltipProvider>{children}</TooltipProvider>
-        </ThemeProvider>
+        <Providers>{children}</Providers>
       </body>
     </html>
   );

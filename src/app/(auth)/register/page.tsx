@@ -50,7 +50,7 @@ const registerFormSchema = z
     path: ['passwordConfirmation'],
   });
 
-type RegisterFormValues = z.infer<typeof registerFormSchema>;
+export type RegisterFormValues = z.infer<typeof registerFormSchema>;
 
 const defaultValues: RegisterFormValues = {
   firstName: '',
