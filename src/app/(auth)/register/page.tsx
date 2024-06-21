@@ -17,7 +17,7 @@ import {
   FormLabel,
   FormMessage,
 } from '@/components/ui/form';
-import { useAuthStore } from '@/providers/AuthStoreProvider';
+import { useAuthStore } from '@/providers/store/AuthStoreProvider';
 import {
   defaultValues,
   registerFormSchema,

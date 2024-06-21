@@ -26,6 +26,7 @@ import {
   SelectValue,
 } from '@/components/ui/select';
 import { Textarea } from '@/components/ui/textarea';
+import { useAuthStore } from '@/providers/store/AuthStoreProvider';
 
 const profileFormSchema = z.object({
   username: z
@@ -62,11 +63,15 @@ const defaultValues: Partial<ProfileFormValues> = {
 };
 
 const ProfileForm: FC = () => {
+  const { user } = useAuthStore((state) => state);
+
   const form = useForm<ProfileFormValues>({
     resolver: zodResolver(profileFormSchema),
     defaultValues,
     mode: 'onChange',
   });
+
+  console.log(user);
 
   const { fields, append } = useFieldArray({
     name: 'urls',

@@ -20,6 +20,10 @@ export type AuthActions = {
 
 export type AuthStore = AuthState & AuthActions;
 
+export const initAuthStore = (user?: AuthState['user']): AuthState => {
+  return { user: user || null };
+};
+
 export const defaultInitState: AuthState = {
   user: null,
 };

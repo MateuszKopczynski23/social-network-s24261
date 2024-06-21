@@ -9,5 +9,7 @@ export const setUser = async (user: User) => {
 };
 
 export const getUser = async () => {
-  return cookies().get('user');
+  const user = cookies().get('user')?.value || '';
+
+  return JSON.parse(user);
 };
