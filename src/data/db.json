@@ -18,7 +18,6 @@
       "isAdmin": true,
       "settings": {
         "isPrivate": true,
-        "isDarkMode": true,
         "isNotificationsEnabled": true,
         "isStickyHeader": true,
         "isActiveFriendsVisible": true
@@ -41,7 +40,6 @@
       "password": "password",
       "settings": {
         "isPrivate": true,
-        "isDarkMode": true,
         "isNotificationsEnabled": true
       }
     },
@@ -62,7 +60,6 @@
       "password": "securepassword",
       "settings": {
         "isPrivate": false,
-        "isDarkMode": false,
         "isNotificationsEnabled": true
       }
     },
@@ -83,7 +80,6 @@
       "password": "password123",
       "settings": {
         "isPrivate": true,
-        "isDarkMode": true,
         "isNotificationsEnabled": false
       }
     },
