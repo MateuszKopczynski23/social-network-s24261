@@ -10,7 +10,7 @@ export interface User {
   description?: string;
   street?: string;
   country?: string;
-  gender?: UserGender;
+  gender?: 'male' | 'female';
   email: string;
   password: string;
   settings: UserSettings;
@@ -21,5 +21,3 @@ interface UserSettings {
   isDarkMode: boolean;
   isNotificationsEnabled: boolean;
 }
-
-type UserGender = 'male' | 'female';
