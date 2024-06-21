@@ -11,5 +11,9 @@ export const setUser = async (user: User) => {
 export const getUser = async () => {
   const user = cookies().get('user')?.value || '';
 
-  return JSON.parse(user);
+  try {
+    return user && JSON.parse(user);
+  } catch (error) {
+    throw new Error('Error parsing user JSON');
+  }
 };
