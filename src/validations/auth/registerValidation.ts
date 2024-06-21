@@ -35,7 +35,7 @@ export const registerFormSchema = z
     path: ['passwordConfirmation'],
   });
 
-export const defaultValues: RegisterFormValues = {
+export const registerFormDefaultValues: RegisterFormValues = {
   firstName: '',
   lastName: '',
   email: '',

@@ -19,10 +19,10 @@ import {
 } from '@/components/ui/form';
 import { useAuthStore } from '@/providers/store/AuthStoreProvider';
 import {
-  defaultValues,
+  registerFormDefaultValues,
   registerFormSchema,
   RegisterFormValues,
-} from '@/validations/registerValidation';
+} from '@/validations/auth/registerValidation';
 
 const RegisterPage: NextPage = () => {
   const { push } = useRouter();
@@ -30,7 +30,7 @@ const RegisterPage: NextPage = () => {
 
   const form = useForm<RegisterFormValues>({
     resolver: zodResolver(registerFormSchema),
-    defaultValues,
+    defaultValues: registerFormDefaultValues,
   });
 
   const handleRegister = async (data: RegisterFormValues) => {

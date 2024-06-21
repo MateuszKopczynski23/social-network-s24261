@@ -6,8 +6,8 @@ import omit from 'lodash/omit';
 import { User } from '@/interfaces/user';
 import { setUser } from '@/actions/users';
 import { createUser, getUser } from '@/api/user';
-import { LoginFormValues } from '@/validations/loginValidation';
-import { RegisterFormValues } from '@/validations/registerValidation';
+import { LoginFormValues } from '@/validations/auth/loginValidation';
+import { RegisterFormValues } from '@/validations/auth/registerValidation';
 
 export type AuthState = {
   user: User | null;

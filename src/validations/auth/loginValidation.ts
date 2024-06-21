@@ -9,7 +9,7 @@ export const loginFormSchema = z.object({
   password: z.string(),
 });
 
-export const defaultValues: LoginFormValues = {
+export const loginFormDefaultValues: LoginFormValues = {
   email: '',
   password: '',
 };
