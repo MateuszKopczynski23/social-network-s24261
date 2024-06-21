@@ -8,10 +8,6 @@ import { cn } from '@/lib/utils';
 
 const items = [
   {
-    title: 'Profile',
-    href: '/user/settings/profile',
-  },
-  {
     title: 'Account',
     href: '/user/settings/account',
   },
