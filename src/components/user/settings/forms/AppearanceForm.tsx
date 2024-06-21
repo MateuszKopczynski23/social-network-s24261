@@ -4,7 +4,7 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import { ChevronDownIcon } from 'lucide-react';
 import { FC } from 'react';
 import { useForm } from 'react-hook-form';
-import { z } from 'zod';
+import { useTheme } from 'next-themes';
 
 import { cn } from '@/lib/utils';
 import { Button, buttonVariants } from '@/components/ui/button';
@@ -18,33 +18,32 @@ import {
   FormMessage,
 } from '@/components/ui/form';
 import { RadioGroup, RadioGroupItem } from '@/components/ui/radio-group';
-
-const appearanceFormSchema = z.object({
-  theme: z.enum(['light', 'dark'], {
-    required_error: 'Please select a theme.',
-  }),
-  font: z.enum(['inter', 'manrope', 'system'], {
-    invalid_type_error: 'Select a font',
-    required_error: 'Please select a font.',
-  }),
-});
-
-type AppearanceFormValues = z.infer<typeof appearanceFormSchema>;
-
-const defaultValues: Partial<AppearanceFormValues> = {
-  theme: 'light',
-};
+import {
+  appearanceFormDefaultValues,
+  appearanceFormSchema,
+  AppearanceFormValues,
+} from '@/validations/user/settings/appearanceValidation';
 
 const AppearanceForm: FC = () => {
+  const { setTheme } = useTheme();
+
   const form = useForm<AppearanceFormValues>({
     resolver: zodResolver(appearanceFormSchema),
-    defaultValues,
+    defaultValues: appearanceFormDefaultValues,
   });
+
+  const handleUpdate = async (data: AppearanceFormValues) => {
+    const theme = data.theme;
+
+    theme && setTheme(theme);
+  };
+
+  const onSubmit = (data: AppearanceFormValues) => handleUpdate(data);
 
   return (
     <Form {...form}>
       <form
-        // onSubmit={}
+        onSubmit={form.handleSubmit(onSubmit)}
         className="space-y-8"
       >
         <FormField
