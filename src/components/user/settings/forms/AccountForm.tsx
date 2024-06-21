@@ -260,20 +260,19 @@ const AccountForm: FC = () => {
           render={({ field }) => (
             <FormItem>
               <FormLabel>Avatar image</FormLabel>
-              <Avatar className="h-24 w-24 rounded-full">
-                <AvatarImage
-                  src={field.value}
-                  alt="Avatar"
-                  className="object-cover"
-                />
-                <AvatarFallback className="rounded-sm">OM</AvatarFallback>
-              </Avatar>
               <FormControl>
                 <Input
                   placeholder="none"
                   {...field}
                 />
               </FormControl>
+              <Avatar className="h-36 w-36 rounded-none rounded-br-2xl rounded-tl-2xl">
+                <AvatarImage
+                  src={field.value}
+                  alt="Avatar"
+                  className="object-cover"
+                />
+              </Avatar>
               <FormMessage />
             </FormItem>
           )}
@@ -284,6 +283,12 @@ const AccountForm: FC = () => {
           render={({ field }) => (
             <FormItem>
               <FormLabel>Background image</FormLabel>
+              <FormControl>
+                <Input
+                  placeholder="none"
+                  {...field}
+                />
+              </FormControl>
               <Image
                 src={field.value || DEFAULT_BACKGROUND_IMAGE}
                 alt="background"
@@ -292,12 +297,6 @@ const AccountForm: FC = () => {
                 height="1080"
                 className="h-40 rounded-br-2xl rounded-tl-2xl object-cover lg:h-72"
               />
-              <FormControl>
-                <Input
-                  placeholder="none"
-                  {...field}
-                />
-              </FormControl>
               <FormMessage />
             </FormItem>
           )}
