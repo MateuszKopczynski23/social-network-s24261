@@ -28,3 +28,16 @@ export const createUser = async (user: Omit<User, 'id'>) => {
 
   return data as User;
 };
+
+export const updateUser = async (user: Omit<User, 'id'>, userId: string) => {
+  const response = await fetch(`${API_URL}/users/${userId}`, {
+    method: 'PUT',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify(user),
+  });
+  const data = await response.json();
+
+  return data as User;
+};

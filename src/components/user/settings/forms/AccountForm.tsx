@@ -6,6 +6,7 @@ import { useForm } from 'react-hook-form';
 import { CalendarIcon, ChevronDownIcon } from 'lucide-react';
 import { format } from 'date-fns';
 import Image from 'next/image';
+import { toast } from 'sonner';
 
 import { cn } from '@/lib/utils';
 import { Button, buttonVariants } from '@/components/ui/button';
@@ -39,7 +40,7 @@ import {
 } from '@/constants/images';
 
 const AccountForm: FC = () => {
-  const { user } = useAuthStore((state) => state);
+  const { user, update } = useAuthStore((state) => state);
   const defaultValues = accountFormDefaultValues(user);
 
   const form = useForm<AccountFormValues>({
@@ -49,7 +50,16 @@ const AccountForm: FC = () => {
   });
 
   const handleUpdate = async (data: AccountFormValues) => {
-    console.log(data);
+    try {
+      if (!user) return;
+
+      await update(user, data);
+      toast.success('User updated successfully!');
+    } catch (error) {
+      if (error instanceof Error) {
+        toast.error(error.message);
+      }
+    }
   };
 
   const onSubmit = (data: AccountFormValues) => handleUpdate(data);

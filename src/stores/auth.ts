@@ -6,7 +6,7 @@ import assign from 'lodash/assign';
 
 import { User } from '@/interfaces/user';
 import { removeUser, setUser } from '@/actions/users';
-import { createUser, getUser } from '@/api/user';
+import { createUser, getUser, updateUser } from '@/api/user';
 import { LoginFormValues } from '@/validations/auth/loginValidation';
 import { RegisterFormValues } from '@/validations/auth/registerValidation';
 import {
@@ -22,6 +22,7 @@ export type AuthActions = {
   login: (data: LoginFormValues) => Promise<void>;
   register: (data: RegisterFormValues) => Promise<void>;
   logout: () => Promise<void>;
+  update: (user: User, data: Partial<User>) => Promise<void>;
 };
 
 export type AuthStore = AuthState & AuthActions;
@@ -103,6 +104,19 @@ export const createAuthStore = (initState: AuthState = defaultInitState) => {
         await createUser(userWithoutPasswordConfirmation);
       } catch (e) {
         throw new Error('Failed to register. Please try again.');
+      }
+    },
+
+    update: async (user: User, data: Partial<User>) => {
+      try {
+        const mergedUserData = assign(user, data);
+
+        await updateUser(mergedUserData, user.id);
+        await setUser(mergedUserData);
+
+        set({ user });
+      } catch (e) {
+        throw new Error('Failed to update user. Please try again.');
       }
     },
   }));
