@@ -16,7 +16,7 @@ export const getUser = async (params: Params) => {
   return head(data) as User;
 };
 
-export const createUser = async (user: Partial<User>) => {
+export const createUser = async (user: Omit<User, 'id'>) => {
   const response = await fetch(`${API_URL}/users`, {
     method: 'POST',
     headers: {

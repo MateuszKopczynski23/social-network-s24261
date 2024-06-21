@@ -10,7 +10,7 @@ export interface User {
   description?: string;
   street?: string;
   country?: string;
-  gender?: 'male' | 'female';
+  gender: 'male' | 'female';
   email: string;
   password: string;
   settings: UserSettings;

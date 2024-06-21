@@ -46,86 +46,48 @@
       }
     },
     {
-      "id": "3",
-      "firstName": "Alice",
-      "lastName": "Smith",
-      "age": 30,
-      "city": "San Francisco",
-      "dateOfBirth": "1993-02-15",
-      "imageUrl": "https://images.unsplash.com/photo-1502685104226-ee32379fefbe?w=300&dpr=2&q=80",
-      "backgroundUrl": "https://unsplash.com/s/photos/san-francisco",
-      "description": "Data Scientist who loves machine learning",
+      "id": "39cb",
+      "firstName": "",
+      "lastName": "",
+      "email": "",
+      "password": "",
+      "age": 0,
+      "city": "",
+      "dateOfBirth": "",
+      "imageUrl": "https://images.unsplash.com/photo-1636622433525-127afdf3662d?q=80&w=1932&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+      "backgroundUrl": "https://images.unsplash.com/photo-1533628635777-112b2239b1c7?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+      "description": "",
       "street": "",
-      "country": "USA",
-      "gender": "female",
-      "email": "alice@example.com",
-      "password": "securepassword",
-      "settings": {
-        "isPrivate": false,
-        "isNotificationsEnabled": true
-      }
-    },
-    {
-      "id": "4",
-      "firstName": "Bob",
-      "lastName": "Johnson",
-      "age": 35,
-      "city": "Los Angeles",
-      "dateOfBirth": "1988-07-20",
-      "imageUrl": "https://images.unsplash.com/photo-1502764613149-7f1d229e2307?w=300&dpr=2&q=80",
-      "backgroundUrl": "https://unsplash.com/s/photos/los-angeles",
-      "description": "Graphic Designer and artist",
-      "street": "",
-      "country": "USA",
+      "country": "Poland",
       "gender": "male",
-      "email": "bob@example.com",
-      "password": "password123",
       "settings": {
         "isPrivate": true,
-        "isNotificationsEnabled": false
+        "isNotificationsEnabled": false,
+        "isStickyHeader": true,
+        "isActiveFriendsVisible": true
       }
     },
     {
-      "id": "0dca",
-      "firstName": "Dacey",
-      "lastName": "Mcfadden",
-      "email": "govagenyj@mailinator.com",
-      "password": "password"
-    },
-    {
-      "id": "80fd",
-      "firstName": "Bree",
-      "lastName": "Hill",
-      "email": "dikow@mailinator.com",
-      "password": "Pa$$w0rd!"
-    },
-    {
-      "id": "8362",
-      "firstName": "Dane",
-      "lastName": "Buckley",
-      "email": "ziryvecire@mailinator.com",
-      "password": "Pa$$w0rd!"
-    },
-    {
-      "id": "133d",
-      "firstName": "Clementine",
-      "lastName": "Levy",
-      "email": "foryweba@mailinator.com",
-      "password": "Pa$$w0rd!"
-    },
-    {
-      "id": "622d",
-      "firstName": "Adria",
-      "lastName": "OKO",
-      "email": "jaty@wp.pl",
-      "password": "password"
-    },
-    {
-      "id": "8019",
-      "firstName": "Jasmine",
-      "lastName": "Vinson",
-      "email": "zowilibu@mailinator.com",
-      "password": "Pa$$w0rd!"
+      "id": "7b50",
+      "firstName": "Yoshio",
+      "lastName": "Singleton",
+      "age": 0,
+      "city": "",
+      "dateOfBirth": "",
+      "imageUrl": "https://images.unsplash.com/photo-1636622433525-127afdf3662d?q=80&w=1932&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+      "backgroundUrl": "https://images.unsplash.com/photo-1533628635777-112b2239b1c7?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+      "description": "",
+      "street": "",
+      "country": "Poland",
+      "gender": "male",
+      "email": "test@test2.pl",
+      "password": "password",
+      "settings": {
+        "isPrivate": true,
+        "isNotificationsEnabled": false,
+        "isStickyHeader": true,
+        "isActiveFriendsVisible": true
+      }
     }
   ],
   "groups": [
