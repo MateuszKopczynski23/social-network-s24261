@@ -20,4 +20,6 @@ interface UserSettings {
   isPrivate: boolean;
   isDarkMode: boolean;
   isNotificationsEnabled: boolean;
+  isStickyHeader: boolean;
+  isActiveFriendsVisible: boolean;
 }

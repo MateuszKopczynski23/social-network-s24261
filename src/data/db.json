@@ -19,7 +19,9 @@
       "settings": {
         "isPrivate": true,
         "isDarkMode": true,
-        "isNotificationsEnabled": true
+        "isNotificationsEnabled": true,
+        "isStickyHeader": true,
+        "isActiveFriendsVisible": true
       }
     },
     {

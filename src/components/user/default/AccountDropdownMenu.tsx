@@ -31,7 +31,7 @@ const AccountDropdownMenu: FC = () => {
         </Button>
       </DropdownMenuTrigger>
       <DropdownMenuContent align="end">
-        <Link href={'/user/settings/profile'}>
+        <Link href={'/user/settings/account'}>
           <DropdownMenuLabel>My Account</DropdownMenuLabel>
         </Link>
         <Link href={'/user/friends/1'}>
