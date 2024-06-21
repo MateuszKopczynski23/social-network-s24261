@@ -5,6 +5,7 @@ import { FC } from 'react';
 import { useForm } from 'react-hook-form';
 import { CalendarIcon, ChevronDownIcon } from 'lucide-react';
 import { format } from 'date-fns';
+import Image from 'next/image';
 
 import { cn } from '@/lib/utils';
 import { Button, buttonVariants } from '@/components/ui/button';
@@ -31,6 +32,8 @@ import {
   PopoverTrigger,
 } from '@/components/ui/popover';
 import { Calendar } from '@/components/ui/calendar';
+import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
+import { DEFAULT_BACKGROUND_IMAGE } from '@/constants/images';
 
 const AccountForm: FC = () => {
   const { user } = useAuthStore((state) => state);
@@ -257,6 +260,14 @@ const AccountForm: FC = () => {
           render={({ field }) => (
             <FormItem>
               <FormLabel>Avatar image</FormLabel>
+              <Avatar className="h-24 w-24 rounded-full">
+                <AvatarImage
+                  src={field.value}
+                  alt="Avatar"
+                  className="object-cover"
+                />
+                <AvatarFallback className="rounded-sm">OM</AvatarFallback>
+              </Avatar>
               <FormControl>
                 <Input
                   placeholder="none"
@@ -273,6 +284,14 @@ const AccountForm: FC = () => {
           render={({ field }) => (
             <FormItem>
               <FormLabel>Background image</FormLabel>
+              <Image
+                src={field.value || DEFAULT_BACKGROUND_IMAGE}
+                alt="background"
+                priority
+                width="1920"
+                height="1080"
+                className="h-40 rounded-br-2xl rounded-tl-2xl object-cover lg:h-72"
+              />
               <FormControl>
                 <Input
                   placeholder="none"
