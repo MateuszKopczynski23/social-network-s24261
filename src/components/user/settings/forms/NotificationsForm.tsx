@@ -3,6 +3,8 @@
 import { zodResolver } from '@hookform/resolvers/zod';
 import { FC } from 'react';
 import { useForm } from 'react-hook-form';
+import merge from 'lodash/merge';
+import { toast } from 'sonner';
 
 import { Button } from '@/components/ui/button';
 import {
@@ -22,7 +24,7 @@ import {
 import { useAuthStore } from '@/providers/store/AuthStoreProvider';
 
 const NotificationsForm: FC = () => {
-  const { user } = useAuthStore((state) => state);
+  const { user, update } = useAuthStore((state) => state);
   const defaultValues = notificationsFormDefaultValues(user);
 
   const form = useForm<NotificationsFormValues>({
@@ -31,7 +33,18 @@ const NotificationsForm: FC = () => {
   });
 
   const handleUpdate = async (data: NotificationsFormValues) => {
-    console.log(data);
+    try {
+      if (!user) return;
+
+      const updatedUser = merge({}, user, { settings: data });
+
+      await update(updatedUser);
+      toast.success('User updated successfully!');
+    } catch (error) {
+      if (error instanceof Error) {
+        toast.error(error.message);
+      }
+    }
   };
 
   const onSubmit = (data: NotificationsFormValues) => handleUpdate(data);

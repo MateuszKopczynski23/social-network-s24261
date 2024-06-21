@@ -7,6 +7,7 @@ import { CalendarIcon, ChevronDownIcon } from 'lucide-react';
 import { format } from 'date-fns';
 import Image from 'next/image';
 import { toast } from 'sonner';
+import assign from 'lodash/assign';
 
 import { cn } from '@/lib/utils';
 import { Button, buttonVariants } from '@/components/ui/button';
@@ -53,7 +54,9 @@ const AccountForm: FC = () => {
     try {
       if (!user) return;
 
-      await update(user, data);
+      const updatedUser = assign({}, user, data);
+
+      await update(updatedUser);
       toast.success('User updated successfully!');
     } catch (error) {
       if (error instanceof Error) {

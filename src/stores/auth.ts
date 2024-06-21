@@ -1,6 +1,6 @@
 import { createStore } from 'zustand/vanilla';
 import isEqual from 'lodash/isEqual';
-import get from 'lodash/get';
+import lodashGet from 'lodash/get';
 import omit from 'lodash/omit';
 import assign from 'lodash/assign';
 
@@ -22,12 +22,12 @@ export type AuthActions = {
   login: (data: LoginFormValues) => Promise<void>;
   register: (data: RegisterFormValues) => Promise<void>;
   logout: () => Promise<void>;
-  update: (user: User, data: Partial<User>) => Promise<void>;
+  update: (data: User) => Promise<void>;
 };
 
 export type AuthStore = AuthState & AuthActions;
 
-const defaultUserData = () => ({
+export const defaultUserData = () => ({
   firstName: '',
   lastName: '',
   age: 0,
@@ -58,7 +58,7 @@ export const defaultInitState: AuthState = {
 };
 
 export const createAuthStore = (initState: AuthState = defaultInitState) => {
-  return createStore<AuthStore>()((set) => ({
+  return createStore<AuthStore>()((set, get) => ({
     ...initState,
 
     login: async ({ email, password }: LoginFormValues) => {
@@ -89,7 +89,7 @@ export const createAuthStore = (initState: AuthState = defaultInitState) => {
       try {
         const { email } = data;
         const existingUsers = await getUser({ email });
-        const hasExistingUsers = get(existingUsers, 'length');
+        const hasExistingUsers = lodashGet(existingUsers, 'length');
 
         if (hasExistingUsers) {
           throw new Error('User already exists.');
@@ -107,14 +107,16 @@ export const createAuthStore = (initState: AuthState = defaultInitState) => {
       }
     },
 
-    update: async (user: User, data: Partial<User>) => {
+    update: async (data: User) => {
       try {
-        const mergedUserData = assign(user, data);
+        const user = get().user;
 
-        await updateUser(mergedUserData, user.id);
-        await setUser(mergedUserData);
+        if (!user) return;
 
-        set({ user });
+        await updateUser(data, user.id);
+        await setUser(data);
+
+        set({ user: data });
       } catch (e) {
         throw new Error('Failed to update user. Please try again.');
       }

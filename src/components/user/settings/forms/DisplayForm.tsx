@@ -3,6 +3,8 @@
 import { zodResolver } from '@hookform/resolvers/zod';
 import { FC } from 'react';
 import { useForm } from 'react-hook-form';
+import { toast } from 'sonner';
+import merge from 'lodash/merge';
 
 import { Button } from '@/components/ui/button';
 import {
@@ -22,7 +24,7 @@ import { Switch } from '@/components/ui/switch';
 import { useAuthStore } from '@/providers/store/AuthStoreProvider';
 
 const DisplayForm: FC = () => {
-  const { user } = useAuthStore((state) => state);
+  const { user, update } = useAuthStore((state) => state);
   const defaultValues = displayFormDefaultValues(user);
 
   const form = useForm<DisplayFormValues>({
@@ -31,7 +33,18 @@ const DisplayForm: FC = () => {
   });
 
   const handleUpdate = async (data: DisplayFormValues) => {
-    console.log(data);
+    try {
+      if (!user) return;
+
+      const updatedUser = merge({}, user, { settings: data });
+
+      await update(updatedUser);
+      toast.success('User updated successfully!');
+    } catch (error) {
+      if (error instanceof Error) {
+        toast.error(error.message);
+      }
+    }
   };
 
   const onSubmit = (data: DisplayFormValues) => handleUpdate(data);
