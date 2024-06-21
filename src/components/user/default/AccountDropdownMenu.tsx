@@ -1,6 +1,9 @@
+'use client';
+
 import Image from 'next/image';
 import Link from 'next/link';
 import { FC } from 'react';
+import { useRouter } from 'next/navigation';
 
 import { Button } from '@/components/ui/button';
 import {
@@ -11,8 +14,17 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu';
+import { useAuthStore } from '@/providers/store/AuthStoreProvider';
 
 const AccountDropdownMenu: FC = () => {
+  const { push } = useRouter();
+  const { logout } = useAuthStore((state) => state);
+
+  const handleLogout = async () => {
+    await logout();
+    push('/login');
+  };
+
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
@@ -38,7 +50,7 @@ const AccountDropdownMenu: FC = () => {
           <DropdownMenuLabel>My Profile</DropdownMenuLabel>
         </Link>
         <DropdownMenuSeparator />
-        <DropdownMenuItem>Logout</DropdownMenuItem>
+        <DropdownMenuItem onClick={handleLogout}>Logout</DropdownMenuItem>
       </DropdownMenuContent>
     </DropdownMenu>
   );
