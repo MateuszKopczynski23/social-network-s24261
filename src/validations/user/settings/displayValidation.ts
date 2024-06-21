@@ -11,7 +11,7 @@ export const displayFormSchema = z.object({
 
 export const displayFormDefaultValues = (user: User | null) => {
   return {
-    isStickyHeader: user?.settings.isStickyHeader || true,
-    isActiveFriendsVisible: user?.settings.isActiveFriendsVisible || true,
+    isStickyHeader: user?.settings.isStickyHeader,
+    isActiveFriendsVisible: user?.settings.isActiveFriendsVisible,
   };
 };
