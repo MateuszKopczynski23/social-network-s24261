@@ -23,6 +23,10 @@ const items = [
     title: 'Display',
     href: '/user/settings/display',
   },
+  {
+    title: 'Privacy',
+    href: '/user/settings/privacy',
+  },
 ] as const;
 
 const Sidebar: FC = () => {
