@@ -32,8 +32,11 @@ import {
   PopoverTrigger,
 } from '@/components/ui/popover';
 import { Calendar } from '@/components/ui/calendar';
-import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
-import { DEFAULT_BACKGROUND_IMAGE } from '@/constants/images';
+import { Avatar, AvatarImage } from '@/components/ui/avatar';
+import {
+  DEFAULT_AVATAR_IMAGE,
+  DEFAULT_BACKGROUND_IMAGE,
+} from '@/constants/images';
 
 const AccountForm: FC = () => {
   const { user } = useAuthStore((state) => state);
@@ -268,7 +271,7 @@ const AccountForm: FC = () => {
               </FormControl>
               <Avatar className="h-36 w-36 rounded-none rounded-br-2xl rounded-tl-2xl">
                 <AvatarImage
-                  src={field.value}
+                  src={field.value || DEFAULT_AVATAR_IMAGE}
                   alt="Avatar"
                   className="object-cover"
                 />
