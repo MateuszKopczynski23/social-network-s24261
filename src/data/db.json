@@ -2,11 +2,11 @@
   "users": [
     {
       "id": "1",
-      "firstName": "John",
+      "firstName": "Johnny",
       "lastName": "Doe",
       "age": 23,
       "city": "New York",
-      "dateOfBirth": "1999-10-21",
+      "dateOfBirth": "1999-10-21T00:00:00.000Z",
       "imageUrl": "https://images.unsplash.com/photo-1490300472339-79e4adc6be4a?w=300&dpr=2&q=80",
       "backgroundUrl": "https://images.unsplash.com/photo-1563089145-599997674d42?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
       "description": "Software Engineer passionate about building cool things",
@@ -42,7 +42,7 @@
         "isPrivate": true,
         "isNotificationsEnabled": true,
         "isStickyHeader": false,
-        "isActiveFriendsVisible": false
+        "isActiveFriendsVisible": true
       }
     },
     {
