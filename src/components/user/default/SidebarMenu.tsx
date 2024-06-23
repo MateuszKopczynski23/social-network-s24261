@@ -8,9 +8,13 @@ import { FC } from 'react';
 import ActiveFriends from '@/components/user/default/ActiveFriends';
 import { cn } from '@/lib/utils';
 import items from '@/constants/userMenuLinks';
+import { useAuthStore } from '@/providers/store/AuthStoreProvider';
 
 const SidebarMenu: FC = () => {
   const pathname = usePathname();
+  const { user } = useAuthStore((state) => state);
+
+  const isActiveFriendsVisible = user?.settings.isActiveFriendsVisible;
 
   return (
     <div className="sticky top-0 z-30 hidden h-screen border-r bg-muted/40 md:block">
@@ -41,7 +45,7 @@ const SidebarMenu: FC = () => {
             ))}
           </nav>
         </div>
-        <ActiveFriends />
+        {isActiveFriendsVisible && <ActiveFriends />}
       </div>
     </div>
   );

@@ -1,16 +1,16 @@
 'use client';
 
 import { zodResolver } from '@hookform/resolvers/zod';
-import { format } from 'date-fns';
-import { CalendarIcon } from 'lucide-react';
 import { FC } from 'react';
 import { useForm } from 'react-hook-form';
-import { z } from 'zod';
+import { CalendarIcon, ChevronDownIcon } from 'lucide-react';
+import { format } from 'date-fns';
+import Image from 'next/image';
+import { toast } from 'sonner';
+import assign from 'lodash/assign';
 
 import { cn } from '@/lib/utils';
-import { Button } from '@/components/ui/button';
-import { Input } from '@/components/ui/input';
-import { Calendar } from '@/components/ui/calendar';
+import { Button, buttonVariants } from '@/components/ui/button';
 import {
   Form,
   FormControl,
@@ -20,108 +20,299 @@ import {
   FormLabel,
   FormMessage,
 } from '@/components/ui/form';
+import { Input } from '@/components/ui/input';
+import { Textarea } from '@/components/ui/textarea';
+import { useAuthStore } from '@/providers/store/AuthStoreProvider';
+import {
+  accountFormDefaultValues,
+  accountFormSchema,
+  AccountFormValues,
+} from '@/validations/user/settings/accountValidation';
 import {
   Popover,
   PopoverContent,
   PopoverTrigger,
 } from '@/components/ui/popover';
-
-const accountFormSchema = z.object({
-  name: z
-    .string()
-    .min(2, {
-      message: 'Name must be at least 2 characters.',
-    })
-    .max(30, {
-      message: 'Name must not be longer than 30 characters.',
-    }),
-  dob: z.date({
-    required_error: 'A date of birth is required.',
-  }),
-});
-
-type AccountFormValues = z.infer<typeof accountFormSchema>;
-
-const defaultValues: Partial<AccountFormValues> = {
-  // name: "Your name",
-  // dob: new Date("2023-01-23"),
-};
+import { Calendar } from '@/components/ui/calendar';
+import { Avatar, AvatarImage } from '@/components/ui/avatar';
+import {
+  DEFAULT_AVATAR_IMAGE,
+  DEFAULT_BACKGROUND_IMAGE,
+} from '@/constants/images';
 
 const AccountForm: FC = () => {
+  const { user, update } = useAuthStore((state) => state);
+  const defaultValues = accountFormDefaultValues(user);
+
   const form = useForm<AccountFormValues>({
     resolver: zodResolver(accountFormSchema),
     defaultValues,
+    mode: 'onChange',
   });
+
+  const handleUpdate = async (data: AccountFormValues) => {
+    try {
+      if (!user) return;
+
+      const updatedUser = assign({}, user, data);
+
+      await update(updatedUser);
+      toast.success('User updated successfully!');
+    } catch (error) {
+      if (error instanceof Error) {
+        toast.error(error.message);
+      }
+    }
+  };
+
+  const onSubmit = (data: AccountFormValues) => handleUpdate(data);
 
   return (
     <Form {...form}>
       <form
-        // onSubmit={}
+        onSubmit={form.handleSubmit(onSubmit)}
         className="space-y-8"
       >
+        <div className="grid gap-8 md:grid-cols-2 lg:gap-4">
+          <FormField
+            control={form.control}
+            name="firstName"
+            render={({ field }) => (
+              <FormItem>
+                <FormLabel>First name</FormLabel>
+                <FormControl>
+                  <Input
+                    placeholder="none"
+                    {...field}
+                  />
+                </FormControl>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
+          <FormField
+            control={form.control}
+            name="lastName"
+            render={({ field }) => (
+              <FormItem>
+                <FormLabel>Last name</FormLabel>
+                <FormControl>
+                  <Input
+                    placeholder="none"
+                    {...field}
+                  />
+                </FormControl>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
+        </div>
         <FormField
           control={form.control}
-          name="name"
+          name="email"
           render={({ field }) => (
             <FormItem>
-              <FormLabel>Name</FormLabel>
+              <FormLabel>Email</FormLabel>
               <FormControl>
                 <Input
-                  placeholder="Your name"
+                  placeholder="none"
+                  disabled
                   {...field}
                 />
               </FormControl>
-              <FormDescription>
-                This is the name that will be displayed on your profile and in
-                emails.
-              </FormDescription>
+              <FormDescription>The email field is read-only.</FormDescription>
+              <FormMessage />
+            </FormItem>
+          )}
+        />
+        <div className="grid gap-8 lg:grid-cols-2 lg:gap-4">
+          <FormField
+            control={form.control}
+            name="street"
+            render={({ field }) => (
+              <FormItem>
+                <FormLabel>Street</FormLabel>
+                <FormControl>
+                  <Input
+                    placeholder="none"
+                    {...field}
+                  />
+                </FormControl>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
+          <div className="grid gap-8 sm:grid-cols-2 lg:gap-4">
+            <FormField
+              control={form.control}
+              name="city"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>City</FormLabel>
+                  <FormControl>
+                    <Input
+                      placeholder="none"
+                      {...field}
+                    />
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+            <FormField
+              control={form.control}
+              name="country"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>Country</FormLabel>
+                  <FormControl>
+                    <Input
+                      placeholder="None"
+                      {...field}
+                    />
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+          </div>
+        </div>
+        <FormField
+          control={form.control}
+          name="description"
+          render={({ field }) => (
+            <FormItem>
+              <FormLabel>About</FormLabel>
+              <FormControl>
+                <Textarea
+                  placeholder="Tell us a little bit about yourself"
+                  className="resize-none"
+                  {...field}
+                />
+              </FormControl>
+              <FormMessage />
+            </FormItem>
+          )}
+        />
+        <div className="grid gap-8 lg:grid-cols-2 lg:gap-4">
+          <FormField
+            control={form.control}
+            name="gender"
+            render={({ field }) => (
+              <FormItem className="flex flex-col">
+                <FormLabel>Gender</FormLabel>
+                <div className="relative md:w-max">
+                  <FormControl>
+                    <select
+                      className={cn(
+                        buttonVariants({ variant: 'outline' }),
+                        'w-full appearance-none font-normal md:w-[200px]'
+                      )}
+                      {...field}
+                    >
+                      <option value="male">Male</option>
+                      <option value="female">Female</option>
+                    </select>
+                  </FormControl>
+                  <ChevronDownIcon className="absolute right-3 top-2.5 h-4 w-4 opacity-50" />
+                </div>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
+          <FormField
+            control={form.control}
+            name="dateOfBirth"
+            render={({ field }) => (
+              <FormItem className="flex flex-col">
+                <FormLabel>Date of birth</FormLabel>
+                <Popover>
+                  <PopoverTrigger asChild>
+                    <FormControl>
+                      <Button
+                        variant={'outline'}
+                        className={cn(
+                          'pl-3 text-left font-normal md:w-[240px]',
+                          !field.value && 'text-muted-foreground'
+                        )}
+                      >
+                        {field.value ? (
+                          format(new Date(field.value), 'PPP')
+                        ) : (
+                          <span>Pick a date</span>
+                        )}
+                        <CalendarIcon className="ml-auto h-4 w-4 opacity-50" />
+                      </Button>
+                    </FormControl>
+                  </PopoverTrigger>
+                  <PopoverContent
+                    className="w-auto p-0"
+                    align="start"
+                  >
+                    <Calendar
+                      mode="single"
+                      selected={field.value ? new Date(field.value) : undefined}
+                      onSelect={(date) =>
+                        field.onChange(date ? date.toISOString() : '')
+                      }
+                      disabled={(date) =>
+                        date > new Date() || date < new Date('1900-01-01')
+                      }
+                      initialFocus
+                    />
+                  </PopoverContent>
+                </Popover>
+                <FormDescription>
+                  Your date of birth is used to calculate your age.
+                </FormDescription>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
+        </div>
+        <FormField
+          control={form.control}
+          name="imageUrl"
+          render={({ field }) => (
+            <FormItem>
+              <FormLabel>Avatar image</FormLabel>
+              <FormControl>
+                <Input
+                  placeholder="none"
+                  {...field}
+                />
+              </FormControl>
+              <Avatar className="h-36 w-36 rounded-none rounded-br-2xl rounded-tl-2xl">
+                <AvatarImage
+                  src={field.value || DEFAULT_AVATAR_IMAGE}
+                  alt="Avatar"
+                  className="object-cover"
+                />
+              </Avatar>
               <FormMessage />
             </FormItem>
           )}
         />
         <FormField
           control={form.control}
-          name="dob"
+          name="backgroundUrl"
           render={({ field }) => (
-            <FormItem className="flex flex-col">
-              <FormLabel>Date of birth</FormLabel>
-              <Popover>
-                <PopoverTrigger asChild>
-                  <FormControl>
-                    <Button
-                      variant={'outline'}
-                      className={cn(
-                        'w-[240px] pl-3 text-left font-normal',
-                        !field.value && 'text-muted-foreground'
-                      )}
-                    >
-                      {field.value ? (
-                        format(field.value, 'PPP')
-                      ) : (
-                        <span>Pick a date</span>
-                      )}
-                      <CalendarIcon className="ml-auto h-4 w-4 opacity-50" />
-                    </Button>
-                  </FormControl>
-                </PopoverTrigger>
-                <PopoverContent
-                  className="w-auto p-0"
-                  align="start"
-                >
-                  <Calendar
-                    mode="single"
-                    selected={field.value}
-                    onSelect={field.onChange}
-                    disabled={(date) =>
-                      date > new Date() || date < new Date('1900-01-01')
-                    }
-                    initialFocus
-                  />
-                </PopoverContent>
-              </Popover>
-              <FormDescription>
-                Your date of birth is used to calculate your age.
-              </FormDescription>
+            <FormItem>
+              <FormLabel>Background image</FormLabel>
+              <FormControl>
+                <Input
+                  placeholder="none"
+                  {...field}
+                />
+              </FormControl>
+              <Image
+                src={field.value || DEFAULT_BACKGROUND_IMAGE}
+                alt="background"
+                priority
+                width="1920"
+                height="1080"
+                className="h-40 rounded-br-2xl rounded-tl-2xl object-cover lg:h-72"
+              />
               <FormMessage />
             </FormItem>
           )}

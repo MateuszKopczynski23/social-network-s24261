@@ -17,12 +17,12 @@ import {
   FormLabel,
   FormMessage,
 } from '@/components/ui/form';
-import { useAuthStore } from '@/providers/AuthStoreProvider';
+import { useAuthStore } from '@/providers/store/AuthStoreProvider';
 import {
-  defaultValues,
+  loginFormDefaultValues,
   loginFormSchema,
   LoginFormValues,
-} from '@/validations/loginValidation';
+} from '@/validations/auth/loginValidation';
 
 const LoginPage: NextPage = () => {
   const { push } = useRouter();
@@ -30,7 +30,7 @@ const LoginPage: NextPage = () => {
 
   const form = useForm<LoginFormValues>({
     resolver: zodResolver(loginFormSchema),
-    defaultValues,
+    defaultValues: loginFormDefaultValues,
   });
 
   const handleLogin = async (data: LoginFormValues) => {

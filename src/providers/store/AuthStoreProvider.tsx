@@ -3,7 +3,8 @@
 import { createContext, type ReactNode, useContext, useRef } from 'react';
 import { useStore } from 'zustand';
 
-import { type AuthStore, createAuthStore } from '@/stores/auth';
+import { type AuthStore, createAuthStore, initAuthStore } from '@/stores/auth';
+import { User } from '@/interfaces/user';
 
 export type AuthStoreApi = ReturnType<typeof createAuthStore>;
 
@@ -13,12 +14,16 @@ export const AuthStoreContext = createContext<AuthStoreApi | undefined>(
 
 export interface AuthStoreProviderProps {
   children: ReactNode;
+  user?: User | null;
 }
 
-export const AuthStoreProvider = ({ children }: AuthStoreProviderProps) => {
+export const AuthStoreProvider = ({
+  children,
+  user,
+}: AuthStoreProviderProps) => {
   const storeRef = useRef<AuthStoreApi>();
   if (!storeRef.current) {
-    storeRef.current = createAuthStore();
+    storeRef.current = createAuthStore(initAuthStore(user));
   }
 
   return (
