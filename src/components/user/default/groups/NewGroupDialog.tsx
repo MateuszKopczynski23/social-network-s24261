@@ -81,8 +81,8 @@ const NewGroupDialog: FC = () => {
       <DialogTrigger asChild>
         <div className="ml-auto">
           <Button>
-            <PlusCircle className="mr-2 h-4 w-4" />
-            Add group
+            <PlusCircle className="h-4 w-4 md:mr-2" />
+            <span className="hidden md:inline">Add group</span>
           </Button>
         </div>
       </DialogTrigger>

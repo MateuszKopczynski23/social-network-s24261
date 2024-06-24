@@ -3,6 +3,7 @@ import React, { FC, ReactNode } from 'react';
 import { AuthStoreProvider } from '@/providers/store/AuthStoreProvider';
 import { AuthState } from '@/stores/auth';
 import { GroupsStoreProvider } from '@/providers/store/GroupsStoreProvider';
+import { EventsStoreProvider } from '@/providers/store/EventsStoreProvider';
 
 interface StoreProviderProps {
   authState?: AuthState;
@@ -14,7 +15,9 @@ const StoreProvider: FC<StoreProviderProps> = ({ children, authState }) => {
 
   return (
     <AuthStoreProvider user={defaultUser}>
-      <GroupsStoreProvider>{children}</GroupsStoreProvider>
+      <GroupsStoreProvider>
+        <EventsStoreProvider>{children}</EventsStoreProvider>
+      </GroupsStoreProvider>
     </AuthStoreProvider>
   );
 };
