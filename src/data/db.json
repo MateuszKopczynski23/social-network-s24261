@@ -20,7 +20,7 @@
         "isPrivate": true,
         "isNotificationsEnabled": true,
         "isStickyHeader": true,
-        "isActiveFriendsVisible": true
+        "isActiveFriendsVisible": false
       }
     },
     {
@@ -97,7 +97,7 @@
       "name": "Tech Enthusiasts",
       "description": "Group for discussing all things tech",
       "isPrivate": false,
-      "imageUrl": "https://unsplash.com/s/photos/computer-team"
+      "imageUrl": "https://images.unsplash.com/photo-1533174072545-7a4b6ad7a6c3?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
     },
     {
       "id": "2",
@@ -105,7 +105,7 @@
       "name": "Bookworms",
       "description": "Sharing favorite books and recommendations",
       "isPrivate": true,
-      "imageUrl": "https://unsplash.com/s/photos/book-club"
+      "imageUrl": "https://images.unsplash.com/photo-1533174072545-7a4b6ad7a6c3?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
     },
     {
       "id": "3",
@@ -113,7 +113,7 @@
       "name": "AI Enthusiasts",
       "description": "Discussing the latest in artificial intelligence",
       "isPrivate": true,
-      "imageUrl": "https://unsplash.com/s/photos/artificial-intelligence"
+      "imageUrl": "https://images.unsplash.com/photo-1533174072545-7a4b6ad7a6c3?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
     },
     {
       "id": "4",
@@ -121,7 +121,7 @@
       "name": "Art Lovers",
       "description": "A place for sharing art and inspiration",
       "isPrivate": false,
-      "imageUrl": "https://unsplash.com/s/photos/art"
+      "imageUrl": "https://images.unsplash.com/photo-1533174072545-7a4b6ad7a6c3?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
     }
   ],
   "posts": [

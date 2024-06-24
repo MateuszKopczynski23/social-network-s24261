@@ -23,10 +23,10 @@ const ActiveFriends: FC = () => {
       <div className="p-2 pt-0 md:p-4 md:pt-0">
         <div className="space-y-4 pb-2">
           <div className="grid gap-3.5">
-            {getActiveFriends().map((friend, index) => (
+            {getActiveFriends().map((friend) => (
               <>
                 <div
-                  key={index}
+                  key={friend.image}
                   className="flex items-center justify-between space-x-4"
                 >
                   <div className="flex items-center space-x-4">

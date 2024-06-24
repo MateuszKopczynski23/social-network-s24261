@@ -1,9 +1,11 @@
+'use client';
+
 import { Users } from 'lucide-react';
 import Image from 'next/image';
 import Link from 'next/link';
-import React, { FC } from 'react';
+import React, { FC, MouseEvent } from 'react';
+import { toast } from 'sonner';
 
-import { Group } from '@/data/user/groups';
 import { cn } from '@/lib/utils';
 import {
   ContextMenu,
@@ -12,6 +14,10 @@ import {
   ContextMenuSeparator,
   ContextMenuTrigger,
 } from '@/components/ui/context-menu';
+import { Group } from '@/interfaces/group';
+import { DEFAULT_BACKGROUND_IMAGE } from '@/constants/images';
+import { useAuthStore } from '@/providers/store/AuthStoreProvider';
+import { useGroupsStore } from '@/providers/store/GroupsStoreProvider';
 
 interface GroupProps extends React.HTMLAttributes<HTMLDivElement> {
   group: Group;
@@ -28,8 +34,33 @@ const GroupItem: FC<GroupProps> = ({
   className,
   ...props
 }) => {
+  const { user } = useAuthStore((state) => state);
+  const { isUserInGroup, addUserToGroup, removeUserFromGroup } = useGroupsStore(
+    (state) => state
+  );
+
+  const isActionVisible = isUserInGroup(group.id, user?.id || '');
+
+  const handleAddUserToGroup = (e: MouseEvent) => {
+    e.preventDefault();
+
+    if (!group.id || !user) return;
+
+    addUserToGroup(group.id, user);
+    toast.success('You have joined the group successfully!');
+  };
+
+  const handleRemoveUserFromGroup = (e: MouseEvent) => {
+    e.preventDefault();
+
+    if (!group.id || !user) return;
+
+    removeUserFromGroup(group.id, user.id);
+    toast.success('You have left the group.');
+  };
+
   return (
-    <Link href="/user/groups/1">
+    <Link href={`/user/groups/${group.id}`}>
       <div
         className={cn('space-y-3', className)}
         {...props}
@@ -38,7 +69,7 @@ const GroupItem: FC<GroupProps> = ({
           <ContextMenuTrigger>
             <div className="group relative overflow-hidden rounded-md">
               <Image
-                src={group.image}
+                src={group.imageUrl || DEFAULT_BACKGROUND_IMAGE}
                 alt={group.name}
                 width={width}
                 height={height}
@@ -56,10 +87,23 @@ const GroupItem: FC<GroupProps> = ({
             </div>
           </ContextMenuTrigger>
           <ContextMenuContent className="w-40">
-            <ContextMenuItem>Join</ContextMenuItem>
+            {!isActionVisible && (
+              <ContextMenuItem onClick={(event) => handleAddUserToGroup(event)}>
+                Join
+              </ContextMenuItem>
+            )}
             <ContextMenuItem>Show</ContextMenuItem>
-            <ContextMenuSeparator />
-            <ContextMenuItem className="text-red-500">Leave</ContextMenuItem>
+            {isActionVisible && (
+              <>
+                <ContextMenuSeparator />
+                <ContextMenuItem
+                  className="text-red-500"
+                  onClick={(event) => handleRemoveUserFromGroup(event)}
+                >
+                  Leave
+                </ContextMenuItem>
+              </>
+            )}
           </ContextMenuContent>
         </ContextMenu>
         <div className="space-y-1">

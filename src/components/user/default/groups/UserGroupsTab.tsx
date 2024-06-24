@@ -1,11 +1,25 @@
+'use client';
+
 import React, { FC } from 'react';
+import filter from 'lodash/filter';
+import some from 'lodash/some';
 
 import { Separator } from '@/components/ui/separator';
 import { TabsContent } from '@/components/ui/tabs';
 import GroupItem from '@/components/user/default/groups/GroupItem';
-import { userGroups } from '@/data/user/groups';
+import { useGroupsStore } from '@/providers/store/GroupsStoreProvider';
+import { useAuthStore } from '@/providers/store/AuthStoreProvider';
 
 const UserGroupsTab: FC = () => {
+  const { user: authUser } = useAuthStore((state) => state);
+  const { groups } = useGroupsStore((state) => state);
+
+  const userGroups = filter(
+    groups,
+    (group) =>
+      group.user.id === authUser?.id || some(group.users, { id: authUser?.id })
+  );
+
   return (
     <TabsContent
       value="user"
@@ -21,7 +35,7 @@ const UserGroupsTab: FC = () => {
         </div>
       </div>
       <Separator className="my-4" />
-      <div className="grid grid-cols-2 gap-6 sm:grid-cols-3 lg:grid-cols-7">
+      <div className="grid grid-cols-2 gap-6 sm:grid-cols-3 lg:grid-cols-6 2xl:grid-cols-7">
         {userGroups.map((group) => (
           <GroupItem
             key={group.name}

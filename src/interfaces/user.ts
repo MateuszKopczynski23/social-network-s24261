@@ -18,6 +18,7 @@ export interface User {
 
 interface UserSettings {
   isPrivate: boolean;
+  isAdmin: boolean;
   isNotificationsEnabled: boolean;
   isStickyHeader: boolean;
   isActiveFriendsVisible: boolean;
