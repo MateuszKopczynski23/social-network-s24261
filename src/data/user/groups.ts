@@ -1,94 +1,287 @@
-export interface Group {
-  name: string;
-  description: string;
-  image: string;
-}
+import { Group } from '@/interfaces/group';
 
-export const userGroups: Group[] = [
+export const groups: Group[] = [
   {
-    description: 'A group for Tom Holland fans',
-    name: 'Tom Holland fan club',
-    image:
-      'https://images.unsplash.com/photo-1615247001958-f4bc92fa6a4a?w=300&dpr=2&q=80',
+    id: '1',
+    userId: '1',
+    name: 'Tech Enthusiasts',
+    description:
+      'Welcome to the Music Lovers group! 🎵❤️ This is a community for everyone who shares a passion for music. Whether you\'re into rock, pop, classical, or jazz, you\'ll find like-minded people here. Share your favorite songs, discuss new albums, and discover new artists',
+    isPrivate: false,
+    imageUrl:
+      'https://images.unsplash.com/photo-1533174072545-7a4b6ad7a6c3?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
+    user: {
+      id: '2',
+      firstName: 'Johnny',
+      lastName: 'Doe',
+      age: 23,
+      city: 'New York',
+      dateOfBirth: '1999-10-21T00:00:00.000Z',
+      imageUrl:
+        'https://images.unsplash.com/photo-1490300472339-79e4adc6be4a?w=300&dpr=2&q=80',
+      backgroundUrl:
+        'https://images.unsplash.com/photo-1563089145-599997674d42?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
+      description: 'Software Engineer passionate about building cool things',
+      street: '',
+      country: 'USA',
+      gender: 'male',
+      email: 'test@test.pl',
+      password: 'password',
+      settings: {
+        isPrivate: true,
+        isAdmin: true,
+        isNotificationsEnabled: true,
+        isStickyHeader: true,
+        isActiveFriendsVisible: false,
+      },
+    },
+    users: [
+      {
+        id: '2',
+        firstName: 'Lena23',
+        lastName: 'Doe',
+        age: 27,
+        city: 'New York',
+        dateOfBirth: '2024-06-10T22:00:00.000Z',
+        imageUrl: '',
+        backgroundUrl: '',
+        description: 'Software Engineer passionate about building cool things',
+        street: 'OGRO',
+        country: 'USA',
+        gender: 'male',
+        email: 'test@test1.pl',
+        password: 'password',
+        settings: {
+          isAdmin: false,
+          isPrivate: true,
+          isNotificationsEnabled: true,
+          isStickyHeader: false,
+          isActiveFriendsVisible: true,
+        },
+      },
+    ],
   },
   {
-    description: 'Fun group for all the cat lovers out there',
-    name: 'Functional Fury',
-    image:
-      'https://images.unsplash.com/photo-1513745405825-efaf9a49315f?w=300&dpr=2&q=80',
+    id: '2',
+    userId: '1',
+    name: 'Bookworms',
+    description: 'Sharing favorite books and recommendations',
+    isPrivate: true,
+    imageUrl:
+      'https://images.unsplash.com/photo-1517457373958-b7bdd4587205?q=80&w=2069&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
+    user: {
+      id: '2',
+      firstName: 'Lena23',
+      lastName: 'Doe',
+      age: 27,
+      city: 'New York',
+      dateOfBirth: '2024-06-10T22:00:00.000Z',
+      imageUrl: '',
+      backgroundUrl: '',
+      description: 'Software Engineer passionate about building cool things',
+      street: 'OGRO',
+      country: 'USA',
+      gender: 'male',
+      email: 'test@test1.pl',
+      password: 'password',
+      settings: {
+        isAdmin: false,
+        isPrivate: true,
+        isNotificationsEnabled: true,
+        isStickyHeader: false,
+        isActiveFriendsVisible: true,
+      },
+    },
+    users: [
+      {
+        id: '2',
+        firstName: 'Lena23',
+        lastName: 'Doe',
+        age: 27,
+        city: 'New York',
+        dateOfBirth: '2024-06-10T22:00:00.000Z',
+        imageUrl: '',
+        backgroundUrl: '',
+        description: 'Software Engineer passionate about building cool things',
+        street: 'OGRO',
+        country: 'USA',
+        gender: 'male',
+        email: 'test@test1.pl',
+        password: 'password',
+        settings: {
+          isAdmin: false,
+          isPrivate: true,
+          isNotificationsEnabled: true,
+          isStickyHeader: false,
+          isActiveFriendsVisible: true,
+        },
+      },
+    ],
   },
   {
-    description: 'A group for React developers',
-    name: 'React Rendezvous',
-    image:
-      'https://images.unsplash.com/photo-1614113489855-66422ad300a4?w=300&dpr=2&q=80',
+    id: '3',
+    userId: '3',
+    name: 'AI Enthusiasts',
+    description: 'Discussing the latest in artificial intelligence',
+    isPrivate: true,
+    imageUrl:
+      'https://images.unsplash.com/photo-1506111583091-becfd4bfa05d?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
+    user: {
+      id: '2',
+      firstName: 'Johnny',
+      lastName: 'Doe',
+      age: 23,
+      city: 'New York',
+      dateOfBirth: '1999-10-21T00:00:00.000Z',
+      imageUrl:
+        'https://images.unsplash.com/photo-1490300472339-79e4adc6be4a?w=300&dpr=2&q=80',
+      backgroundUrl:
+        'https://images.unsplash.com/photo-1563089145-599997674d42?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
+      description: 'Software Engineer passionate about building cool things',
+      street: '',
+      country: 'USA',
+      gender: 'male',
+      email: 'test@test.pl',
+      password: 'password',
+      settings: {
+        isPrivate: true,
+        isAdmin: true,
+        isNotificationsEnabled: true,
+        isStickyHeader: true,
+        isActiveFriendsVisible: false,
+      },
+    },
+    users: [
+      {
+        id: '2',
+        firstName: 'Johnny',
+        lastName: 'Doe',
+        age: 23,
+        city: 'New York',
+        dateOfBirth: '1999-10-21T00:00:00.000Z',
+        imageUrl:
+          'https://images.unsplash.com/photo-1490300472339-79e4adc6be4a?w=300&dpr=2&q=80',
+        backgroundUrl:
+          'https://images.unsplash.com/photo-1563089145-599997674d42?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
+        description: 'Software Engineer passionate about building cool things',
+        street: '',
+        country: 'USA',
+        gender: 'male',
+        email: 'test@test.pl',
+        password: 'password',
+        settings: {
+          isPrivate: true,
+          isAdmin: true,
+          isNotificationsEnabled: true,
+          isStickyHeader: true,
+          isActiveFriendsVisible: false,
+        },
+      },
+      {
+        id: '3',
+        firstName: 'Lena23',
+        lastName: 'Doe',
+        age: 27,
+        city: 'New York',
+        dateOfBirth: '2024-06-10T22:00:00.000Z',
+        imageUrl: '',
+        backgroundUrl: '',
+        description: 'Software Engineer passionate about building cool things',
+        street: 'OGRO',
+        country: 'USA',
+        gender: 'male',
+        email: 'test@test1.pl',
+        password: 'password',
+        settings: {
+          isAdmin: false,
+          isPrivate: true,
+          isNotificationsEnabled: true,
+          isStickyHeader: false,
+          isActiveFriendsVisible: true,
+        },
+      },
+    ],
   },
   {
-    description: 'Music lovers group',
-    name: 'Stateful Symphony',
-    image:
-      'https://images.unsplash.com/photo-1446185250204-f94591f7d702?w=300&dpr=2&q=80',
-  },
-  {
-    name: 'Async Awakenings',
-    description: 'Nina Netcode',
-    image:
-      'https://images.unsplash.com/photo-1468817814611-b7edf94b5d60?w=300&dpr=2&q=80',
-  },
-  {
-    name: 'The Art of Reusability',
-    description: 'Lena Logic',
-    image:
-      'https://images.unsplash.com/photo-1490300472339-79e4adc6be4a?w=300&dpr=2&q=80',
-  },
-  {
-    name: 'Thinking Components',
-    description: 'Lena Logic',
-    image:
-      'https://images.unsplash.com/photo-1615247001958-f4bc92fa6a4a?w=300&dpr=2&q=80',
-  },
-  {
-    name: 'Functional Fury',
-    description: 'Beth Binary',
-    image:
-      'https://images.unsplash.com/photo-1513745405825-efaf9a49315f?w=300&dpr=2&q=80',
-  },
-  {
-    name: 'React Rendezvous',
-    description: 'Group for moms',
-    image:
-      'https://images.unsplash.com/photo-1614113489855-66422ad300a4?w=300&dpr=2&q=80',
-  },
-  {
-    name: 'Stateful Symphony',
-    description: 'Beth Binary',
-    image:
-      'https://images.unsplash.com/photo-1446185250204-f94591f7d702?w=300&dpr=2&q=80',
-  },
-  {
-    name: 'Async Awakenings',
-    description: 'Nina Netcode',
-    image:
-      'https://images.unsplash.com/photo-1468817814611-b7edf94b5d60?w=300&dpr=2&q=80',
-  },
-  {
-    name: 'The Art of Reusability',
-    description: 'Lena Logic',
-    image:
-      'https://images.unsplash.com/photo-1490300472339-79e4adc6be4a?w=300&dpr=2&q=80',
-  },
-  {
-    name: 'Thinking Components',
-    description: 'Lena Logic',
-    image:
-      'https://images.unsplash.com/photo-1615247001958-f4bc92fa6a4a?w=300&dpr=2&q=80',
-  },
-  {
-    name: 'Functional Fury',
-    description: 'Beth Binary',
-    image:
-      'https://images.unsplash.com/photo-1513745405825-efaf9a49315f?w=300&dpr=2&q=80',
+    id: '4',
+    userId: '4',
+    name: 'Art Lovers',
+    description: 'A place for sharing art and inspiration',
+    isPrivate: false,
+    imageUrl:
+      'https://images.unsplash.com/photo-1496337589254-7e19d01cec44?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
+    user: {
+      id: '2',
+      firstName: 'Lena23',
+      lastName: 'Doe',
+      age: 27,
+      city: 'New York',
+      dateOfBirth: '2024-06-10T22:00:00.000Z',
+      imageUrl: '',
+      backgroundUrl: '',
+      description: 'Software Engineer passionate about building cool things',
+      street: 'OGRO',
+      country: 'USA',
+      gender: 'male',
+      email: 'test@test1.pl',
+      password: 'password',
+      settings: {
+        isAdmin: false,
+        isPrivate: true,
+        isNotificationsEnabled: true,
+        isStickyHeader: false,
+        isActiveFriendsVisible: true,
+      },
+    },
+    users: [
+      {
+        id: '3',
+        firstName: 'Johnny',
+        lastName: 'Doe',
+        age: 23,
+        city: 'New York',
+        dateOfBirth: '1999-10-21T00:00:00.000Z',
+        imageUrl:
+          'https://images.unsplash.com/photo-1490300472339-79e4adc6be4a?w=300&dpr=2&q=80',
+        backgroundUrl:
+          'https://images.unsplash.com/photo-1563089145-599997674d42?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
+        description: 'Software Engineer passionate about building cool things',
+        street: '',
+        country: 'USA',
+        gender: 'male',
+        email: 'test@test.pl',
+        password: 'password',
+        settings: {
+          isPrivate: true,
+          isAdmin: true,
+          isNotificationsEnabled: true,
+          isStickyHeader: true,
+          isActiveFriendsVisible: false,
+        },
+      },
+      {
+        id: '4',
+        firstName: 'Lena23',
+        lastName: 'Doe',
+        age: 27,
+        city: 'New York',
+        dateOfBirth: '2024-06-10T22:00:00.000Z',
+        imageUrl: '',
+        backgroundUrl: '',
+        description: 'Software Engineer passionate about building cool things',
+        street: 'OGRO',
+        country: 'USA',
+        gender: 'male',
+        email: 'test@test1.pl',
+        password: 'password',
+        settings: {
+          isAdmin: false,
+          isPrivate: true,
+          isNotificationsEnabled: true,
+          isStickyHeader: false,
+          isActiveFriendsVisible: true,
+        },
+      },
+    ],
   },
 ];
-
-export const newGroups: Group[] = [...userGroups, ...userGroups, ...userGroups];

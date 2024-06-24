@@ -1,11 +1,25 @@
+'use client';
+
 import React, { FC } from 'react';
+import some from 'lodash/some';
+import filter from 'lodash/filter';
 
 import { Separator } from '@/components/ui/separator';
 import { TabsContent } from '@/components/ui/tabs';
 import GroupItem from '@/components/user/default/groups/GroupItem';
-import { newGroups } from '@/data/user/groups';
+import { useGroupsStore } from '@/providers/store/GroupsStoreProvider';
+import { useAuthStore } from '@/providers/store/AuthStoreProvider';
 
 const NewGroupsTab: FC = () => {
+  const { user: authUser } = useAuthStore((state) => state);
+  const { groups } = useGroupsStore((state) => state);
+
+  const newGroups = filter(
+    groups,
+    (group) =>
+      group.user.id !== authUser?.id && !some(group.users, { id: authUser?.id })
+  );
+
   return (
     <TabsContent
       value="explore"

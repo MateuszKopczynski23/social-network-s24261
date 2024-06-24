@@ -1,6 +1,10 @@
-import { CirclePlus, Share2 } from 'lucide-react';
+'use client';
+
+import { CirclePlus, LogOut, Share2, Trash } from 'lucide-react';
 import { NextPage } from 'next';
 import Image from 'next/image';
+import { notFound, useParams, useRouter } from 'next/navigation';
+import { toast } from 'sonner';
 
 import PostForm from '@/components/user/default/forms/PostForm';
 import { Button } from '@/components/ui/button';
@@ -8,20 +12,60 @@ import Information from '@/components/user/default/groups/Information';
 import About from '@/components/user/default/About';
 import Post from '@/components/user/default/Post';
 import { posts } from '@/data/user/posts';
-
-const group = {
-  name: 'Music lovers group',
-  members: '23.7K',
-  description:
-    "Welcome to the Music Lovers group! 🎵❤️ This is a community for everyone who shares a passion for music. Whether you're into rock, pop, classical, or jazz, you'll find like-minded people here. Share your favorite songs, discuss new albums, and discover new artists. Let's enjoy the rhythm together! 🎶🎸🥁",
-};
+import { useGroupsStore } from '@/providers/store/GroupsStoreProvider';
+import { useAuthStore } from '@/providers/store/AuthStoreProvider';
+import { DEFAULT_BACKGROUND_IMAGE } from '@/constants/images';
 
 const UserGroupPage: NextPage = () => {
+  const { push } = useRouter();
+  const { groupId } = useParams<{ groupId: string }>();
+  const { user } = useAuthStore((state) => state);
+  const {
+    getGroupById,
+    getUsersCountInGroup,
+    isUserInGroup,
+    addUserToGroup,
+    removeUserFromGroup,
+    isUserGroupOwner,
+    removeGroup,
+  } = useGroupsStore((state) => state);
+
+  const group = getGroupById(groupId);
+
+  if (!group || !user) notFound();
+
+  const userId = user.id;
+  const members = getUsersCountInGroup(groupId);
+  const canUserJoin = isUserInGroup(groupId, userId);
+  const inOwner = isUserGroupOwner(groupId, userId);
+
+  const handleJoin = () => {
+    addUserToGroup(groupId, user);
+
+    toast.success('You have joined the group successfully!');
+  };
+
+  const handleLeave = () => {
+    removeUserFromGroup(groupId, userId);
+
+    toast.success('You have left the group.');
+    push('/user/groups');
+  };
+
+  const handleRemove = () => {
+    push('/user/groups');
+    toast.success('You have removed the group.');
+
+    setTimeout(() => {
+      removeGroup(groupId);
+    }, 10);
+  };
+
   return (
     <>
       <div className="relative">
         <Image
-          src="https://images.unsplash.com/photo-1533174072545-7a4b6ad7a6c3?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+          src={group.imageUrl || DEFAULT_BACKGROUND_IMAGE}
           alt="background"
           priority
           width="1920"
@@ -33,16 +77,37 @@ const UserGroupPage: NextPage = () => {
           <h1 className="line-clamp-1 text-2xl font-semibold text-white 2xl:text-3xl">
             {group.name}
           </h1>
-          <h2 className="font-semibold text-primary">
-            {group.members} members
-          </h2>
+          <h2 className="font-semibold text-primary">{members} members</h2>
         </div>
 
         <div className="absolute right-2 top-2 flex items-center gap-x-2 lg:right-4 lg:top-4">
-          <Button size="icon">
-            <CirclePlus className="h-5 w-5 rotate-0 scale-100 transition-all dark:text-white" />
-            <span className="sr-only">Join to group</span>
-          </Button>
+          {inOwner && (
+            <Button
+              size="icon"
+              onClick={handleRemove}
+            >
+              <Trash className="h-5 w-5 rotate-0 scale-100 transition-all dark:text-white" />
+              <span className="sr-only">Remove the group</span>
+            </Button>
+          )}
+          {canUserJoin ? (
+            <Button
+              size="icon"
+              onClick={handleLeave}
+            >
+              <LogOut className="h-5 w-5 rotate-0 scale-100 transition-all dark:text-white" />
+              <span className="sr-only">Leave the group</span>
+            </Button>
+          ) : (
+            <Button
+              size="icon"
+              onClick={handleJoin}
+            >
+              <CirclePlus className="h-5 w-5 rotate-0 scale-100 transition-all dark:text-white" />
+              <span className="sr-only">Join to group</span>
+            </Button>
+          )}
+
           <Button size="icon">
             <Share2 className="h-5 w-5 rotate-0 scale-100 transition-all dark:text-white" />
             <span className="sr-only">Share</span>
@@ -54,8 +119,11 @@ const UserGroupPage: NextPage = () => {
         <div className="grid w-full gap-4 sm:w-[80%] lg:md:w-[70%] lg:gap-8 xl:w-[80%] xl:grid-cols-3 2xl:w-[90%]">
           <div className="mt-4 grid items-start gap-6 lg:gap-8 xl:col-span-2 xl:mt-10">
             <div className="flex flex-col gap-6 lg:gap-8 xl:hidden">
-              <About text={group.description} />
-              <Information />
+              <About text={group.description || ''} />
+              <Information
+                members={members}
+                isPrivate={group.isPrivate}
+              />
             </div>
 
             <PostForm />
@@ -68,8 +136,11 @@ const UserGroupPage: NextPage = () => {
             ))}
           </div>
           <div className="sticky top-20 z-30 mt-10 hidden h-10 items-start gap-4 lg:gap-8 xl:grid xl:min-w-[18.5rem]">
-            <About text={group.description} />
-            <Information />
+            <About text={group.description || ''} />
+            <Information
+              members={members}
+              isPrivate={group.isPrivate}
+            />
           </div>
         </div>
       </div>

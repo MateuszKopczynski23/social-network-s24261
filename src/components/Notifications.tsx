@@ -45,28 +45,26 @@ const Notifications: FC = () => {
 
         <div className="flex flex-col divide-y">
           {getNotifications().map((person) => (
-            <>
-              <div
-                key={person.userImage}
-                className="flex items-center gap-3 py-3.5"
-              >
-                <Avatar className="h-12 w-12 rounded-sm">
-                  <AvatarImage
-                    src={person.userImage}
-                    alt="Avatar"
-                    className="object-cover"
-                  />
-                  <AvatarFallback className="rounded-sm">OM</AvatarFallback>
-                </Avatar>
-                <div className="grid gap-1">
-                  <p className="text-sm leading-none">
-                    <span className="font-semibold">{person.userName}</span>{' '}
-                    {person.description}
-                  </p>
-                  <p className="text-xs text-muted-foreground">2h</p>
-                </div>
+            <div
+              key={person.userImage}
+              className="flex items-center gap-3 py-3.5"
+            >
+              <Avatar className="h-12 w-12 rounded-sm">
+                <AvatarImage
+                  src={person.userImage}
+                  alt="Avatar"
+                  className="object-cover"
+                />
+                <AvatarFallback className="rounded-sm">OM</AvatarFallback>
+              </Avatar>
+              <div className="grid gap-1">
+                <p className="text-sm leading-none">
+                  <span className="font-semibold">{person.userName}</span>{' '}
+                  {person.description}
+                </p>
+                <p className="text-xs text-muted-foreground">2h</p>
               </div>
-            </>
+            </div>
           ))}
         </div>
       </SheetContent>
