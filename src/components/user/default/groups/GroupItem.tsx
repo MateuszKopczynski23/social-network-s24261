@@ -35,11 +35,15 @@ const GroupItem: FC<GroupProps> = ({
   ...props
 }) => {
   const { user } = useAuthStore((state) => state);
-  const { isUserInGroup, addUserToGroup, removeUserFromGroup } = useGroupsStore(
-    (state) => state
-  );
+  const {
+    isUserInGroup,
+    addUserToGroup,
+    removeUserFromGroup,
+    getUsersCountInGroup,
+  } = useGroupsStore((state) => state);
 
   const isActionVisible = isUserInGroup(group.id, user?.id || '');
+  const members = getUsersCountInGroup(group.id);
 
   const handleAddUserToGroup = (e: MouseEvent) => {
     e.preventDefault();
@@ -81,7 +85,7 @@ const GroupItem: FC<GroupProps> = ({
 
               <div className="invisible absolute right-1.5 top-1.5 flex items-center justify-center rounded-md bg-primary px-1.5 py-1 group-hover:visible">
                 <div className="flex items-center gap-x-1 text-xs font-medium text-white">
-                  <Users className="h-4 w-4" /> 1.5k
+                  <Users className="h-4 w-4" /> {members}
                 </div>
               </div>
             </div>

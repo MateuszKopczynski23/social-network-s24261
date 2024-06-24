@@ -4,9 +4,9 @@ export const events: Event[] = [
   {
     id: '1',
     userId: '1',
-    name: 'Tech Enthusiasts',
+    name: 'Sunrise festival 2024',
     description:
-      'Welcome to the Music Lovers event! 🎵❤️ This is a community for everyone who shares a passion for music. Whether you\'re into rock, pop, classical, or jazz, you\'ll find like-minded people here. Share your favorite songs, discuss new albums, and discover new artists',
+      'Join us for Sunrise Festival 2024! 🌅🎉 Get ready for an unforgettable weekend of music, dancing, and breathtaking sunrises. Featuring top DJs and artists from around the world, this is the ultimate summer festival experience. Mark your calendars for July 18-20, 2024, and let\'s celebrate together! 🎶🌞',
     date: '2024-06-10T22:00:00.000Z',
     city: 'New York',
     street: 'Green bay',
@@ -124,7 +124,7 @@ export const events: Event[] = [
     street: 'Broadway',
     country: 'United States',
     imageUrl:
-      'https://images.unsplash.com/photo-1490300472339-79e4adc6be4a?w=300&dpr=2&q=80',
+      'https://images.unsplash.com/photo-1506157786151-b8491531f063?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
     user: {
       id: '3',
       firstName: 'Alice',
@@ -188,7 +188,7 @@ export const events: Event[] = [
     street: 'Market Street',
     country: 'United States',
     imageUrl:
-      'https://images.unsplash.com/photo-1513745405825-efaf9a49315f?w=300&dpr=2&q=80',
+      'https://images.unsplash.com/photo-1493225457124-a3eb161ffa5f?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
     user: {
       id: '4',
       firstName: 'Bob',
@@ -252,7 +252,7 @@ export const events: Event[] = [
     street: 'Sunset Boulevard',
     country: 'United States',
     imageUrl:
-      'https://images.unsplash.com/photo-1468817814611-b7edf94b5d60?w=300&dpr=2&q=80',
+      'https://images.unsplash.com/photo-1582711012124-a56cf82307a0?q=80&w=2140&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
     user: {
       id: '5',
       firstName: 'Emma',
@@ -316,7 +316,7 @@ export const events: Event[] = [
     street: 'Central Park',
     country: 'United States',
     imageUrl:
-      'https://images.unsplash.com/photo-1490300472339-79e4adc6be4a?w=300&dpr=2&q=80',
+      'https://images.unsplash.com/photo-1514533212735-5df27d970db0?q=80&w=2012&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
     user: {
       id: '6',
       firstName: 'Michael',
@@ -354,7 +354,7 @@ export const events: Event[] = [
     street: 'Lake Merritt',
     country: 'United States',
     imageUrl:
-      'https://images.unsplash.com/photo-1513745405825-efaf9a49315f?w=300&dpr=2&q=80',
+      'https://images.unsplash.com/photo-1578736641330-3155e606cd40?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
     user: {
       id: '7',
       firstName: 'Sarah',
@@ -392,7 +392,7 @@ export const events: Event[] = [
     street: 'Main Street',
     country: 'United States',
     imageUrl:
-      'https://images.unsplash.com/photo-1468817814611-b7edf94b5d60?w=300&dpr=2&q=80',
+      'https://images.unsplash.com/photo-1505842465776-3b4953ca4f44?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
     user: {
       id: '8',
       firstName: 'David',

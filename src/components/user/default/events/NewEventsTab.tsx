@@ -1,11 +1,25 @@
+'use client';
+
 import React, { FC } from 'react';
+import filter from 'lodash/filter';
+import some from 'lodash/some';
 
 import EventItem from '@/components/user/default/events/EventItem';
-import { newEvents } from '@/data/user/events';
 import { Separator } from '@/components/ui/separator';
 import { TabsContent } from '@/components/ui/tabs';
+import { useAuthStore } from '@/providers/store/AuthStoreProvider';
+import { useEventsStore } from '@/providers/store/EventsStoreProvider';
 
 const NewEventsTab: FC = () => {
+  const { user: authUser } = useAuthStore((state) => state);
+  const { events } = useEventsStore((state) => state);
+
+  const newEvents = filter(
+    events,
+    (event) =>
+      event.user.id !== authUser?.id && !some(event.users, { id: authUser?.id })
+  );
+
   return (
     <TabsContent
       value="explore"
