@@ -73,7 +73,7 @@ const UserGroupPage: NextPage = () => {
           className="h-40 rounded-br-2xl rounded-tl-2xl object-cover lg:h-72"
         />
 
-        <div className="absolute bottom-6 left-6 rounded-sm bg-black/40 px-4 py-1 drop-shadow-2xl sm:left-10 2xl:left-16">
+        <div className="absolute bottom-6 left-6 rounded-sm bg-black/50 px-4 py-1 drop-shadow-2xl sm:left-10 2xl:left-16">
           <h1 className="line-clamp-1 text-2xl font-semibold text-white 2xl:text-3xl">
             {group.name}
           </h1>
