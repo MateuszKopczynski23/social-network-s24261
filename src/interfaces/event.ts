@@ -1,3 +1,5 @@
+import { User } from '@/interfaces/user';
+
 export interface Event {
   id: string;
   userId: string;
@@ -8,4 +10,6 @@ export interface Event {
   street?: string;
   country?: string;
   imageUrl?: string;
+  user: User;
+  users: User[];
 }

@@ -29,11 +29,11 @@ export const GroupsStoreProvider = ({ children }: GroupsStoreProviderProps) => {
 };
 
 export const useGroupsStore = <T,>(selector: (store: GroupsStore) => T): T => {
-  const authStoreContext = useContext(GroupsStoreContext);
+  const groupsStoreContext = useContext(GroupsStoreContext);
 
-  if (!authStoreContext) {
-    throw new Error('useCounterStore must be used within CounterStoreProvider');
+  if (!groupsStoreContext) {
+    throw new Error('useGroupsStore must be used within GroupsStoreProvider');
   }
 
-  return useStore(authStoreContext, selector);
+  return useStore(groupsStoreContext, selector);
 };
