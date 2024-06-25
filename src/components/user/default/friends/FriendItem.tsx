@@ -42,6 +42,7 @@ const FriendItem: FC<FriendProps> = ({
     canAcceptFriendRequest,
     canDeclineFriendRequest,
     canSendFriendRequest,
+    canUndoFriendRequest,
     addFriend,
     removeFriend,
     addFriendRequest,
@@ -102,6 +103,19 @@ const FriendItem: FC<FriendProps> = ({
     }
   };
 
+  const handleUndoFriendRequest = async (event: MouseEvent) => {
+    event.preventDefault();
+
+    try {
+      await removeFriendRequest(friend, user);
+      toast.success('Registration successful!');
+    } catch (error) {
+      if (error instanceof Error) {
+        toast.error(error.message);
+      }
+    }
+  };
+
   return (
     <Link href={`/user/friends/${friend.id}`}>
       <div
@@ -130,7 +144,8 @@ const FriendItem: FC<FriendProps> = ({
               </div>
 
               {!canSendFriendRequest(user, friend) &&
-                !canRemoveFriend(user, friend) && (
+                !canRemoveFriend(user, friend) &&
+                !canAcceptFriendRequest(user, friend) && (
                   <div className="invisible absolute bottom-1.5 right-1.5 flex items-center justify-center rounded bg-primary/50 px-1.5 py-1 group-hover:visible">
                     <div className="flex justify-center gap-x-1 text-xs font-medium text-white">
                       <Send className="h-4 w-4" />
@@ -147,7 +162,6 @@ const FriendItem: FC<FriendProps> = ({
                 Add
               </ContextMenuItem>
             )}
-            <ContextMenuItem>Show</ContextMenuItem>
             {canAcceptFriendRequest(user, friend) && (
               <ContextMenuItem onClick={(event) => handleAddFriend(event)}>
                 Accept
@@ -159,6 +173,14 @@ const FriendItem: FC<FriendProps> = ({
                 onClick={(event) => handleRemoveFriend(event)}
               >
                 Remove
+              </ContextMenuItem>
+            )}
+            {canUndoFriendRequest(user, friend) && (
+              <ContextMenuItem
+                className="text-red-500"
+                onClick={(event) => handleUndoFriendRequest(event)}
+              >
+                Undo
               </ContextMenuItem>
             )}
             {canDeclineFriendRequest(user, friend) && (

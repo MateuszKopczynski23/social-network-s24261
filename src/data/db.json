@@ -2,7 +2,7 @@
   "users": [
     {
       "id": "1",
-      "firstName": "Johnny",
+      "firstName": "Mat",
       "lastName": "Doe",
       "city": "New York",
       "dateOfBirth": "1999-10-21T00:00:00.000Z",
@@ -22,8 +22,8 @@
         "isActiveFriendsVisible": false
       },
       "friends": [
-        "6",
-        "2"
+        "2",
+        "4"
       ],
       "friendRequests": []
     },
@@ -79,8 +79,7 @@
       },
       "friends": [
         "2",
-        "3",
-        "4"
+        "3"
       ],
       "friendRequests": [
         "5",
@@ -110,10 +109,11 @@
       },
       "friends": [
         "2",
-        "3",
-        "5"
+        "1"
       ],
-      "friendRequests": []
+      "friendRequests": [
+        "7"
+      ]
     },
     {
       "id": "5",
@@ -139,10 +139,11 @@
       "friends": [
         "2",
         "3",
-        "",
-        "4"
+        ""
       ],
-      "friendRequests": []
+      "friendRequests": [
+        "6"
+      ]
     },
     {
       "id": "6",
@@ -167,8 +168,7 @@
       },
       "friends": [
         "3",
-        "4",
-        "1"
+        "4"
       ],
       "friendRequests": []
     },
@@ -198,10 +198,7 @@
         "3",
         "6"
       ],
-      "friendRequests": [
-        "5",
-        "6"
-      ]
+      "friendRequests": []
     }
   ],
   "groups": [

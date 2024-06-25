@@ -27,6 +27,7 @@ export type UsersActions = {
   canRemoveFriend: (user: User, friend: User) => boolean;
   canDeclineFriendRequest: (user: User, friend: User) => boolean;
   canSendFriendRequest: (user: User, friend: User) => boolean;
+  canUndoFriendRequest: (user: User, friend: User) => boolean;
 };
 
 export type UsersStore = UsersState & UsersActions;
@@ -178,6 +179,15 @@ export const createUsersStore = (initState: UsersState = defaultInitState) => {
         user.id !== friend.id &&
         !(friendUser && includes(friendUser.friendRequests, user.id))
       );
+    },
+
+    canUndoFriendRequest: (user: User, friend: User) => {
+      const allUsers = get().getUsers(user);
+      const friendUser = find(allUsers, { id: friend.id });
+
+      if (!friendUser) return false;
+
+      return friendUser && includes(friendUser.friendRequests, user.id);
     },
   }));
 };
