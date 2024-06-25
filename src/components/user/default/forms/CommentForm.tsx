@@ -43,7 +43,7 @@ const CommentForm: FC<CommentFormProps> = ({ postId }) => {
       const comment = merge({}, data, {
         id: uuidv4(),
         user: user as User,
-        createdAt: Date.now().toString(),
+        createdAt: new Date().toISOString(),
       });
 
       addComment(postId, comment);

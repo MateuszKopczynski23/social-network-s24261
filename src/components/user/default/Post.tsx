@@ -22,6 +22,7 @@ import { useAuthStore } from '@/providers/store/AuthStoreProvider';
 import PostSettings from '@/components/user/default/PostSettings';
 import { useUsersStore } from '@/providers/store/UsersStoreProvider';
 import { cn } from '@/lib/utils';
+import { timeAgo } from '@/utils/timeAgo';
 
 interface PostProps {
   post: IPost;
@@ -72,7 +73,9 @@ const Post: FC<PostProps> = ({ post }) => {
               <p className="font-bold">
                 {post.user.firstName} {post.user.lastName}
               </p>
-              <p className="text-xs text-muted-foreground">15m ago</p>
+              <p className="text-xs text-muted-foreground">
+                {timeAgo(post.createdAt)}
+              </p>
             </div>
           </div>
 

@@ -8,6 +8,7 @@ import { usePostsStore } from '@/providers/store/PostsStoreProvider';
 import { useAuthStore } from '@/providers/store/AuthStoreProvider';
 import { cn } from '@/lib/utils';
 import CommentSettings from '@/components/user/default/CommentSettings';
+import { timeAgo } from '@/utils/timeAgo';
 
 interface CommentProps {
   comment: IComment;
@@ -56,7 +57,9 @@ const Comment: FC<CommentProps> = ({ comment, postId, likesCount }) => {
         </div>
 
         <div className="ml-2 mt-1.5 flex items-start gap-x-3 text-xs text-muted-foreground">
-          <p className="text-xs text-muted-foreground">58m ago</p>
+          <p className="text-xs text-muted-foreground">
+            {timeAgo(comment.createdAt)}
+          </p>
           <div
             onClick={handleLikeComment}
             className={cn(

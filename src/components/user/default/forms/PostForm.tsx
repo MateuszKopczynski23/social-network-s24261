@@ -63,7 +63,7 @@ const PostForm: FC = () => {
       const post = merge({}, data, {
         id: uuidv4(),
         user: user as User,
-        createdAt: Date.now().toString(),
+        createdAt: new Date().toISOString(),
       });
 
       addPost(post);
