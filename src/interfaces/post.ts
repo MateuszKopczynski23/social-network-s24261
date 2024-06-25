@@ -1,4 +1,5 @@
 import { User } from '@/interfaces/user';
+import { Comment } from '@/interfaces/comment';
 
 export interface Post {
   id: string;
@@ -11,12 +12,4 @@ export interface Post {
   comments?: Comment[];
   likes?: User[];
   users?: User[];
-}
-
-export interface Comment {
-  id: string;
-  user: User;
-  content: string;
-  likes?: User[];
-  createdAt: string;
 }

@@ -4,10 +4,9 @@ import { FC, useState } from 'react';
 import { MessageCircle, Settings, Share2, ThumbsUp } from 'lucide-react';
 import Image from 'next/image';
 
-import { comments } from '@/data/user/comments';
 import Comment from '@/components/user/default/Comment';
 import CommentForm from '@/components/user/default/forms/CommentForm';
-import { Post as IPost } from '@/data/user/posts';
+import { Post as IPost } from '@/interfaces/post';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import {
   Card,
@@ -16,13 +15,23 @@ import {
   CardHeader,
 } from '@/components/ui/card';
 import { Separator } from '@/components/ui/separator';
+import { DEFAULT_AVATAR_IMAGE } from '@/constants/images';
+import { usePostsStore } from '@/providers/store/PostsStoreProvider';
 
 interface PostProps {
   post: IPost;
 }
 
 const Post: FC<PostProps> = ({ post }) => {
+  const {
+    getPostLikesCount,
+    getPostCommentsCount,
+    getPostComments,
+    getCommentLikesCount,
+  } = usePostsStore((state) => state);
   const [isCommentsVisible, setIsCommentsVisible] = useState(false);
+
+  const commentsCount = getPostCommentsCount(post.id);
 
   return (
     <Card x-chunk="dashboard-07-chunk-0">
@@ -31,7 +40,7 @@ const Post: FC<PostProps> = ({ post }) => {
           <div className="flex items-center gap-x-4">
             <Avatar className="h-12 w-12">
               <AvatarImage
-                src={post.userImage}
+                src={post.user.imageUrl || DEFAULT_AVATAR_IMAGE}
                 alt="Avatar"
                 className="object-cover"
               />
@@ -39,7 +48,9 @@ const Post: FC<PostProps> = ({ post }) => {
             </Avatar>
 
             <div>
-              <p className="font-bold">{post.userName}</p>
+              <p className="font-bold">
+                {post.user.firstName} {post.user.lastName}
+              </p>
               <p className="text-xs text-muted-foreground">15m ago</p>
             </div>
           </div>
@@ -49,12 +60,12 @@ const Post: FC<PostProps> = ({ post }) => {
       </CardHeader>
       <CardContent>
         <div>
-          <p className="text-sm">{post.description}</p>
+          <p className="text-sm">{post.content}</p>
 
-          {post.image && (
+          {post.imageUrl && (
             <div className="relative mt-4 h-60 w-full 2xl:h-96">
               <Image
-                src={post.image}
+                src={post.imageUrl}
                 alt="post"
                 className="rounded-bl-2xl rounded-tr-2xl object-cover"
                 fill
@@ -66,10 +77,10 @@ const Post: FC<PostProps> = ({ post }) => {
       <CardFooter className="flex flex-col items-start">
         <div className="flex items-start gap-x-3 text-xs text-muted-foreground">
           <div className="flex items-center gap-x-1">
-            <ThumbsUp className="h-3.5 w-3.5" /> {post.likes}
+            <ThumbsUp className="h-3.5 w-3.5" /> {getPostLikesCount(post.id)}
           </div>
           <div className="flex items-center gap-x-1">
-            <MessageCircle className="h-3.5 w-3.5" /> {post.comments}
+            <MessageCircle className="h-3.5 w-3.5" /> {commentsCount}
           </div>
         </div>
         <Separator className="my-3 px-3" />
@@ -91,10 +102,11 @@ const Post: FC<PostProps> = ({ post }) => {
 
         {isCommentsVisible && (
           <div className="mb-6 flex flex-col gap-y-4">
-            {comments.map((comment, index) => (
+            {getPostComments(post.id).map((comment) => (
               <Comment
-                key={index}
+                key={comment.id}
                 comment={comment}
+                likesCount={getCommentLikesCount(post.id, comment.id)}
               />
             ))}
           </div>

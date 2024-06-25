@@ -26,7 +26,7 @@ export const posts: Post[] = [
         isStickyHeader: true,
         isActiveFriendsVisible: false,
       },
-      friends: ['6'],
+      friends: ['2'],
       friendRequests: [],
     },
     content:
