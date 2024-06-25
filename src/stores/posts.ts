@@ -4,6 +4,7 @@ import size from 'lodash/size';
 import findIndex from 'lodash/findIndex';
 import includes from 'lodash/includes';
 import { union, without } from 'lodash';
+import { compareDesc, parseISO } from 'date-fns';
 
 import { posts } from '@/data/user/posts';
 import { Post } from '@/interfaces/post';
@@ -57,34 +58,50 @@ export const createPostsStore = (initState: PostsState = defaultInitState) => {
 
       if (!user) return [];
 
-      return filter(
+      const filteredPosts = filter(
         posts,
         (post) =>
           !post.eventId &&
           !post.groupId &&
           (post.user.id === user.id || includes(user.friends, post.user.id))
       );
+
+      return filteredPosts.sort((a, b) =>
+        compareDesc(parseISO(a.createdAt), parseISO(b.createdAt))
+      );
     },
 
     getEventPosts: (eventId: string) => {
       const { posts } = get();
 
-      return filter(posts, { eventId });
+      const eventPosts = filter(posts, { eventId });
+
+      return eventPosts.sort((a, b) =>
+        compareDesc(parseISO(a.createdAt), parseISO(b.createdAt))
+      );
     },
 
     getUserPosts: (userId: string) => {
       const { posts } = get();
 
-      return filter(
+      const userPosts = filter(
         posts,
         (post) => post.user.id === userId && !post.groupId && !post.eventId
+      );
+
+      return userPosts.sort((a, b) =>
+        compareDesc(parseISO(a.createdAt), parseISO(b.createdAt))
       );
     },
 
     getGroupPosts: (groupId: string) => {
       const { posts } = get();
 
-      return filter(posts, { groupId });
+      const groupPosts = filter(posts, { groupId });
+
+      return groupPosts.sort((a, b) =>
+        compareDesc(parseISO(a.createdAt), parseISO(b.createdAt))
+      );
     },
 
     getPostLikesCount: (postId: string) => {
