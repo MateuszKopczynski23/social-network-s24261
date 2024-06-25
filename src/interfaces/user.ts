@@ -2,7 +2,6 @@ export interface User {
   id: string;
   firstName: string;
   lastName: string;
-  age?: number;
   city?: string;
   dateOfBirth?: string;
   imageUrl?: string;
@@ -14,6 +13,8 @@ export interface User {
   email: string;
   password: string;
   settings: UserSettings;
+  friends: string[];
+  friendRequests: string[];
 }
 
 interface UserSettings {

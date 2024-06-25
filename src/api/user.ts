@@ -7,6 +7,13 @@ type Params = {
   [key: string]: string;
 };
 
+export const getUsers = async () => {
+  const response = await fetch(`${API_URL}/users`);
+  const data = await response.json();
+
+  return data as User[];
+};
+
 export const getUser = async (params: Params) => {
   const searchParams = new URLSearchParams(params);
 

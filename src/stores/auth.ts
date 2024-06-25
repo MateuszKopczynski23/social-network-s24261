@@ -42,11 +42,14 @@ export const defaultUserData = () => ({
   email: '',
   password: '',
   settings: {
+    isAdmin: false,
     isPrivate: true,
     isNotificationsEnabled: false,
     isStickyHeader: true,
     isActiveFriendsVisible: true,
   },
+  friends: [],
+  friendRequests: [],
 });
 
 export const initAuthStore = (user?: AuthState['user']): AuthState => {

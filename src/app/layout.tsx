@@ -9,6 +9,7 @@ import { cn } from '@/lib/utils';
 import { TooltipProvider } from '@/components/ui/tooltip';
 import StoreProvider from '@/providers/store';
 import { getUser } from '@/actions/users';
+import { getUsers } from '@/api/user';
 
 const fontSans = FontSans({
   subsets: ['latin'],
@@ -22,6 +23,7 @@ export const metadata: Metadata = {
 
 const RootLayout: NextPage<PropsWithChildren> = async ({ children }) => {
   const user = await getUser();
+  const users = await getUsers();
 
   return (
     <html lang="en">
@@ -31,7 +33,10 @@ const RootLayout: NextPage<PropsWithChildren> = async ({ children }) => {
           fontSans.variable
         )}
       >
-        <StoreProvider authState={{ user }}>
+        <StoreProvider
+          authState={{ user }}
+          usersState={{ users }}
+        >
           <ThemeProvider
             attribute="class"
             defaultTheme="dark"

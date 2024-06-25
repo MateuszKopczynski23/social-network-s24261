@@ -1,11 +1,21 @@
+'use client';
+
 import React, { FC } from 'react';
 
 import FriendItem from '@/components/user/default/friends/FriendItem';
-import { userFriends } from '@/data/user/friends';
 import { Separator } from '@/components/ui/separator';
 import { TabsContent } from '@/components/ui/tabs';
+import { useAuthStore } from '@/providers/store/AuthStoreProvider';
+import { useUsersStore } from '@/providers/store/UsersStoreProvider';
 
 const UserFriendRequestsTab: FC = () => {
+  const { user } = useAuthStore((state) => state);
+  const { getUserFriendRequests } = useUsersStore((state) => state);
+
+  if (!user) return null;
+
+  const users = getUserFriendRequests(user);
+
   return (
     <TabsContent
       value="requests"
@@ -25,7 +35,7 @@ const UserFriendRequestsTab: FC = () => {
       </div>
       <Separator className="my-4" />
       <div className="grid grid-cols-2 gap-6 sm:grid-cols-3 lg:grid-cols-6 2xl:grid-cols-8">
-        {userFriends.map((friend) => (
+        {users.map((friend) => (
           <FriendItem
             key={friend.firstName}
             friend={friend}

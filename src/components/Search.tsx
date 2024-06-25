@@ -16,11 +16,17 @@ import {
 import { calculateAge } from '@/utils/calculateAge';
 import { DEFAULT_AVATAR_IMAGE } from '@/constants/images';
 import { useUsersStore } from '@/providers/store/UsersStoreProvider';
+import { useAuthStore } from '@/providers/store/AuthStoreProvider';
 
 const Search: FC = () => {
-  const { users } = useUsersStore((state) => state);
+  const { user } = useAuthStore((state) => state);
+  const { getUsers } = useUsersStore((state) => state);
 
   const [open, setOpen] = useState(false);
+
+  if (!user) return null;
+
+  const users = getUsers(user);
 
   return (
     <>
