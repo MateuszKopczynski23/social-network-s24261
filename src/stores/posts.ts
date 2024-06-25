@@ -3,6 +3,7 @@ import filter from 'lodash/filter';
 import size from 'lodash/size';
 import findIndex from 'lodash/findIndex';
 import includes from 'lodash/includes';
+import { union, without } from 'lodash';
 
 import { posts } from '@/data/user/posts';
 import { Post } from '@/interfaces/post';
@@ -24,7 +25,18 @@ export type PostsActions = {
   getCommentLikesCount: (postId: string, commentId: string) => number;
   addPost: (newPost: Post) => void;
   deletePost: (postId: string) => void;
-  isUserPost: (postId: string, userId: string) => boolean;
+  likeComment: (postId: string, commentId: string, user: User) => void;
+  unlikeComment: (postId: string, commentId: string, user: User) => void;
+  likePost: (postId: string, user: User) => void;
+  unlikePost: (postId: string, user: User) => void;
+
+  isUserPost: (postId: string, user: User) => boolean;
+  isPostLikedByUser: (postId: string, user: User) => boolean;
+  isCommentLikedByUser: (
+    postId: string,
+    commentId: string,
+    user: User
+  ) => boolean;
 };
 
 export type PostsStore = PostsState & PostsActions;
@@ -113,13 +125,131 @@ export const createPostsStore = (initState: PostsState = defaultInitState) => {
       }));
     },
 
-    isUserPost: (postId: string, userId: string) => {
+    isUserPost: (postId: string, user: User) => {
       const { posts } = get();
       const index = findIndex(
         posts,
-        (post) => post.id === postId && post.user.id === userId
+        (post) => post.id === postId && post.user.id === user.id
       );
       return index !== -1;
+    },
+
+    likeComment: (postId: string, commentId: string, user: User) => {
+      set((state) => {
+        const { posts } = state;
+        const postIndex = findIndex(posts, (p) => p.id === postId);
+
+        if (postIndex === -1) return state;
+
+        const updatedPosts = [...posts];
+        const post = updatedPosts[postIndex];
+
+        if (!post.comments) return state;
+
+        const commentIndex = findIndex(
+          post.comments,
+          (c) => c.id === commentId
+        );
+
+        if (commentIndex === -1) return state;
+
+        const updatedComments = [...post.comments];
+        const comment = updatedComments[commentIndex];
+
+        if (!comment?.likes?.includes(user)) {
+          comment.likes = union(comment.likes, [user]);
+          updatedComments[commentIndex] = { ...comment };
+          updatedPosts[postIndex] = { ...post, comments: updatedComments };
+          return { posts: updatedPosts };
+        }
+
+        return state;
+      });
+    },
+
+    unlikeComment: (postId: string, commentId: string, user: User) => {
+      set((state) => {
+        const { posts } = state;
+        const postIndex = findIndex(posts, (p) => p.id === postId);
+
+        if (postIndex === -1) return state;
+
+        const updatedPosts = [...posts];
+        const post = updatedPosts[postIndex];
+
+        if (!post.comments) return state;
+
+        const commentIndex = findIndex(
+          post.comments,
+          (c) => c.id === commentId
+        );
+
+        if (commentIndex === -1) return state;
+
+        const updatedComments = [...post.comments];
+        const comment = updatedComments[commentIndex];
+
+        comment.likes = without(comment.likes, user);
+        updatedComments[commentIndex] = { ...comment };
+        updatedPosts[postIndex] = { ...post, comments: updatedComments };
+
+        return { posts: updatedPosts };
+      });
+    },
+
+    isCommentLikedByUser: (postId: string, commentId: string, user: User) => {
+      const { posts } = get();
+      const post = posts.find((p) => p.id === postId);
+
+      if (!post || !post.comments) return false;
+
+      const comment = post.comments.find((c) => c.id === commentId);
+
+      return comment?.likes?.includes(user) || false;
+    },
+
+    likePost: (postId: string, user: User) => {
+      set((state) => {
+        const { posts } = state;
+        const postIndex = findIndex(posts, (p) => p.id === postId);
+
+        if (postIndex === -1) return state;
+
+        const updatedPosts = [...posts];
+        const post = updatedPosts[postIndex];
+
+        if (!post?.likes?.includes(user)) {
+          post.likes = union(post.likes, [user]);
+          updatedPosts[postIndex] = { ...post };
+          return { posts: updatedPosts };
+        }
+
+        return state;
+      });
+    },
+
+    unlikePost: (postId: string, user: User) => {
+      set((state) => {
+        const { posts } = state;
+        const postIndex = findIndex(posts, (p) => p.id === postId);
+
+        if (postIndex === -1) return state;
+
+        const updatedPosts = [...posts];
+        const post = updatedPosts[postIndex];
+
+        post.likes = without(post.likes, user);
+        updatedPosts[postIndex] = { ...post };
+
+        return { posts: updatedPosts };
+      });
+    },
+
+    isPostLikedByUser: (postId: string, user: User) => {
+      const { posts } = get();
+      const post = posts.find((p) => p.id === postId);
+
+      return post?.likes?.includes(user) || false;
     },
   }));
 };

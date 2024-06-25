@@ -21,6 +21,7 @@ import { usePostsStore } from '@/providers/store/PostsStoreProvider';
 import { useAuthStore } from '@/providers/store/AuthStoreProvider';
 import PostSettings from '@/components/user/default/PostSettings';
 import { useUsersStore } from '@/providers/store/UsersStoreProvider';
+import { cn } from '@/lib/utils';
 
 interface PostProps {
   post: IPost;
@@ -34,6 +35,9 @@ const Post: FC<PostProps> = ({ post }) => {
     getPostComments,
     getCommentLikesCount,
     isUserPost,
+    likePost,
+    unlikePost,
+    isPostLikedByUser,
   } = usePostsStore((state) => state);
   const { getUserById } = useUsersStore((state) => state);
 
@@ -41,6 +45,14 @@ const Post: FC<PostProps> = ({ post }) => {
 
   const commentsCount = getPostCommentsCount(post.id);
   const mentionedUser = getUserById(post.mentionedUser || '');
+
+  if (!user) return null;
+
+  const handleLikePost = () => {
+    isPostLikedByUser(post.id, user)
+      ? unlikePost(post.id, user)
+      : likePost(post.id, user);
+  };
 
   return (
     <Card x-chunk="dashboard-07-chunk-0">
@@ -64,7 +76,7 @@ const Post: FC<PostProps> = ({ post }) => {
             </div>
           </div>
 
-          {user && isUserPost(post.id, user.id) && (
+          {user && isUserPost(post.id, user) && (
             <PostSettings postId={post.id} />
           )}
         </div>
@@ -106,7 +118,13 @@ const Post: FC<PostProps> = ({ post }) => {
         </div>
         <Separator className="my-3 px-3" />
         <div className="grid w-full grid-cols-3">
-          <div className="flex items-center justify-center gap-x-2 text-sm">
+          <div
+            onClick={handleLikePost}
+            className={cn(
+              'flex items-center justify-center gap-x-2 text-sm',
+              isPostLikedByUser(post.id, user) && 'text-primary'
+            )}
+          >
             <ThumbsUp className="h-5 w-5" /> Like
           </div>
           <div
@@ -127,6 +145,7 @@ const Post: FC<PostProps> = ({ post }) => {
               <Comment
                 key={comment.id}
                 comment={comment}
+                postId={post.id}
                 likesCount={getCommentLikesCount(post.id, comment.id)}
               />
             ))}
