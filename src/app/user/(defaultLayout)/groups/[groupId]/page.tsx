@@ -11,10 +11,10 @@ import { Button } from '@/components/ui/button';
 import Information from '@/components/user/default/groups/Information';
 import About from '@/components/user/default/About';
 import Post from '@/components/user/default/Post';
-import { posts } from '@/data/user/posts';
 import { useGroupsStore } from '@/providers/store/GroupsStoreProvider';
 import { useAuthStore } from '@/providers/store/AuthStoreProvider';
 import { DEFAULT_BACKGROUND_IMAGE } from '@/constants/images';
+import { usePostsStore } from '@/providers/store/PostsStoreProvider';
 
 const UserGroupPage: NextPage = () => {
   const { push } = useRouter();
@@ -29,6 +29,7 @@ const UserGroupPage: NextPage = () => {
     isUserGroupOwner,
     removeGroup,
   } = useGroupsStore((state) => state);
+  const { getGroupPosts } = usePostsStore((state) => state);
 
   const group = getGroupById(groupId);
 
@@ -126,14 +127,17 @@ const UserGroupPage: NextPage = () => {
               />
             </div>
 
-            <PostForm />
-
-            {posts.map((post, index) => (
-              <Post
-                key={index}
-                post={post}
-              />
-            ))}
+            {isUserInGroup(groupId, userId) && (
+              <>
+                <PostForm groupId={groupId} />
+                {getGroupPosts(groupId).map((post) => (
+                  <Post
+                    key={post.id}
+                    post={post}
+                  />
+                ))}
+              </>
+            )}
           </div>
           <div className="sticky top-20 z-30 mt-10 hidden h-10 items-start gap-4 lg:gap-8 xl:grid xl:min-w-[18.5rem]">
             <About text={group.description || ''} />

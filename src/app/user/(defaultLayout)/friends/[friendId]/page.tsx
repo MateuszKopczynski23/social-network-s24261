@@ -9,7 +9,6 @@ import { Button } from '@/components/ui/button';
 import Information from '@/components/user/default/friends/Information';
 import About from '@/components/user/default/About';
 import Post from '@/components/user/default/Post';
-import { posts } from '@/data/user/posts';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import { useUsersStore } from '@/providers/store/UsersStoreProvider';
 import {
@@ -17,11 +16,13 @@ import {
   DEFAULT_BACKGROUND_IMAGE,
 } from '@/constants/images';
 import { useAuthStore } from '@/providers/store/AuthStoreProvider';
+import { usePostsStore } from '@/providers/store/PostsStoreProvider';
 
 const UserFriendPage: NextPage = () => {
   const { friendId } = useParams<{ friendId: string }>();
   const { user: authUser } = useAuthStore((state) => state);
   const { getUserById } = useUsersStore((state) => state);
+  const { getUserPosts } = usePostsStore((state) => state);
 
   const user = getUserById(friendId);
 
@@ -70,9 +71,9 @@ const UserFriendPage: NextPage = () => {
               <Information {...user} />
             </div>
 
-            {posts.map((post, index) => (
+            {getUserPosts(friendId).map((post) => (
               <Post
-                key={index}
+                key={post.id}
                 post={post}
               />
             ))}

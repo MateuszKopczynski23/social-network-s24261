@@ -12,11 +12,11 @@ import { Button } from '@/components/ui/button';
 import Information from '@/components/user/default/events/Information';
 import About from '@/components/user/default/About';
 import Post from '@/components/user/default/Post';
-import { posts } from '@/data/user/posts';
 import { Avatar, AvatarFallback } from '@/components/ui/avatar';
 import { useAuthStore } from '@/providers/store/AuthStoreProvider';
 import { useEventsStore } from '@/providers/store/EventsStoreProvider';
 import { DEFAULT_BACKGROUND_IMAGE } from '@/constants/images';
+import { usePostsStore } from '@/providers/store/PostsStoreProvider';
 
 const UserEventPage: NextPage = () => {
   const { push } = useRouter();
@@ -31,6 +31,7 @@ const UserEventPage: NextPage = () => {
     isUserEventOwner,
     removeEvent,
   } = useEventsStore((state) => state);
+  const { getEventPosts } = usePostsStore((state) => state);
 
   const event = getEventById(eventId);
 
@@ -141,14 +142,17 @@ const UserEventPage: NextPage = () => {
               />
             </div>
 
-            <PostForm />
-
-            {posts.map((post, index) => (
-              <Post
-                key={index}
-                post={post}
-              />
-            ))}
+            {isUserInEvent(eventId, userId) && (
+              <>
+                <PostForm eventId={eventId} />
+                {getEventPosts(eventId).map((post) => (
+                  <Post
+                    key={post.id}
+                    post={post}
+                  />
+                ))}
+              </>
+            )}
           </div>
           <div className="sticky top-20 z-30 mt-10 hidden h-10 items-start gap-4 lg:gap-8 xl:grid xl:min-w-[18.5rem]">
             <About text={event.description || ''} />
