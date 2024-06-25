@@ -22,8 +22,7 @@
         "isActiveFriendsVisible": false
       },
       "friends": [
-        "2",
-        "4"
+        "6"
       ],
       "friendRequests": []
     },
@@ -48,12 +47,7 @@
         "isStickyHeader": true,
         "isActiveFriendsVisible": false
       },
-      "friends": [
-        "",
-        "3",
-        "4",
-        "1"
-      ],
+      "friends": [],
       "friendRequests": []
     },
     {
@@ -77,14 +71,8 @@
         "isStickyHeader": true,
         "isActiveFriendsVisible": false
       },
-      "friends": [
-        "2",
-        "3"
-      ],
-      "friendRequests": [
-        "5",
-        "1"
-      ]
+      "friends": [],
+      "friendRequests": []
     },
     {
       "id": "4",
@@ -107,13 +95,8 @@
         "isStickyHeader": true,
         "isActiveFriendsVisible": false
       },
-      "friends": [
-        "2",
-        "1"
-      ],
-      "friendRequests": [
-        "7"
-      ]
+      "friends": [],
+      "friendRequests": []
     },
     {
       "id": "5",
@@ -137,13 +120,9 @@
         "isActiveFriendsVisible": false
       },
       "friends": [
-        "2",
-        "3",
-        ""
-      ],
-      "friendRequests": [
         "6"
-      ]
+      ],
+      "friendRequests": []
     },
     {
       "id": "6",
@@ -167,8 +146,8 @@
         "isActiveFriendsVisible": false
       },
       "friends": [
-        "3",
-        "4"
+        "1",
+        "5"
       ],
       "friendRequests": []
     },
@@ -193,11 +172,7 @@
         "isStickyHeader": true,
         "isActiveFriendsVisible": false
       },
-      "friends": [
-        "2",
-        "3",
-        "6"
-      ],
+      "friends": [],
       "friendRequests": []
     }
   ],

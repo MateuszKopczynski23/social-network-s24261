@@ -1,6 +1,6 @@
 'use client';
 
-import { MessageCircleIcon, Send, UserPlus } from 'lucide-react';
+import { MessageCircleIcon } from 'lucide-react';
 import { NextPage } from 'next';
 import Image from 'next/image';
 import { notFound, useParams } from 'next/navigation';
@@ -21,7 +21,7 @@ import { useAuthStore } from '@/providers/store/AuthStoreProvider';
 const UserFriendPage: NextPage = () => {
   const { friendId } = useParams<{ friendId: string }>();
   const { user: authUser } = useAuthStore((state) => state);
-  const { getUserById, canSendFriendRequest } = useUsersStore((state) => state);
+  const { getUserById } = useUsersStore((state) => state);
 
   const user = getUserById(friendId);
 
@@ -55,20 +55,6 @@ const UserFriendPage: NextPage = () => {
         </div>
 
         <div className="absolute right-2 top-2 flex items-center gap-x-2 lg:right-4 lg:top-4">
-          {canSendFriendRequest(authUser, user) ? (
-            <Button size="icon">
-              <UserPlus className="h-5 w-5 rotate-0 scale-100 transition-all dark:text-white" />
-              <span className="sr-only">Send friend request</span>
-            </Button>
-          ) : (
-            <Button
-              size="icon"
-              disabled
-            >
-              <Send className="h-5 w-5 rotate-0 scale-100 transition-all dark:text-white" />
-              <span className="sr-only">Request sent</span>
-            </Button>
-          )}
           <Button size="icon">
             <MessageCircleIcon className="h-5 w-5 rotate-0 scale-100 transition-all dark:text-white" />
             <span className="sr-only">Send message</span>
