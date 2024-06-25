@@ -3,7 +3,12 @@
 import { createContext, type ReactNode, useContext, useRef } from 'react';
 import { useStore } from 'zustand';
 
-import { createUsersStore, type UsersStore } from '@/stores/users';
+import {
+  createUsersStore,
+  initUsersStore,
+  type UsersStore,
+} from '@/stores/users';
+import { User } from '@/interfaces/user';
 
 export type UsersStoreApi = ReturnType<typeof createUsersStore>;
 
@@ -13,12 +18,16 @@ export const UsersStoreContext = createContext<UsersStoreApi | undefined>(
 
 export interface UsersStoreProviderProps {
   children: ReactNode;
+  users?: User[] | [];
 }
 
-export const UsersStoreProvider = ({ children }: UsersStoreProviderProps) => {
+export const UsersStoreProvider = ({
+  children,
+  users,
+}: UsersStoreProviderProps) => {
   const storeRef = useRef<UsersStoreApi>();
   if (!storeRef.current) {
-    storeRef.current = createUsersStore();
+    storeRef.current = createUsersStore(initUsersStore(users));
   }
 
   return (

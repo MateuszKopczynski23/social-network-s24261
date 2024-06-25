@@ -42,6 +42,7 @@ export const defaultUserData = () => ({
   email: '',
   password: '',
   settings: {
+    isAdmin: false,
     isPrivate: true,
     isNotificationsEnabled: false,
     isStickyHeader: true,
