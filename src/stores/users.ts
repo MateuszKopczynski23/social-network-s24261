@@ -14,6 +14,7 @@ export type UsersState = {
 
 export type UsersActions = {
   getUsers: (user: User) => User[];
+  getUserById: (id: string) => User | undefined;
   getUserFriends: (user: User) => User[];
   getUserFriendRequests: (user: User) => User[];
   getUserNewFriends: (user: User) => User[];
@@ -48,6 +49,12 @@ export const createUsersStore = (initState: UsersState = defaultInitState) => {
       if (!user) return allUsers;
 
       return filter(allUsers, (u) => u.id !== user.id);
+    },
+
+    getUserById: (id: string) => {
+      const allUsers = get().users;
+
+      return find(allUsers, { id });
     },
 
     getUserFriends: (user: User) => {

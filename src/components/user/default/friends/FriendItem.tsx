@@ -131,7 +131,7 @@ const FriendItem: FC<FriendProps> = ({
 
               {!canSendFriendRequest(user, friend) &&
                 !canRemoveFriend(user, friend) && (
-                  <div className="invisible absolute bottom-1.5 right-1.5 flex items-center justify-center rounded bg-primary px-1.5 py-1 group-hover:visible">
+                  <div className="invisible absolute bottom-1.5 right-1.5 flex items-center justify-center rounded bg-primary/50 px-1.5 py-1 group-hover:visible">
                     <div className="flex justify-center gap-x-1 text-xs font-medium text-white">
                       <Send className="h-4 w-4" />
                     </div>
