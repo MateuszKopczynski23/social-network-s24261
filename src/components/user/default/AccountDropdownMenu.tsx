@@ -15,10 +15,11 @@ import {
   DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu';
 import { useAuthStore } from '@/providers/store/AuthStoreProvider';
+import { DEFAULT_AVATAR_IMAGE } from '@/constants/images';
 
 const AccountDropdownMenu: FC = () => {
   const { push } = useRouter();
-  const { logout } = useAuthStore((state) => state);
+  const { user, logout } = useAuthStore((state) => state);
 
   const handleLogout = async () => {
     await logout();
@@ -34,11 +35,11 @@ const AccountDropdownMenu: FC = () => {
           className="overflow-hidden rounded-full"
         >
           <Image
-            src="https://images.unsplash.com/photo-1633332755192-727a05c4013d?q=80&w=2080&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+            src={user?.imageUrl || DEFAULT_AVATAR_IMAGE}
             width={36}
             height={36}
             alt="Avatar"
-            className="overflow-hidden rounded-full"
+            className="h-full overflow-hidden rounded-full object-cover"
           />
         </Button>
       </DropdownMenuTrigger>
