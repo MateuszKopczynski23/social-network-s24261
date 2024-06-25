@@ -2,8 +2,8 @@ import { Cake } from 'lucide-react';
 import Image from 'next/image';
 import Link from 'next/link';
 import React, { FC } from 'react';
+import { format } from 'date-fns';
 
-import { Friend } from '@/data/user/friends';
 import { cn } from '@/lib/utils';
 import {
   ContextMenu,
@@ -12,9 +12,12 @@ import {
   ContextMenuSeparator,
   ContextMenuTrigger,
 } from '@/components/ui/context-menu';
+import { User } from '@/interfaces/user';
+import { DEFAULT_AVATAR_IMAGE } from '@/constants/images';
+import { calculateAge } from '@/utils/calculateAge';
 
 interface FriendProps extends React.HTMLAttributes<HTMLDivElement> {
-  friend: Friend;
+  friend: User;
   aspectRatio?: 'portrait' | 'square';
   width?: number;
   height?: number;
@@ -38,7 +41,7 @@ const FriendItem: FC<FriendProps> = ({
           <ContextMenuTrigger>
             <div className="group relative overflow-hidden rounded-md">
               <Image
-                src={friend.image}
+                src={friend.imageUrl || DEFAULT_AVATAR_IMAGE}
                 alt={friend.firstName}
                 width={width}
                 height={height}
@@ -51,7 +54,7 @@ const FriendItem: FC<FriendProps> = ({
               <div className="invisible absolute right-1.5 top-1.5 flex items-center justify-center rounded-md bg-primary px-1.5 py-1 group-hover:visible">
                 <div className="flex justify-center gap-x-1 text-xs font-medium text-white">
                   <Cake className="h-4 w-4" />
-                  Feb 14
+                  {format(friend.dateOfBirth || '', 'dd MMM')}
                 </div>
               </div>
             </div>
@@ -67,7 +70,8 @@ const FriendItem: FC<FriendProps> = ({
         </ContextMenu>
         <div className="space-y-1">
           <h3 className="pb-1 font-medium leading-none">
-            {friend.firstName} {friend.lastName}, {friend.age}
+            {friend.firstName} {friend.lastName},{' '}
+            {calculateAge(friend.dateOfBirth || '')}
           </h3>
           <p className="text-xs text-muted-foreground">{friend.city}</p>
         </div>

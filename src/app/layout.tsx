@@ -9,7 +9,7 @@ import { cn } from '@/lib/utils';
 import { TooltipProvider } from '@/components/ui/tooltip';
 import StoreProvider from '@/providers/store';
 import { getUser } from '@/actions/users';
-import { getUsers } from '@/api/users';
+import { getUsers } from '@/api/user';
 
 const fontSans = FontSans({
   subsets: ['latin'],

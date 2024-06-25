@@ -48,6 +48,8 @@ export const defaultUserData = () => ({
     isStickyHeader: true,
     isActiveFriendsVisible: true,
   },
+  friends: [],
+  friendRequests: [],
 });
 
 export const initAuthStore = (user?: AuthState['user']): AuthState => {

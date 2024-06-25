@@ -4,7 +4,6 @@
       "id": "1",
       "firstName": "Johnny",
       "lastName": "Doe",
-      "age": 23,
       "city": "New York",
       "dateOfBirth": "1999-10-21T00:00:00.000Z",
       "imageUrl": "https://images.unsplash.com/photo-1490300472339-79e4adc6be4a?w=300&dpr=2&q=80",
@@ -21,13 +20,20 @@
         "isNotificationsEnabled": true,
         "isStickyHeader": true,
         "isActiveFriendsVisible": false
-      }
+      },
+      "friends": [
+        "2",
+        "3",
+        "4"
+      ],
+      "friendRequests": [
+        "5"
+      ]
     },
     {
       "id": "2",
       "firstName": "Lena23",
       "lastName": "Doe",
-      "age": 27,
       "city": "New York",
       "dateOfBirth": "2024-06-10T22:00:00.000Z",
       "imageUrl": "",
@@ -44,13 +50,21 @@
         "isNotificationsEnabled": true,
         "isStickyHeader": true,
         "isActiveFriendsVisible": false
-      }
+      },
+      "friends": [
+        "1",
+        "",
+        "3",
+        "4"
+      ],
+      "friendRequests": [
+        "6"
+      ]
     },
     {
       "id": "3",
       "firstName": "Johnny",
       "lastName": "Doe",
-      "age": 23,
       "city": "New York",
       "dateOfBirth": "1999-10-21T00:00:00.000Z",
       "imageUrl": "https://images.unsplash.com/photo-1639149888905-fb39731f2e6c?q=80&w=1964&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
@@ -67,13 +81,20 @@
         "isNotificationsEnabled": true,
         "isStickyHeader": true,
         "isActiveFriendsVisible": false
-      }
+      },
+      "friends": [
+        "2",
+        "3",
+        "4"
+      ],
+      "friendRequests": [
+        "5"
+      ]
     },
     {
       "id": "4",
       "firstName": "Alice",
       "lastName": "Smith",
-      "age": 25,
       "city": "Los Angeles",
       "dateOfBirth": "1998-08-15T00:00:00.000Z",
       "imageUrl": "https://images.unsplash.com/photo-1499887142886-791eca5918cd?q=80&w=2080&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
@@ -90,13 +111,21 @@
         "isNotificationsEnabled": true,
         "isStickyHeader": true,
         "isActiveFriendsVisible": false
-      }
+      },
+      "friends": [
+        "2",
+        "3",
+        "",
+        "5"
+      ],
+      "friendRequests": [
+        "1"
+      ]
     },
     {
       "id": "5",
       "firstName": "Bob",
       "lastName": "Johnson",
-      "age": 30,
       "city": "Chicago",
       "dateOfBirth": "1994-05-10T00:00:00.000Z",
       "imageUrl": "https://images.unsplash.com/photo-1557862921-37829c790f19?q=80&w=2071&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
@@ -113,13 +142,21 @@
         "isNotificationsEnabled": true,
         "isStickyHeader": true,
         "isActiveFriendsVisible": false
-      }
+      },
+      "friends": [
+        "2",
+        "3",
+        "",
+        "4"
+      ],
+      "friendRequests": [
+        "1"
+      ]
     },
     {
       "id": "6",
       "firstName": "Emma",
       "lastName": "Williams",
-      "age": 28,
       "city": "San Francisco",
       "dateOfBirth": "1996-12-01T00:00:00.000Z",
       "imageUrl": "https://images.unsplash.com/photo-1573497019940-1c28c88b4f3e?q=80&w=1974&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
@@ -136,13 +173,20 @@
         "isNotificationsEnabled": true,
         "isStickyHeader": true,
         "isActiveFriendsVisible": false
-      }
+      },
+      "friends": [
+        "2",
+        "3",
+        "4"
+      ],
+      "friendRequests": [
+        "5"
+      ]
     },
     {
       "id": "7",
       "firstName": "David",
       "lastName": "Brown",
-      "age": 26,
       "city": "Seattle",
       "dateOfBirth": "1997-09-20T00:00:00.000Z",
       "imageUrl": "https://images.unsplash.com/photo-1517841905240-472988babdf9?w=300&dpr=2&q=80",
@@ -159,7 +203,15 @@
         "isNotificationsEnabled": true,
         "isStickyHeader": true,
         "isActiveFriendsVisible": false
-      }
+      },
+      "friends": [
+        "2",
+        "3",
+        "6"
+      ],
+      "friendRequests": [
+        "5"
+      ]
     }
   ],
   "groups": [
