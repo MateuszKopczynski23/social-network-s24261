@@ -75,7 +75,10 @@ export const createPostsStore = (initState: PostsState = defaultInitState) => {
     getUserPosts: (userId: string) => {
       const { posts } = get();
 
-      return filter(posts, (post) => post.user.id === userId);
+      return filter(
+        posts,
+        (post) => post.user.id === userId && !post.groupId && !post.eventId
+      );
     },
 
     getGroupPosts: (groupId: string) => {
