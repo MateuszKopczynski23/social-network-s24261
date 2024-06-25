@@ -1,8 +1,11 @@
+'use client';
+
 import { Cake } from 'lucide-react';
 import Image from 'next/image';
 import Link from 'next/link';
-import React, { FC } from 'react';
+import React, { FC, MouseEvent } from 'react';
 import { format } from 'date-fns';
+import { toast } from 'sonner';
 
 import { cn } from '@/lib/utils';
 import {
@@ -15,6 +18,8 @@ import {
 import { User } from '@/interfaces/user';
 import { DEFAULT_AVATAR_IMAGE } from '@/constants/images';
 import { calculateAge } from '@/utils/calculateAge';
+import { useUsersStore } from '@/providers/store/UsersStoreProvider';
+import { useAuthStore } from '@/providers/store/AuthStoreProvider';
 
 interface FriendProps extends React.HTMLAttributes<HTMLDivElement> {
   friend: User;
@@ -31,8 +36,75 @@ const FriendItem: FC<FriendProps> = ({
   className,
   ...props
 }) => {
+  const { user } = useAuthStore((state) => state);
+
+  const {
+    canAddFriend,
+    canRemoveFriend,
+    canAcceptFriendRequest,
+    canDeclineFriendRequest,
+    addFriend,
+    removeFriend,
+    addFriendRequest,
+    removeFriendRequest,
+  } = useUsersStore((state) => state);
+
+  if (!user) return null;
+
+  const handleAddFriend = async (event: MouseEvent) => {
+    event.preventDefault();
+
+    try {
+      await addFriend(user, friend);
+      toast.success('Registration successful!');
+    } catch (error) {
+      if (error instanceof Error) {
+        toast.error(error.message);
+      }
+    }
+  };
+
+  const handleRemoveFriend = async (event: MouseEvent) => {
+    event.preventDefault();
+
+    try {
+      await removeFriend(user, friend);
+      toast.success('Registration successful!');
+    } catch (error) {
+      if (error instanceof Error) {
+        toast.error(error.message);
+      }
+    }
+  };
+
+  const handleAddFriendRequest = async (event: MouseEvent) => {
+    event.preventDefault();
+
+    try {
+      await addFriendRequest(user, friend);
+      toast.success('Registration successful!');
+    } catch (error) {
+      if (error instanceof Error) {
+        toast.error(error.message);
+      }
+    }
+  };
+
+  const handleRemoveFriendRequest = async (event: MouseEvent) => {
+    event.preventDefault();
+
+    try {
+      await removeFriendRequest(user, friend);
+      toast.success('Registration successful!');
+    } catch (error) {
+      if (error instanceof Error) {
+        toast.error(error.message);
+      }
+    }
+  };
+
   return (
-    <Link href="/user/friends/1">
+    <Link href={`/user/friends/${friend.id}`}>
       <div
         className={cn('space-y-3', className)}
         {...props}
@@ -60,12 +132,36 @@ const FriendItem: FC<FriendProps> = ({
             </div>
           </ContextMenuTrigger>
           <ContextMenuContent className="w-40">
-            <ContextMenuItem>Add</ContextMenuItem>
+            {canAddFriend(user, friend) && (
+              <ContextMenuItem
+                onClick={(event) => handleAddFriendRequest(event)}
+              >
+                Add
+              </ContextMenuItem>
+            )}
             <ContextMenuItem>Show</ContextMenuItem>
-            <ContextMenuItem>Accept</ContextMenuItem>
-            <ContextMenuSeparator />
-            <ContextMenuItem className="text-red-500">Remove</ContextMenuItem>
-            <ContextMenuItem className="text-red-500">Decline</ContextMenuItem>
+            {canAcceptFriendRequest(user, friend) && (
+              <ContextMenuItem onClick={(event) => handleAddFriend(event)}>
+                Accept
+              </ContextMenuItem>
+            )}
+            {!canAddFriend(user, friend) && <ContextMenuSeparator />}
+            {canRemoveFriend(user, friend) && (
+              <ContextMenuItem
+                className="text-red-500"
+                onClick={(event) => handleRemoveFriend(event)}
+              >
+                Remove
+              </ContextMenuItem>
+            )}
+            {canDeclineFriendRequest(user, friend) && (
+              <ContextMenuItem
+                className="text-red-500"
+                onClick={(event) => handleRemoveFriendRequest(event)}
+              >
+                Decline
+              </ContextMenuItem>
+            )}
           </ContextMenuContent>
         </ContextMenu>
         <div className="space-y-1">

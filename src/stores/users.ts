@@ -5,15 +5,26 @@ import filter from 'lodash/filter';
 
 import { users } from '@/data/user/users';
 import { User } from '@/interfaces/user';
+import { getUsers, updateUser } from '@/api/user';
+import { setUser } from '@/actions/users';
 
 export type UsersState = {
   users: User[] | [];
 };
 
 export type UsersActions = {
-  getUserFriends: (userId: string) => User[];
-  getUserFriendRequests: (userId: string) => User[];
-  getUserNewFriends: (userId: string) => User[];
+  getUserFriends: (user: User) => User[];
+  getUserFriendRequests: (user: User) => User[];
+  getUserNewFriends: (user: User) => User[];
+  addFriend: (user: User, friend: User) => Promise<void>;
+  removeFriend: (user: User, friend: User) => Promise<void>;
+  addFriendRequest: (user: User, friend: User) => Promise<void>;
+  removeFriendRequest: (user: User, friend: User) => Promise<void>;
+
+  canAddFriend: (user: User, friend: User) => boolean;
+  canAcceptFriendRequest: (user: User, friend: User) => boolean;
+  canRemoveFriend: (user: User, friend: User) => boolean;
+  canDeclineFriendRequest: (user: User, friend: User) => boolean;
 };
 
 export type UsersStore = UsersState & UsersActions;
@@ -30,38 +41,118 @@ export const createUsersStore = (initState: UsersState = defaultInitState) => {
   return createStore<UsersStore>((set, get) => ({
     ...initState,
 
-    getUserFriends: (userId: string) => {
+    getUserFriends: (user: User) => {
       const allUsers = get().users;
-      const authUser = find(allUsers, { id: userId });
 
-      if (!authUser) return [];
+      if (!user) return [];
 
-      return filter(allUsers, (user) => includes(authUser.friends, user.id));
+      return filter(allUsers, (u) => includes(user.friends, u.id));
     },
 
-    getUserFriendRequests: (userId: string) => {
+    getUserFriendRequests: (user: User) => {
       const allUsers = get().users;
-      const authUser = find(allUsers, { id: userId });
 
-      if (!authUser) return [];
+      if (!user) return [];
 
-      return filter(allUsers, (user) =>
-        includes(authUser.friendRequests, user.id)
-      );
+      return filter(allUsers, (u) => includes(user.friendRequests, u.id));
     },
 
-    getUserNewFriends: (userId: string) => {
+    getUserNewFriends: (user: User) => {
       const allUsers = get().users;
-      const authUser = find(allUsers, { id: userId });
 
-      if (!authUser) return [];
+      if (!user) return [];
 
       return filter(
         allUsers,
-        (user) =>
-          !includes(authUser.friends, user.id) &&
-          !includes(authUser.friendRequests, user.id)
+        (u) =>
+          !includes(user.friends, u.id) && !includes(user.friendRequests, u.id)
       );
+    },
+
+    addFriend: async (user: User, friend: User) => {
+      const allUsers = get().users;
+      const friendUser = find(allUsers, { id: friend.id });
+
+      if (user && friendUser) {
+        user.friends.push(friend.id);
+        friendUser.friends.push(user.id);
+
+        await updateUser(user, user.id);
+        await setUser(user);
+        await updateUser(friendUser, friend.id);
+
+        const newUsers = await getUsers();
+
+        set({ users: [...newUsers] });
+      }
+    },
+
+    removeFriend: async (user: User, friend: User) => {
+      const allUsers = get().users;
+      const friendUser = find(allUsers, { id: friend.id });
+
+      if (user && friendUser) {
+        user.friends = user.friends.filter((id) => id !== friend.id);
+        friendUser.friends = friendUser.friends.filter((id) => id !== user.id);
+
+        await updateUser(user, user.id);
+        await setUser(user);
+        await updateUser(friendUser, friend.id);
+
+        const newUsers = await getUsers();
+
+        set({ users: [...newUsers] });
+      }
+    },
+
+    addFriendRequest: async (user: User, friend: User) => {
+      const allUsers = get().users;
+      const friendUser = find(allUsers, { id: friend.id });
+
+      if (friendUser) {
+        friendUser.friendRequests.push(user.id);
+
+        await updateUser(friendUser, friend.id);
+
+        const newUsers = await getUsers();
+
+        set({ users: [...newUsers] });
+      }
+    },
+
+    removeFriendRequest: async (user: User, friend: User) => {
+      if (user) {
+        user.friendRequests = user.friendRequests.filter(
+          (id) => id !== friend.id
+        );
+
+        await updateUser(user, user.id);
+        await setUser(user);
+
+        const newUsers = await getUsers();
+
+        set({ users: [...newUsers] });
+      }
+    },
+
+    canAddFriend: (user: User, friend: User) => {
+      return (
+        !user.friends.includes(friend.id) &&
+        !user.friendRequests.includes(friend.id) &&
+        user.id !== friend.id
+      );
+    },
+
+    canAcceptFriendRequest: (user: User, friend: User) => {
+      return user.friendRequests.includes(friend.id);
+    },
+
+    canRemoveFriend: (user: User, friend: User) => {
+      return user.friends.includes(friend.id);
+    },
+
+    canDeclineFriendRequest: (user: User, friend: User) => {
+      return user.friendRequests.includes(friend.id);
     },
   }));
 };

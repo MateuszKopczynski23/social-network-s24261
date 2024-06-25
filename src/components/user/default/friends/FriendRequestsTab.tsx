@@ -12,7 +12,9 @@ const UserFriendRequestsTab: FC = () => {
   const { user } = useAuthStore((state) => state);
   const { getUserFriendRequests } = useUsersStore((state) => state);
 
-  const users = getUserFriendRequests(user?.id || '');
+  if (!user) return null;
+
+  const users = getUserFriendRequests(user);
 
   return (
     <TabsContent
