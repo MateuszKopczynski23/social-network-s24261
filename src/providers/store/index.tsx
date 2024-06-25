@@ -6,6 +6,7 @@ import { GroupsStoreProvider } from '@/providers/store/GroupsStoreProvider';
 import { EventsStoreProvider } from '@/providers/store/EventsStoreProvider';
 import { UsersStoreProvider } from '@/providers/store/UsersStoreProvider';
 import { UsersState } from '@/stores/users';
+import { PostsStoreProvider } from '@/providers/store/PostsStoreProvider';
 
 interface StoreProviderProps {
   authState?: AuthState;
@@ -24,9 +25,11 @@ const StoreProvider: FC<StoreProviderProps> = ({
   return (
     <AuthStoreProvider user={defaultUser}>
       <UsersStoreProvider users={defaultUsers}>
-        <GroupsStoreProvider>
-          <EventsStoreProvider>{children}</EventsStoreProvider>
-        </GroupsStoreProvider>
+        <PostsStoreProvider>
+          <GroupsStoreProvider>
+            <EventsStoreProvider>{children}</EventsStoreProvider>
+          </GroupsStoreProvider>
+        </PostsStoreProvider>
       </UsersStoreProvider>
     </AuthStoreProvider>
   );
