@@ -1,7 +1,7 @@
 'use client';
 
 import { FC, useState } from 'react';
-import { MessageCircle, Settings, Share2, ThumbsUp } from 'lucide-react';
+import { MessageCircle, Share2, ThumbsUp } from 'lucide-react';
 import Image from 'next/image';
 
 import Comment from '@/components/user/default/Comment';
@@ -17,17 +17,21 @@ import {
 import { Separator } from '@/components/ui/separator';
 import { DEFAULT_AVATAR_IMAGE } from '@/constants/images';
 import { usePostsStore } from '@/providers/store/PostsStoreProvider';
+import { useAuthStore } from '@/providers/store/AuthStoreProvider';
+import PostSettings from '@/components/user/default/PostSettings';
 
 interface PostProps {
   post: IPost;
 }
 
 const Post: FC<PostProps> = ({ post }) => {
+  const { user } = useAuthStore((state) => state);
   const {
     getPostLikesCount,
     getPostCommentsCount,
     getPostComments,
     getCommentLikesCount,
+    isUserPost,
   } = usePostsStore((state) => state);
   const [isCommentsVisible, setIsCommentsVisible] = useState(false);
 
@@ -55,7 +59,9 @@ const Post: FC<PostProps> = ({ post }) => {
             </div>
           </div>
 
-          <Settings className="mt-2 h-5 w-5" />
+          {user && isUserPost(post.id, user.id) && (
+            <PostSettings postId={post.id} />
+          )}
         </div>
       </CardHeader>
       <CardContent>

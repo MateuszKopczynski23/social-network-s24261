@@ -1,6 +1,7 @@
 import { createStore } from 'zustand/vanilla';
-import { filter } from 'lodash';
+import filter from 'lodash/filter';
 import size from 'lodash/size';
+import findIndex from 'lodash/findIndex';
 import includes from 'lodash/includes';
 
 import { posts } from '@/data/user/posts';
@@ -22,6 +23,8 @@ export type PostsActions = {
   getPostComments: (postId: string) => Comment[];
   getCommentLikesCount: (postId: string, commentId: string) => number;
   addPost: (newPost: Post) => void;
+  deletePost: (postId: string) => void;
+  isUserPost: (postId: string, userId: string) => boolean;
 };
 
 export type PostsStore = PostsState & PostsActions;
@@ -102,6 +105,21 @@ export const createPostsStore = (initState: PostsState = defaultInitState) => {
       set((state) => ({
         posts: [...state.posts, { ...newPost }],
       }));
+    },
+
+    deletePost: (postId: string) => {
+      set((state) => ({
+        posts: filter(state.posts, (post) => post.id !== postId),
+      }));
+    },
+
+    isUserPost: (postId: string, userId: string) => {
+      const { posts } = get();
+      const index = findIndex(
+        posts,
+        (post) => post.id === postId && post.user.id === userId
+      );
+      return index !== -1;
     },
   }));
 };

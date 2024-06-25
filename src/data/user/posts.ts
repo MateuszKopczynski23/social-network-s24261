@@ -26,7 +26,7 @@ export const posts: Post[] = [
         isStickyHeader: true,
         isActiveFriendsVisible: false,
       },
-      friends: ['2'],
+      friends: ['6'],
       friendRequests: [],
     },
     content:
@@ -74,7 +74,7 @@ export const posts: Post[] = [
   {
     id: '2',
     user: {
-      id: '2',
+      id: '6',
       firstName: 'Jane',
       lastName: 'Smith',
       city: 'Los Angeles',
