@@ -3,6 +3,7 @@
 import { FC, useState } from 'react';
 import { MessageCircle, Share2, ThumbsUp } from 'lucide-react';
 import Image from 'next/image';
+import Link from 'next/link';
 
 import Comment from '@/components/user/default/Comment';
 import CommentForm from '@/components/user/default/forms/CommentForm';
@@ -19,6 +20,7 @@ import { DEFAULT_AVATAR_IMAGE } from '@/constants/images';
 import { usePostsStore } from '@/providers/store/PostsStoreProvider';
 import { useAuthStore } from '@/providers/store/AuthStoreProvider';
 import PostSettings from '@/components/user/default/PostSettings';
+import { useUsersStore } from '@/providers/store/UsersStoreProvider';
 
 interface PostProps {
   post: IPost;
@@ -33,9 +35,12 @@ const Post: FC<PostProps> = ({ post }) => {
     getCommentLikesCount,
     isUserPost,
   } = usePostsStore((state) => state);
+  const { getUserById } = useUsersStore((state) => state);
+
   const [isCommentsVisible, setIsCommentsVisible] = useState(false);
 
   const commentsCount = getPostCommentsCount(post.id);
+  const mentionedUser = getUserById(post.mentionedUser || '');
 
   return (
     <Card x-chunk="dashboard-07-chunk-0">
@@ -81,13 +86,23 @@ const Post: FC<PostProps> = ({ post }) => {
         </div>
       </CardContent>
       <CardFooter className="flex flex-col items-start">
-        <div className="flex items-start gap-x-3 text-xs text-muted-foreground">
-          <div className="flex items-center gap-x-1">
-            <ThumbsUp className="h-3.5 w-3.5" /> {getPostLikesCount(post.id)}
+        <div className="flex w-full justify-between">
+          <div className="flex items-start gap-x-3 text-xs text-muted-foreground">
+            <div className="flex items-center gap-x-1">
+              <ThumbsUp className="h-3.5 w-3.5" /> {getPostLikesCount(post.id)}
+            </div>
+            <div className="flex items-center gap-x-1">
+              <MessageCircle className="h-3.5 w-3.5" /> {commentsCount}
+            </div>
           </div>
-          <div className="flex items-center gap-x-1">
-            <MessageCircle className="h-3.5 w-3.5" /> {commentsCount}
-          </div>
+          {mentionedUser && (
+            <Link
+              href={`/user/friends/${mentionedUser?.id}`}
+              className="text-xs text-primary/80"
+            >
+              @{mentionedUser?.firstName} {mentionedUser?.lastName}
+            </Link>
+          )}
         </div>
         <Separator className="my-3 px-3" />
         <div className="grid w-full grid-cols-3">

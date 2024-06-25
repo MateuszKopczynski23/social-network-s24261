@@ -1,6 +1,6 @@
 'use client';
 
-import { Image as Photo, Send, Smile } from 'lucide-react';
+import { AtSign, Image as Photo, Send } from 'lucide-react';
 import React, { FC, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
@@ -29,18 +29,32 @@ import {
   addPostFormSchema,
   AddPostFormValues,
 } from '@/validations/user/posts/addPostValidation';
+import { useUsersStore } from '@/providers/store/UsersStoreProvider';
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from '@/components/ui/select';
 
 const PostForm: FC = () => {
   const { user } = useAuthStore((state) => state);
   const { addPost } = usePostsStore((state) => state);
+  const { getUserFriends } = useUsersStore((state) => state);
 
   const [isImageInputVisible, setIsImageInputVisible] = useState(false);
+  const [isMentionInputVisible, setIsMentionInputVisible] = useState(false);
 
   const form = useForm<AddPostFormValues>({
     resolver: zodResolver(addPostFormSchema),
     defaultValues: addPostFormDefaultValues,
     mode: 'onChange',
   });
+
+  if (!user) return null;
+
+  const users = getUserFriends(user);
 
   const handleAdd = async (data: AddPostFormValues) => {
     try {
@@ -53,9 +67,11 @@ const PostForm: FC = () => {
       });
 
       addPost(post);
-
       form.reset();
+
       setIsImageInputVisible(false);
+      setIsMentionInputVisible(false);
+
       toast.success('Post created successfully!');
     } catch (error) {
       if (error instanceof Error) {
@@ -125,6 +141,38 @@ const PostForm: FC = () => {
                 )}
               />
             )}
+
+            {isMentionInputVisible && user && (
+              <FormField
+                control={form.control}
+                name="mentionedUser"
+                render={({ field }) => (
+                  <FormItem>
+                    <Select
+                      onValueChange={field.onChange}
+                      defaultValue={field.value}
+                    >
+                      <FormControl>
+                        <SelectTrigger>
+                          <SelectValue placeholder="Select friend..." />
+                        </SelectTrigger>
+                      </FormControl>
+                      <SelectContent>
+                        {users.map((user) => (
+                          <SelectItem
+                            key={user.id}
+                            value={user.id}
+                          >
+                            {user.firstName} {user.lastName}
+                          </SelectItem>
+                        ))}
+                      </SelectContent>
+                    </Select>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+            )}
           </form>
         </Form>
       </CardContent>
@@ -137,8 +185,11 @@ const PostForm: FC = () => {
           >
             <Photo className="h-5 w-5 text-primary/60" /> Photo/video
           </div>
-          <div className="flex items-center justify-center gap-x-2 text-sm">
-            <Smile className="h-5 w-5 text-primary/60" /> Felling/activity
+          <div
+            onClick={() => setIsMentionInputVisible(!isMentionInputVisible)}
+            className="flex items-center justify-center gap-x-2 text-sm"
+          >
+            <AtSign className="h-5 w-5 text-primary/60" /> Mention
           </div>
         </div>
       </CardFooter>

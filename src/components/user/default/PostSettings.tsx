@@ -29,7 +29,7 @@ const PostSettings: FC<PostSettings> = ({ postId }) => {
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
-        <Settings className="mt-2 h-5 w-5" />
+        <Settings className="mt-2 h-5 w-5 cursor-pointer" />
       </DropdownMenuTrigger>
       <DropdownMenuContent className="w-56">
         <DropdownMenuGroup>

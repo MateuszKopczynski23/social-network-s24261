@@ -10,9 +10,11 @@ export const addPostFormSchema = z.object({
       message: 'Content must not be longer than 1000 characters.',
     }),
   imageUrl: z.string().optional(),
+  mentionedUser: z.string().optional(),
 });
 
 export const addPostFormDefaultValues: Partial<AddPostFormValues> = {
   content: '',
   imageUrl: '',
+  mentionedUser: '',
 };

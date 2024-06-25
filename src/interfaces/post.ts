@@ -11,5 +11,5 @@ export interface Post {
   createdAt: string;
   comments?: Comment[];
   likes?: User[];
-  users?: User[];
+  mentionedUser?: string;
 }
