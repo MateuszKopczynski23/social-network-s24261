@@ -38,7 +38,12 @@ import {
   SelectValue,
 } from '@/components/ui/select';
 
-const PostForm: FC = () => {
+interface PostFormProps {
+  groupId?: string;
+  eventId?: string;
+}
+
+const PostForm: FC<PostFormProps> = ({ groupId, eventId }) => {
   const { user } = useAuthStore((state) => state);
   const { addPost } = usePostsStore((state) => state);
   const { getUserFriends } = useUsersStore((state) => state);
@@ -64,6 +69,8 @@ const PostForm: FC = () => {
         id: uuidv4(),
         user: user as User,
         createdAt: new Date().toISOString(),
+        groupId,
+        eventId,
       });
 
       addPost(post);

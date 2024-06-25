@@ -1,6 +1,6 @@
 'use client';
 
-import { EllipsisVertical, Trash } from 'lucide-react';
+import { EllipsisVertical, Flag, Trash } from 'lucide-react';
 import { FC } from 'react';
 import { toast } from 'sonner';
 
@@ -34,6 +34,10 @@ const CommentSettings: FC<CommentSettings> = ({ postId, commentId }) => {
       </DropdownMenuTrigger>
       <DropdownMenuContent className="w-56">
         <DropdownMenuGroup>
+          <DropdownMenuItem>
+            <Flag className="mr-2 h-4 w-4" />
+            <span>Report</span>
+          </DropdownMenuItem>
           <DropdownMenuItem onClick={handleDelete}>
             <Trash className="mr-2 h-4 w-4" />
             <span>Delete</span>
