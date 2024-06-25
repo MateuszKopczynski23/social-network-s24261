@@ -1,10 +1,8 @@
 'use client';
 
-import take from 'lodash/take';
 import { FC, useState } from 'react';
 import { Search as Magnifier } from 'lucide-react';
 
-import { people } from '@/data/user/people';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import { Input } from '@/components/ui/input';
 import {
@@ -15,13 +13,14 @@ import {
   CommandItem,
   CommandList,
 } from '@/components/ui/command';
+import { calculateAge } from '@/utils/calculateAge';
+import { DEFAULT_AVATAR_IMAGE } from '@/constants/images';
+import { useUsersStore } from '@/providers/store/UsersStoreProvider';
 
 const Search: FC = () => {
-  const [open, setOpen] = useState(false);
+  const { users } = useUsersStore((state) => state);
 
-  const getResults = () => {
-    return take(people, 5);
-  };
+  const [open, setOpen] = useState(false);
 
   return (
     <>
@@ -47,23 +46,24 @@ const Search: FC = () => {
         <CommandList>
           <CommandEmpty>No results found</CommandEmpty>
           <CommandGroup heading="Results">
-            {getResults().map((person) => (
-              <CommandItem key={person.userImage}>
+            {users.map((user) => (
+              <CommandItem key={user.id}>
                 <div className="flex items-center gap-3">
                   <Avatar className="hidden h-9 w-9 sm:flex">
                     <AvatarImage
-                      src={person.userImage}
+                      src={user.imageUrl || DEFAULT_AVATAR_IMAGE}
                       alt="Avatar"
                       className="object-cover"
                     />
-                    <AvatarFallback>OM</AvatarFallback>
+                    <AvatarFallback>F</AvatarFallback>
                   </Avatar>
                   <div className="grid gap-1">
                     <p className="text-sm font-medium leading-none">
-                      {person.userName}
+                      {user.firstName} {user.lastName},{' '}
+                      {user.dateOfBirth && calculateAge(user.dateOfBirth)}
                     </p>
                     <p className="text-xs text-muted-foreground">
-                      {person.mutualFriends} mutual friends
+                      {user.city}, {user.country}
                     </p>
                   </div>
                 </div>
