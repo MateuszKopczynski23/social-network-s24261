@@ -56,7 +56,7 @@ const FriendItem: FC<FriendProps> = ({
 
     try {
       await addFriend(user, friend);
-      toast.success('Registration successful!');
+      toast.success('Friend request accepted!');
     } catch (error) {
       if (error instanceof Error) {
         toast.error(error.message);
@@ -69,7 +69,7 @@ const FriendItem: FC<FriendProps> = ({
 
     try {
       await removeFriend(user, friend);
-      toast.success('Registration successful!');
+      toast.success('Friend removed successfully!');
     } catch (error) {
       if (error instanceof Error) {
         toast.error(error.message);
@@ -82,7 +82,7 @@ const FriendItem: FC<FriendProps> = ({
 
     try {
       await addFriendRequest(user, friend);
-      toast.success('Registration successful!');
+      toast.success('Friend request sent!');
     } catch (error) {
       if (error instanceof Error) {
         toast.error(error.message);
@@ -95,7 +95,7 @@ const FriendItem: FC<FriendProps> = ({
 
     try {
       await removeFriendRequest(user, friend);
-      toast.success('Registration successful!');
+      toast.success('Friend request declined!');
     } catch (error) {
       if (error instanceof Error) {
         toast.error(error.message);
@@ -108,7 +108,7 @@ const FriendItem: FC<FriendProps> = ({
 
     try {
       await removeFriendRequest(friend, user);
-      toast.success('Registration successful!');
+      toast.success('Friend request undone!');
     } catch (error) {
       if (error instanceof Error) {
         toast.error(error.message);
