@@ -21,6 +21,7 @@ export type PostsActions = {
   getPostCommentsCount: (postId: string) => number;
   getPostComments: (postId: string) => Comment[];
   getCommentLikesCount: (postId: string, commentId: string) => number;
+  addPost: (newPost: Post) => void;
 };
 
 export type PostsStore = PostsState & PostsActions;
@@ -95,6 +96,12 @@ export const createPostsStore = (initState: PostsState = defaultInitState) => {
       const comment = post.comments?.find((c) => c.id === commentId);
 
       return comment ? size(comment.likes) : 0;
+    },
+
+    addPost: (newPost: Post) => {
+      set((state) => ({
+        posts: [...state.posts, { ...newPost }],
+      }));
     },
   }));
 };
