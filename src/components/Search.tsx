@@ -2,6 +2,7 @@
 
 import { FC, useState } from 'react';
 import { Search as Magnifier } from 'lucide-react';
+import { useRouter } from 'next/navigation';
 
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import { Input } from '@/components/ui/input';
@@ -19,6 +20,7 @@ import { useUsersStore } from '@/providers/store/UsersStoreProvider';
 import { useAuthStore } from '@/providers/store/AuthStoreProvider';
 
 const Search: FC = () => {
+  const { push } = useRouter();
   const { user } = useAuthStore((state) => state);
   const { getUsers } = useUsersStore((state) => state);
 
@@ -27,6 +29,11 @@ const Search: FC = () => {
   if (!user) return null;
 
   const users = getUsers(user);
+
+  const handleRedirect = (userId: string) => {
+    setOpen(!open);
+    push(`/user/friends/${userId}`);
+  };
 
   return (
     <>
@@ -54,7 +61,10 @@ const Search: FC = () => {
           <CommandGroup heading="Results">
             {users.map((user) => (
               <CommandItem key={user.id}>
-                <div className="flex items-center gap-3">
+                <div
+                  className="flex w-full items-center gap-3"
+                  onClick={() => handleRedirect(user.id)}
+                >
                   <Avatar className="hidden h-9 w-9 sm:flex">
                     <AvatarImage
                       src={user.imageUrl || DEFAULT_AVATAR_IMAGE}
