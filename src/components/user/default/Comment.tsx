@@ -7,6 +7,7 @@ import { DEFAULT_AVATAR_IMAGE } from '@/constants/images';
 import { usePostsStore } from '@/providers/store/PostsStoreProvider';
 import { useAuthStore } from '@/providers/store/AuthStoreProvider';
 import { cn } from '@/lib/utils';
+import CommentSettings from '@/components/user/default/CommentSettings';
 
 interface CommentProps {
   comment: IComment;
@@ -40,11 +41,18 @@ const Comment: FC<CommentProps> = ({ comment, postId, likesCount }) => {
       </Avatar>
 
       <div className="max-w-max">
-        <div className="rounded-xl bg-muted px-3 py-2 text-xs">
-          <p className="mb-0.5 font-semibold text-primary/90">
-            {comment.user.firstName} {comment.user.lastName}
-          </p>
-          <p>{comment.content}</p>
+        <div className="flex items-center gap-x-1">
+          <div className="flex-1 rounded-xl bg-muted px-3 py-2 text-xs">
+            <p className="mb-0.5 font-semibold text-primary/90">
+              {comment.user.firstName} {comment.user.lastName}
+            </p>
+            <p>{comment.content}</p>
+          </div>
+
+          <CommentSettings
+            postId={postId}
+            commentId={comment.id}
+          />
         </div>
 
         <div className="ml-2 mt-1.5 flex items-start gap-x-3 text-xs text-muted-foreground">
