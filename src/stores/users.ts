@@ -13,6 +13,7 @@ export type UsersState = {
 };
 
 export type UsersActions = {
+  getUsers: (user: User) => User[];
   getUserFriends: (user: User) => User[];
   getUserFriendRequests: (user: User) => User[];
   getUserNewFriends: (user: User) => User[];
@@ -21,10 +22,10 @@ export type UsersActions = {
   addFriendRequest: (user: User, friend: User) => Promise<void>;
   removeFriendRequest: (user: User, friend: User) => Promise<void>;
 
-  canAddFriend: (user: User, friend: User) => boolean;
   canAcceptFriendRequest: (user: User, friend: User) => boolean;
   canRemoveFriend: (user: User, friend: User) => boolean;
   canDeclineFriendRequest: (user: User, friend: User) => boolean;
+  canSendFriendRequest: (user: User, friend: User) => boolean;
 };
 
 export type UsersStore = UsersState & UsersActions;
@@ -41,8 +42,16 @@ export const createUsersStore = (initState: UsersState = defaultInitState) => {
   return createStore<UsersStore>((set, get) => ({
     ...initState,
 
-    getUserFriends: (user: User) => {
+    getUsers: (user: User) => {
       const allUsers = get().users;
+
+      if (!user) return allUsers;
+
+      return filter(allUsers, (u) => u.id !== user.id);
+    },
+
+    getUserFriends: (user: User) => {
+      const allUsers = get().getUsers(user);
 
       if (!user) return [];
 
@@ -50,7 +59,7 @@ export const createUsersStore = (initState: UsersState = defaultInitState) => {
     },
 
     getUserFriendRequests: (user: User) => {
-      const allUsers = get().users;
+      const allUsers = get().getUsers(user);
 
       if (!user) return [];
 
@@ -58,7 +67,7 @@ export const createUsersStore = (initState: UsersState = defaultInitState) => {
     },
 
     getUserNewFriends: (user: User) => {
-      const allUsers = get().users;
+      const allUsers = get().getUsers(user);
 
       if (!user) return [];
 
@@ -70,12 +79,17 @@ export const createUsersStore = (initState: UsersState = defaultInitState) => {
     },
 
     addFriend: async (user: User, friend: User) => {
-      const allUsers = get().users;
+      const allUsers = get().getUsers(user);
       const friendUser = find(allUsers, { id: friend.id });
 
       if (user && friendUser) {
         user.friends.push(friend.id);
         friendUser.friends.push(user.id);
+
+        user.friendRequests = filter(
+          user.friendRequests,
+          (id) => id !== friend.id
+        );
 
         await updateUser(user, user.id);
         await setUser(user);
@@ -88,7 +102,7 @@ export const createUsersStore = (initState: UsersState = defaultInitState) => {
     },
 
     removeFriend: async (user: User, friend: User) => {
-      const allUsers = get().users;
+      const allUsers = get().getUsers(user);
       const friendUser = find(allUsers, { id: friend.id });
 
       if (user && friendUser) {
@@ -106,7 +120,7 @@ export const createUsersStore = (initState: UsersState = defaultInitState) => {
     },
 
     addFriendRequest: async (user: User, friend: User) => {
-      const allUsers = get().users;
+      const allUsers = get().getUsers(user);
       const friendUser = find(allUsers, { id: friend.id });
 
       if (friendUser) {
@@ -135,14 +149,6 @@ export const createUsersStore = (initState: UsersState = defaultInitState) => {
       }
     },
 
-    canAddFriend: (user: User, friend: User) => {
-      return (
-        !user.friends.includes(friend.id) &&
-        !user.friendRequests.includes(friend.id) &&
-        user.id !== friend.id
-      );
-    },
-
     canAcceptFriendRequest: (user: User, friend: User) => {
       return user.friendRequests.includes(friend.id);
     },
@@ -153,6 +159,18 @@ export const createUsersStore = (initState: UsersState = defaultInitState) => {
 
     canDeclineFriendRequest: (user: User, friend: User) => {
       return user.friendRequests.includes(friend.id);
+    },
+
+    canSendFriendRequest: (user: User, friend: User) => {
+      const allUsers = get().getUsers(user);
+      const friendUser = find(allUsers, { id: friend.id });
+
+      return (
+        !user.friends.includes(friend.id) &&
+        !user.friendRequests.includes(friend.id) &&
+        user.id !== friend.id &&
+        !(friendUser && includes(friendUser.friendRequests, user.id))
+      );
     },
   }));
 };

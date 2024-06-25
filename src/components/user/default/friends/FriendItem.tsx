@@ -1,6 +1,6 @@
 'use client';
 
-import { Cake } from 'lucide-react';
+import { Cake, Send } from 'lucide-react';
 import Image from 'next/image';
 import Link from 'next/link';
 import React, { FC, MouseEvent } from 'react';
@@ -12,7 +12,6 @@ import {
   ContextMenu,
   ContextMenuContent,
   ContextMenuItem,
-  ContextMenuSeparator,
   ContextMenuTrigger,
 } from '@/components/ui/context-menu';
 import { User } from '@/interfaces/user';
@@ -39,10 +38,10 @@ const FriendItem: FC<FriendProps> = ({
   const { user } = useAuthStore((state) => state);
 
   const {
-    canAddFriend,
     canRemoveFriend,
     canAcceptFriendRequest,
     canDeclineFriendRequest,
+    canSendFriendRequest,
     addFriend,
     removeFriend,
     addFriendRequest,
@@ -129,10 +128,19 @@ const FriendItem: FC<FriendProps> = ({
                   {format(friend.dateOfBirth || '', 'dd MMM')}
                 </div>
               </div>
+
+              {!canSendFriendRequest(user, friend) &&
+                !canRemoveFriend(user, friend) && (
+                  <div className="invisible absolute bottom-1.5 right-1.5 flex items-center justify-center rounded bg-primary px-1.5 py-1 group-hover:visible">
+                    <div className="flex justify-center gap-x-1 text-xs font-medium text-white">
+                      <Send className="h-4 w-4" />
+                    </div>
+                  </div>
+                )}
             </div>
           </ContextMenuTrigger>
           <ContextMenuContent className="w-40">
-            {canAddFriend(user, friend) && (
+            {canSendFriendRequest(user, friend) && (
               <ContextMenuItem
                 onClick={(event) => handleAddFriendRequest(event)}
               >
@@ -145,7 +153,6 @@ const FriendItem: FC<FriendProps> = ({
                 Accept
               </ContextMenuItem>
             )}
-            {!canAddFriend(user, friend) && <ContextMenuSeparator />}
             {canRemoveFriend(user, friend) && (
               <ContextMenuItem
                 className="text-red-500"

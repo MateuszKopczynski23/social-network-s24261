@@ -25,9 +25,7 @@
         "2",
         "3"
       ],
-      "friendRequests": [
-        "6"
-      ]
+      "friendRequests": []
     },
     {
       "id": "2",
@@ -174,12 +172,11 @@
         "isActiveFriendsVisible": false
       },
       "friends": [
-        "2",
         "3",
         "4"
       ],
       "friendRequests": [
-        "5"
+        "1"
       ]
     },
     {
@@ -209,7 +206,9 @@
         "6"
       ],
       "friendRequests": [
-        "5"
+        "5",
+        "1",
+        "6"
       ]
     }
   ],
