@@ -25,12 +25,15 @@ export type PostsActions = {
   getCommentLikesCount: (postId: string, commentId: string) => number;
   addPost: (newPost: Post) => void;
   deletePost: (postId: string) => void;
+  addComment: (postId: string, newComment: Comment) => void;
+  deleteComment: (postId: string, commentId: string) => void;
   likeComment: (postId: string, commentId: string, user: User) => void;
   unlikeComment: (postId: string, commentId: string, user: User) => void;
   likePost: (postId: string, user: User) => void;
   unlikePost: (postId: string, user: User) => void;
 
   isUserPost: (postId: string, user: User) => boolean;
+  isUserComment: (postId: string, commentId: string, user: User) => boolean;
   isPostLikedByUser: (postId: string, user: User) => boolean;
   isCommentLikedByUser: (
     postId: string,
@@ -250,6 +253,58 @@ export const createPostsStore = (initState: PostsState = defaultInitState) => {
       const post = posts.find((p) => p.id === postId);
 
       return post?.likes?.includes(user) || false;
+    },
+
+    addComment: (postId: string, newComment: Comment) => {
+      set((state) => {
+        const { posts } = state;
+        const postIndex = findIndex(posts, (p) => p.id === postId);
+
+        if (postIndex === -1) return state;
+
+        const updatedPosts = [...posts];
+        const post = updatedPosts[postIndex];
+
+        post.comments = post.comments
+          ? [...post.comments, newComment]
+          : [newComment];
+        updatedPosts[postIndex] = { ...post };
+
+        return { posts: updatedPosts };
+      });
+    },
+
+    deleteComment: (postId: string, commentId: string) => {
+      set((state) => {
+        const { posts } = state;
+        const postIndex = findIndex(posts, (p) => p.id === postId);
+
+        if (postIndex === -1) return state;
+
+        const updatedPosts = [...posts];
+        const post = updatedPosts[postIndex];
+
+        if (!post.comments) return state;
+
+        const updatedComments = filter(
+          post.comments,
+          (c) => c.id !== commentId
+        );
+        updatedPosts[postIndex] = { ...post, comments: updatedComments };
+
+        return { posts: updatedPosts };
+      });
+    },
+
+    isUserComment: (postId: string, commentId: string, user: User) => {
+      const { posts } = get();
+      const post = posts.find((p) => p.id === postId);
+
+      if (!post || !post.comments) return false;
+
+      const comment = post.comments.find((c) => c.id === commentId);
+
+      return comment?.user.id === user.id;
     },
   }));
 };

@@ -152,7 +152,7 @@ const Post: FC<PostProps> = ({ post }) => {
           </div>
         )}
 
-        <CommentForm />
+        <CommentForm postId={post.id} />
       </CardFooter>
     </Card>
   );
