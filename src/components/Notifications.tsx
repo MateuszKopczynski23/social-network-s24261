@@ -24,6 +24,8 @@ const Notifications: FC = () => {
     clearNotifications,
   } = useNotificationsStore((state) => state);
 
+  const isNotificationsEnabled = user?.settings.isNotificationsEnabled;
+
   if (!user) return null;
 
   return (
@@ -34,7 +36,7 @@ const Notifications: FC = () => {
           size="icon"
           className="relative"
         >
-          {!!getNotificationCountForUser(user.id) && (
+          {isNotificationsEnabled && !!getNotificationCountForUser(user.id) && (
             <div className="absolute -right-1 -top-1 flex h-4 w-4 items-center justify-center rounded-full bg-primary text-[11px]">
               {getNotificationCountForUser(user.id)}
             </div>
@@ -54,7 +56,7 @@ const Notifications: FC = () => {
         {!!getNotificationCountForUser(user.id) && (
           <p
             className="mt-2 flex cursor-pointer items-center justify-end gap-x-1 text-xs text-primary"
-            onClick={clearNotifications}
+            onClick={() => clearNotifications(user.id)}
           >
             <Eye className="h-3 w-3" />
             Mark all as read

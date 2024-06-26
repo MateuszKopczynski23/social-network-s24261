@@ -16,7 +16,7 @@ export type NotificationsActions = {
   isNotificationForUser: (notificationId: string, userId: string) => boolean;
   getNotificationsForUser: (userId: string) => Notification[];
   getNotificationCountForUser: (userId: string) => number;
-  clearNotifications: () => void;
+  clearNotifications: (userId: string) => void;
 };
 
 export type NotificationsStore = NotificationsState & NotificationsActions;
@@ -72,9 +72,12 @@ export const createNotificationsStore = (
       );
     },
 
-    clearNotifications: () => {
-      set(() => ({
-        notifications: [],
+    clearNotifications: (userId: string) => {
+      set((state) => ({
+        notifications: filter(
+          state.notifications,
+          (notification) => notification.user.id !== userId
+        ),
       }));
     },
   }));
