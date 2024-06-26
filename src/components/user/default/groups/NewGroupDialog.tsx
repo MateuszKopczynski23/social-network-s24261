@@ -153,9 +153,9 @@ const NewGroupDialog: FC = () => {
               render={({ field }) => (
                 <FormItem className="flex flex-row items-center justify-between rounded-lg border p-4">
                   <div className="space-y-0.5">
-                    <FormLabel className="text-sm">Private profile</FormLabel>
+                    <FormLabel className="text-sm">Private group</FormLabel>
                     <FormDescription>
-                      Set your profile to private to hide your posts
+                      Set your group to private to hide your posts
                     </FormDescription>
                   </div>
                   <FormControl>
