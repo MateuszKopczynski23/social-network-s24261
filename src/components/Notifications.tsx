@@ -54,7 +54,7 @@ const Notifications: FC = () => {
         {!!getNotificationCountForUser(user.id) && (
           <p
             className="mt-2 flex cursor-pointer items-center justify-end gap-x-1 text-xs text-primary"
-            onClick={clearNotifications}
+            onClick={() => clearNotifications(user.id)}
           >
             <Eye className="h-3 w-3" />
             Mark all as read

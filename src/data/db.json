@@ -122,7 +122,8 @@
         "isActiveFriendsVisible": false
       },
       "friends": [
-        "6"
+        "6",
+        "cec7"
       ],
       "friendRequests": []
     },
@@ -149,7 +150,8 @@
       },
       "friends": [
         "1",
-        "5"
+        "5",
+        "cec7"
       ],
       "friendRequests": []
     },
@@ -175,6 +177,34 @@
         "isActiveFriendsVisible": false
       },
       "friends": [],
+      "friendRequests": []
+    },
+    {
+      "id": "cec7",
+      "firstName": "Mat",
+      "lastName": "Eaton",
+      "age": 0,
+      "city": "",
+      "dateOfBirth": "2024-06-19T22:00:00.000Z",
+      "imageUrl": "https://images.unsplash.com/photo-1636622433525-127afdf3662d?q=80&w=1932&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+      "backgroundUrl": "https://images.unsplash.com/photo-1533628635777-112b2239b1c7?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+      "description": "",
+      "street": "",
+      "country": "Poland",
+      "gender": "male",
+      "email": "eaton@test.pl",
+      "password": "password",
+      "settings": {
+        "isAdmin": false,
+        "isPrivate": true,
+        "isNotificationsEnabled": false,
+        "isStickyHeader": true,
+        "isActiveFriendsVisible": true
+      },
+      "friends": [
+        "5",
+        "6"
+      ],
       "friendRequests": []
     }
   ],
