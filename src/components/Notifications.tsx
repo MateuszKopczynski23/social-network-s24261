@@ -1,8 +1,6 @@
-import take from 'lodash/take';
 import { Bell, Eye } from 'lucide-react';
 import { FC } from 'react';
 
-import { notifications } from '@/data/user/notifications';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import { Button } from '@/components/ui/button';
 import {
@@ -13,11 +11,16 @@ import {
   SheetTitle,
   SheetTrigger,
 } from '@/components/ui/sheet';
+import { useNotificationsStore } from '@/providers/store/NotificationsStoreProvider';
+import { DEFAULT_AVATAR_IMAGE } from '@/constants/images';
+import { useAuthStore } from '@/providers/store/AuthStoreProvider';
 
 const Notifications: FC = () => {
-  const getNotifications = () => {
-    return take(notifications, 8);
-  };
+  const { user } = useAuthStore((state) => state);
+  const { getNotificationsForUser, getNotificationCountForUser } =
+    useNotificationsStore((state) => state);
+
+  if (!user) return null;
 
   return (
     <Sheet>
@@ -38,20 +41,22 @@ const Notifications: FC = () => {
           </SheetDescription>
         </SheetHeader>
 
-        <p className="mt-2 flex items-center justify-end gap-x-1 text-xs text-primary">
-          <Eye className="h-3 w-3" />
-          Mark all as read
-        </p>
+        {!!getNotificationCountForUser(user.id) && (
+          <p className="mt-2 flex items-center justify-end gap-x-1 text-xs text-primary">
+            <Eye className="h-3 w-3" />
+            Mark all as read
+          </p>
+        )}
 
         <div className="flex flex-col divide-y">
-          {getNotifications().map((person) => (
+          {getNotificationsForUser(user.id).map((notification) => (
             <div
-              key={person.userImage}
+              key={notification.id}
               className="flex items-center gap-3 py-3.5"
             >
               <Avatar className="h-12 w-12 rounded-sm">
                 <AvatarImage
-                  src={person.userImage}
+                  src={notification.sender.imageUrl || DEFAULT_AVATAR_IMAGE}
                   alt="Avatar"
                   className="object-cover"
                 />
@@ -59,8 +64,11 @@ const Notifications: FC = () => {
               </Avatar>
               <div className="grid gap-1">
                 <p className="text-sm leading-none">
-                  <span className="font-semibold">{person.userName}</span>{' '}
-                  {person.description}
+                  <span className="font-semibold">
+                    {notification.sender.firstName}{' '}
+                    {notification.sender.lastName}
+                  </span>{' '}
+                  {notification.description}
                 </p>
                 <p className="text-xs text-muted-foreground">2h</p>
               </div>

@@ -2,6 +2,7 @@ import { createStore } from 'zustand/vanilla';
 import concat from 'lodash/concat';
 import filter from 'lodash/filter';
 import find from 'lodash/find';
+import size from 'lodash/size';
 
 import { Notification } from '@/interfaces/notification';
 
@@ -13,6 +14,8 @@ export type NotificationsActions = {
   addNotification: (notification: Notification) => void;
   removeNotification: (notificationId: string) => void;
   isNotificationForUser: (notificationId: string, userId: string) => boolean;
+  getNotificationsForUser: (userId: string) => Notification[];
+  getNotificationCountForUser: (userId: string) => number;
 };
 
 export type NotificationsStore = NotificationsState & NotificationsActions;
@@ -50,6 +53,22 @@ export const createNotificationsStore = (
       );
 
       return notification ? notification.user.id === userId : false;
+    },
+
+    getNotificationsForUser: (userId: string) => {
+      const { notifications } = get();
+      return filter(
+        notifications,
+        (notification) =>
+          notification.user.id === userId && notification.sender.id !== userId
+      );
+    },
+
+    getNotificationCountForUser: (userId: string) => {
+      const notifications = get().getNotificationsForUser(userId);
+      return size(
+        filter(notifications, (notification) => notification.user.id === userId)
+      );
     },
   }));
 };
