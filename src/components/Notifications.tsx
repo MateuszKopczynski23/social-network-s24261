@@ -17,8 +17,11 @@ import { useAuthStore } from '@/providers/store/AuthStoreProvider';
 
 const Notifications: FC = () => {
   const { user } = useAuthStore((state) => state);
-  const { getNotificationsForUser, getNotificationCountForUser } =
-    useNotificationsStore((state) => state);
+  const {
+    getNotificationsForUser,
+    getNotificationCountForUser,
+    clearNotifications,
+  } = useNotificationsStore((state) => state);
 
   if (!user) return null;
 
@@ -28,7 +31,13 @@ const Notifications: FC = () => {
         <Button
           variant="outline"
           size="icon"
+          className="relative"
         >
+          {!!getNotificationCountForUser(user.id) && (
+            <div className="absolute -right-1 -top-1 flex h-4 w-4 items-center justify-center rounded-full bg-primary text-[11px]">
+              {getNotificationCountForUser(user.id)}
+            </div>
+          )}
           <Bell className="h-5 w-5 rotate-0 scale-100 transition-all dark:text-white" />
           <span className="sr-only">Notifications</span>
         </Button>
@@ -42,7 +51,10 @@ const Notifications: FC = () => {
         </SheetHeader>
 
         {!!getNotificationCountForUser(user.id) && (
-          <p className="mt-2 flex items-center justify-end gap-x-1 text-xs text-primary">
+          <p
+            className="mt-2 flex cursor-pointer items-center justify-end gap-x-1 text-xs text-primary"
+            onClick={clearNotifications}
+          >
             <Eye className="h-3 w-3" />
             Mark all as read
           </p>

@@ -40,7 +40,7 @@ const Comment: FC<CommentProps> = ({ comment, postId, likesCount }) => {
       isRead: false,
     };
 
-    isCommentLikedByUser(postId, comment.id, user)
+    isLike
       ? unlikeComment(postId, comment.id, user)
       : likeComment(postId, comment.id, user);
 
