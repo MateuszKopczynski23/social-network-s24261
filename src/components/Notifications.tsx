@@ -14,6 +14,7 @@ import {
 import { useNotificationsStore } from '@/providers/store/NotificationsStoreProvider';
 import { DEFAULT_AVATAR_IMAGE } from '@/constants/images';
 import { useAuthStore } from '@/providers/store/AuthStoreProvider';
+import { timeAgo } from '@/utils/timeAgo';
 
 const Notifications: FC = () => {
   const { user } = useAuthStore((state) => state);
@@ -82,7 +83,9 @@ const Notifications: FC = () => {
                   </span>{' '}
                   {notification.description}
                 </p>
-                <p className="text-xs text-muted-foreground">2h</p>
+                <p className="text-xs text-muted-foreground">
+                  {timeAgo(notification.createdAt)}
+                </p>
               </div>
             </div>
           ))}

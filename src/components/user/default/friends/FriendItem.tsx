@@ -6,6 +6,7 @@ import Link from 'next/link';
 import React, { FC, MouseEvent } from 'react';
 import { format } from 'date-fns';
 import { toast } from 'sonner';
+import { v4 as uuidv4 } from 'uuid';
 
 import { cn } from '@/lib/utils';
 import {
@@ -19,6 +20,7 @@ import { DEFAULT_AVATAR_IMAGE } from '@/constants/images';
 import { calculateAge } from '@/utils/calculateAge';
 import { useUsersStore } from '@/providers/store/UsersStoreProvider';
 import { useAuthStore } from '@/providers/store/AuthStoreProvider';
+import { useNotificationsStore } from '@/providers/store/NotificationsStoreProvider';
 
 interface FriendProps extends React.HTMLAttributes<HTMLDivElement> {
   friend: User;
@@ -48,6 +50,7 @@ const FriendItem: FC<FriendProps> = ({
     addFriendRequest,
     removeFriendRequest,
   } = useUsersStore((state) => state);
+  const { addNotification } = useNotificationsStore((state) => state);
 
   if (!user) return null;
 
@@ -81,8 +84,19 @@ const FriendItem: FC<FriendProps> = ({
     event.preventDefault();
 
     try {
+      const notification = {
+        id: uuidv4(),
+        user: friend,
+        sender: user,
+        description: 'sent you friend request',
+        createdAt: new Date().toISOString(),
+        isRead: false,
+      };
+
       await addFriendRequest(user, friend);
+
       toast.success('Friend request sent!');
+      addNotification(notification);
     } catch (error) {
       if (error instanceof Error) {
         toast.error(error.message);
