@@ -1,5 +1,6 @@
 import { ThumbsUp } from 'lucide-react';
 import { FC } from 'react';
+import { v4 as uuidv4 } from 'uuid';
 
 import { Comment as IComment } from '@/interfaces/comment';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
@@ -9,6 +10,7 @@ import { useAuthStore } from '@/providers/store/AuthStoreProvider';
 import { cn } from '@/lib/utils';
 import CommentSettings from '@/components/user/default/CommentSettings';
 import { timeAgo } from '@/utils/timeAgo';
+import { useNotificationsStore } from '@/providers/store/NotificationsStoreProvider';
 
 interface CommentProps {
   comment: IComment;
@@ -21,13 +23,28 @@ const Comment: FC<CommentProps> = ({ comment, postId, likesCount }) => {
   const { likeComment, unlikeComment, isCommentLikedByUser } = usePostsStore(
     (state) => state
   );
+  const { addNotification } = useNotificationsStore((state) => state);
 
   if (!user) return null;
 
   const handleLikeComment = () => {
-    isCommentLikedByUser(postId, comment.id, user)
+    const isLike = isCommentLikedByUser(postId, comment.id, user);
+    const action = isLike ? 'unliked' : 'liked';
+
+    const notification = {
+      id: uuidv4(),
+      user: comment.user,
+      sender: user,
+      description: `${action} your comment`,
+      createdAt: new Date().toISOString(),
+      isRead: false,
+    };
+
+    isLike
       ? unlikeComment(postId, comment.id, user)
       : likeComment(postId, comment.id, user);
+
+    addNotification(notification);
   };
 
   return (

@@ -4,6 +4,7 @@ import { FC, useState } from 'react';
 import { MessageCircle, Share2, ThumbsUp } from 'lucide-react';
 import Image from 'next/image';
 import Link from 'next/link';
+import { v4 as uuidv4 } from 'uuid';
 
 import Comment from '@/components/user/default/Comment';
 import CommentForm from '@/components/user/default/forms/CommentForm';
@@ -23,6 +24,7 @@ import PostSettings from '@/components/user/default/PostSettings';
 import { useUsersStore } from '@/providers/store/UsersStoreProvider';
 import { cn } from '@/lib/utils';
 import { timeAgo } from '@/utils/timeAgo';
+import { useNotificationsStore } from '@/providers/store/NotificationsStoreProvider';
 
 interface PostProps {
   post: IPost;
@@ -41,6 +43,7 @@ const Post: FC<PostProps> = ({ post }) => {
     isPostLikedByUser,
   } = usePostsStore((state) => state);
   const { getUserById } = useUsersStore((state) => state);
+  const { addNotification } = useNotificationsStore((state) => state);
 
   const [isCommentsVisible, setIsCommentsVisible] = useState(false);
 
@@ -50,9 +53,21 @@ const Post: FC<PostProps> = ({ post }) => {
   if (!user) return null;
 
   const handleLikePost = () => {
-    isPostLikedByUser(post.id, user)
-      ? unlikePost(post.id, user)
-      : likePost(post.id, user);
+    const isLike = isPostLikedByUser(post.id, user);
+    const action = isLike ? 'unliked' : 'liked';
+
+    const notification = {
+      id: uuidv4(),
+      user: post.user,
+      sender: user,
+      description: `${action} your post`,
+      createdAt: new Date().toISOString(),
+      isRead: false,
+    };
+
+    isLike ? unlikePost(post.id, user) : likePost(post.id, user);
+
+    addNotification(notification);
   };
 
   return (

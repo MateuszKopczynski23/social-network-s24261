@@ -7,6 +7,7 @@ import { EventsStoreProvider } from '@/providers/store/EventsStoreProvider';
 import { UsersStoreProvider } from '@/providers/store/UsersStoreProvider';
 import { UsersState } from '@/stores/users';
 import { PostsStoreProvider } from '@/providers/store/PostsStoreProvider';
+import { NotificationsStoreProvider } from '@/providers/store/NotificationsStoreProvider';
 
 interface StoreProviderProps {
   authState?: AuthState;
@@ -24,13 +25,15 @@ const StoreProvider: FC<StoreProviderProps> = ({
 
   return (
     <AuthStoreProvider user={defaultUser}>
-      <UsersStoreProvider users={defaultUsers}>
-        <PostsStoreProvider>
-          <GroupsStoreProvider>
-            <EventsStoreProvider>{children}</EventsStoreProvider>
-          </GroupsStoreProvider>
-        </PostsStoreProvider>
-      </UsersStoreProvider>
+      <NotificationsStoreProvider>
+        <UsersStoreProvider users={defaultUsers}>
+          <PostsStoreProvider>
+            <GroupsStoreProvider>
+              <EventsStoreProvider>{children}</EventsStoreProvider>
+            </GroupsStoreProvider>
+          </PostsStoreProvider>
+        </UsersStoreProvider>
+      </NotificationsStoreProvider>
     </AuthStoreProvider>
   );
 };
